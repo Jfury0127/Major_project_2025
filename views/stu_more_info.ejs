@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="output.css"/>
+    <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- <script src="/js/stu_dashboard.js" defer></script> -->
+    <script src="/js/stu_more_info.js" defer></script>
+</head>
+<body class="overflow-y-auto bg-gradient-to-r from-[#5254dd1d] to-white text-[#515151]">
+    <!-- Navbar -->
+    <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] shadow-md fixed top-0" >
+      <nav class="navbar w-11/12 flex justify-between items-center m-auto">
+        <div
+          class="at-logo text-[#515151] font-bold text-2xl flex items-center"
+        >
+          Attend<span class="text-[#5254dd]">Pro</span>
+        </div>
+        <div class="nav-links flex items-center h-16">
+          <div onclick="window.location.href='/stu_dashboard'" class="h-10 w-36 self-center bg-[#5254dd] hover:bg-[#5254dd]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+            Dashboard
+          </div>
+        </div>
+        </nav>
+    </div>
+    <div class="cal-con w-full my-20 mt-28">
+    <div class="max-w-[500px] m-auto bg-white p-4 my-20 border rounded-lg">
+        <div class="flex justify-between">
+            <span class="material-symbols-outlined cursor-pointer" id="prev">chevron_left</span>
+            <div class="monthyear font-semibold text-xl"></div>
+            <span class="material-symbols-outlined cursor-pointer" id="next">chevron_right</span>
+        </div>
+        <table class="w-full mt-4 border-separate">
+        <thead>
+          <tr>
+            <th class="w-16 p-3">Sun</th>
+            <th class="w-16 p-3">Mon</th>
+            <th class="w-16 p-3">Tue</th>
+            <th class="w-16 p-3">Wed</th>
+            <th class="w-16 p-3">Thurs</th>
+            <th class="w-16 p-3">Fri</th>
+            <th class="w-16 p-3">Sat</th>
+          </tr>
+
+        </thead>
+        <tbody class="m-10">
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+        </tbody>
+        </table>
+    </div>
+    </div>    
+    
+    
+
+</body>
+</html>

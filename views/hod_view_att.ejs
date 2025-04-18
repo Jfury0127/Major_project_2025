@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOD Dashboard</title>
+    <link rel="stylesheet" href="output.css"/>
+    <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon"/>
+    <script src="/js/hod_view_att.js" defer></script>
+
+</head>
+<body class="overflow-y-auto bg-gradient-to-r from-emerald-50/80 to-white text-[#515151]">
+    <!-- Navbar -->
+    <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] shadow-md fixed top-0" >
+      <nav class="navbar w-11/12 flex justify-between items-center m-auto">
+        <div
+          class="at-logo text-[#515151] font-bold text-2xl flex items-center"
+        >
+          Attend<span class="text-emerald-600">Pro</span>
+        </div>
+        <div class="nav-links flex items-center h-16">
+          <div onclick="window.location.href='/hod_dashboard'" class="h-10 w-36 self-center bg-emerald-600 hover:bg-emerald-600/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+            Dashboard
+          </div>
+        </div>
+        </nav>
+      </div>
+      
+      <div class="w-full">
+        <div id="attendance-table" class="mt-24 w-11/12 bg-white m-auto overflow-x-auto">
+          <table class="w-full md:text-sm text-xs border-x-2 ">
+            <thead>
+              <tr class="border-y-2 bg-emerald-600/30">
+                <th class="px-4 py-2">Serial no.</th>
+                <th class="px-4 py-2">Student ID</th>
+                <th class="px-4 py-2">Student Name</th>
+                <th class="px-4 py-2">Lectures Taken</th>
+                <th class="px-4 py-2">Total Lectures</th>
+                <th class="px-4 py-2">Percentage</th>
+              </tr>
+            </thead>
+
+            <!-- table body -->
+            <tbody>
+           
+            </tbody>
+          </table>
+        </div>
+         
+    
+
+</body>
+</html>

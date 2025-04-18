@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="output.css" />
+    <link
+      rel="shortcut icon"
+      href="/images/AttendPro-logo.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body
+    class="overflow-y-auto bg-gradient-to-r from-[#00a6ffef]/10 to-white text-[#515151]"
+  >
+    <!-- Navbar -->
+    <div
+      class="nav-con text-[#515151] w-full bg-[#F7F7F7] shadow-md fixed top-0"
+    >
+      <nav class="navbar w-11/12 flex justify-between items-center m-auto">
+        <div
+          class="at-logo text-[#515151] font-bold text-2xl flex items-center"
+        >
+          Attend<span class="text-[#00a6ffef]">Pro</span>
+        </div>
+        <div class="nav-links flex items-center h-16">
+          <div
+            onclick="window.location.href='/'"
+            class="h-10 w-36 self-center bg-[#00a6ffef] hover:bg-[#00a6ffef]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1"
+          >
+            Home
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="w-full mt-24 flex justify-center">
+      <div class="m-auto text-3xl text-black font-semibold leading-normal">
+        Love to hear from you,
+        <div>Get in touch 👋</div>
+      </div>
+    </div>
+     <!-- Contact Form and Details -->
+     <div class="w-10/12 mx-auto mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Contact Form -->
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4 text-[#00a6ffef]">Send Us a Message</h2>
+        <form action="/send_message" method="POST">
+          <div class="mb-4">
+            <label for="name" class="block text-sm font-medium mb-2">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-[#00a6ffef]/50"
+              placeholder="Your Name"
+              required
+            />
+          </div>
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium mb-2">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-[#00a6ffef]/50"
+              placeholder="Your Email"
+              required
+            />
+          </div>
+          <div class="mb-4">
+            <label for="message" class="block text-sm font-medium mb-2">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-[#00a6ffef]/50"
+              placeholder="Write your message..."
+              required
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-[#00a6ffef] text-white py-2 px-4 rounded-lg hover:bg-[#007fbf] focus:outline-none focus:ring focus:ring-[#00a6ffef]/50"
+          >
+            Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4 text-[#00a6ffef]">Contact Details</h2>
+        <p class="mb-4">We'd love to hear from you! Reach out through any of the methods below:</p>
+        <div class="mb-4">
+          <h3 class="font-semibold">📍 Address</h3>
+          <p>123 AttendPro Street, Delhi, India</p>
+        </div>
+        <div class="mb-4">
+          <h3 class="font-semibold">📞 Phone</h3>
+          <p>+91 98765 43210</p>
+        </div>
+        <div class="mb-4">
+          <h3 class="font-semibold">✉️ Email</h3>
+          <p>support@attendpro.com</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#00a6ffef] text-white py-6 mt-12">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2024 AttendPro. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

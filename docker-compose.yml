@@ -1,0 +1,31 @@
+version: '4.3'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=Sanyajain
+      - MYSQL_PASSWORD=MYSequal2704$
+      - MYSQL_DATABASE=attendpro
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: MYSequal$2704
+      MYSQL_DATABASE: attendpro
+      MYSQL_USER: Sanyajain
+      MYSQL_PASSWORD: MYSequal2704$
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./attendpro.sql:/docker-entrypoint-initdb.d/attendpro.sql
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql-data:

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers Dashboard</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+    <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon">
+    <script type="text/javascript" src="/js/t_script.js" defer></script>
+
+</head>
+<body class="h-screen overflow-hidden">
+    <!-- Navbar -->
+    <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] fixed top-0 left-0 z-10 h-16">
+        <nav class="navbar w-11/12 flex justify-between items-center m-auto">
+            <div onclick="window.location.href='/'" class="at-logo text-[#515151] font-bold text-2xl flex items-center">
+                Attend<span class="text-[#DB2878]">Pro</span>
+            </div>
+            <div class="nav-links flex items-center">
+                <div class="w-44 h-12 border-2 border-gray-300 rounded-lg m-2 flex justify-center items-center ">Role : Teacher</div>
+                <span class="menu material-symbols-outlined cursor-pointer sm:!hidden" style="font-size: 40px; ">menu</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar h-full w-60 bg-[#F7F7F7] shadow-black p-4 text-[#515151] fixed top-16 left-0 overflow-y-auto hidden sm:block">
+        <div class="flex flex-col">
+            <!-- <div class="items-end"> -->
+                <span class="material-symbols-outlined cursor-pointer self-end transition-transform duration-300" id="mini_sb">keyboard_arrow_left</span>
+            <!-- </div>/ -->
+
+            <div class="w-full h-12 my-2 flex rounded items-center gap-3 bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  bg-[#DB2878]  "></div>
+                <span class="material-symbols-outlined text-[#DB2878]">space_dashboard</span>
+                <a class="sb-item text-[#DB2878] ">Dashboard</a>
+            </div>
+            <div onclick="openPage('/t_profile')" class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden" >
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">person</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Profile</a>
+            </div>
+            <div onclick="openPage('/t_view_attendance')" class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">visibility</span>
+                <a class="sb-item group-hover:text-[#DB2878]">View Attendance</a>
+            </div>
+            <div onclick="openPage('/t_mark_attendance')" class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">check_box</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Mark Attendance</a>
+            </div>
+            <div onclick="openPage('/t_logout')" class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">logout</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Log Out</a>
+            </div>
+            <div onclick="openPage('/t_help')" class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">help</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Help</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-sec ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151]">
+        <div class="w-full">
+            <div class="text-3xl font-semibold">Welcome to Teacher's Dashboard!</div>
+            <div class="text-[18px] font-medium my-10">Effortlessly manage attendance, view insights, and stay connected with your class.</div>
+            <div class="w-11/12 flex justify-evenly m-auto">
+                <div onclick="openPage('/t_mark_attendance')" class="w-5/12 h-44 bg-white rounded-md m-3 hover:scale-x-105 flex flex-col justify-center items-center">
+                    <span class="material-symbols-outlined text-[#DB2878] text-4xl">check_box</span>
+                    <p class="text-[#DB2878] mt-2">Mark Attendance</p>
+                </div>
+                <div onclick="openPage('/t_view_attendance')" class="w-5/12 h-44 bg-white rounded-md m-3 hover:scale-x-105 flex flex-col justify-center items-center">
+                    <span class="material-symbols-outlined text-[#DB2878] text-4xl">visibility</span>
+                    <p class="text-[#DB2878] mt-2">View Attendance</p></div>
+                <div onclick="openPage('/t_help')" class="w-5/12 h-44 bg-white rounded-md m-3 hover:scale-x-105 flex flex-col justify-center items-center">
+                    <span class="material-symbols-outlined text-[#DB2878] text-4xl">help</span>
+                    <p class="text-[#DB2878] mt-2">Help</p>
+                </div>
+            </div>
+         
+        </div>
+        
+       
+    </div>
+
+
+
+</body>
+</html>

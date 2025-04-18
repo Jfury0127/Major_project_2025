@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers Dashboard</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+    <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon">
+    <script type="text/javascript" src="/js/t_script.js" defer></script>
+    <script type="text/javascript" src="/js/t_view_attendance.js" defer></script>
+
+</head>
+<body class="h-screen overflow-hidden">
+    <!-- Navbar -->
+    <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] fixed top-0 left-0 z-10 h-16">
+        <nav class="navbar w-11/12 flex justify-between items-center m-auto">
+            <div class="at-logo text-[#515151] font-bold text-2xl flex items-center">
+                Attend<span class="text-[#DB2878]">Pro</span>
+            </div>
+            <div class="nav-links flex items-center">
+                <div class="w-44 h-12 border-2 border-gray-300 rounded-lg m-2 flex justify-center items-center ">Role : Teacher</div>
+                <span class="menu material-symbols-outlined cursor-pointer sm:!hidden" style="font-size: 40px; ">menu</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar h-full w-60 bg-[#F7F7F7] shadow-black p-4 text-[#515151] fixed top-16 left-0 overflow-y-auto hidden sm:block">
+        <div class="flex flex-col">
+            <!-- <div class="items-end"> -->
+                <span class="material-symbols-outlined cursor-pointer self-end transition-transform duration-300" id="mini_sb">keyboard_arrow_left</span>
+            <!-- </div>/ -->
+
+            <div onclick="openPage('t_dashboard')" class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878]  "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">space_dashboard</span>
+                <a class="sb-item group-hover:text-[#DB2878] ">Dashboard</a>
+            </div>
+            <div onclick="openPage('t_profile')" class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden" >
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">person</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Profile</a>
+            </div>
+            <div class="w-full h-12 my-2 flex rounded items-center gap-3 bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined text-[#DB2878]">visibility</span>
+                <a class="sb-item text-[#DB2878]">View Attendance</a>
+            </div>
+            <div onclick="openPage('/t_mark_attendance')" class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">check_box</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Mark Attendance</a>
+            </div>
+            <div onclick="openPage('/t_logout')" class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">logout</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Log Out</a>
+            </div>
+            <div onclick="openPage('/t_help')" class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">help</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Help</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-sec ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151]">
+        <h1 class="text-2xl font-bold mb-4">View Attendance</h1>
+
+        <div class="w-full flex justify-evenly">
+            <div class="w-44 flex flex-col">
+              <label for="select-lect">Select Lecture:</label>
+              <select name="lecture" id="select-lect" class="bg-white border-1 rounded-sm border-gray-200">
+              <option value="" disabled selected hidden>Select Lecture</option>
+              </select>
+              <div class="error-msg text-red-500 text-sm hidden">
+                Please select a lecture first!
+              </div>
+            </div>
+            <div
+          class="view-att-btn h-10 w-44 self-center bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+          View Attendance
+        </div>
+        </div>
+
+        <div class="content-to-be-loaded hidden">
+            <div id="attendance-table" class="mt-16 w-11/12 bg-white m-auto overflow-x-auto">
+              <table class="w-full md:text-sm text-xs border-x-2 ">
+                <thead>
+                  <tr class="border-y-2 bg-[#DB2878]/30">
+                    <th class="px-4 py-2">Serial no.</th>
+                    <th class="px-4 py-2">Student ID</th>
+                    <th class="px-4 py-2">Student Name</th>
+                    <th class="px-4 py-2">Lectures Taken</th>
+                    <th class="px-4 py-2">Total Lectures</th>
+                    <th class="px-4 py-2">Percentage</th>
+                  </tr>
+                </thead>
+    
+                <!-- table body -->
+                <tbody>
+               
+                </tbody>
+              </table>
+            </div>
+            <!-- Rows per page -->
+            <!-- <div
+              class="w-11/12 bg-white flex justify-end items-center m-auto my-4 gap-4 border-2 border-gray-200 rounded-lg"
+            >
+              <label for="rows-per-page" class="mr-2">Rows per page:</label>
+              <select id="rows-per-page" class="border rounded p-1">
+                <option value="all">All</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+              </select>
+              <div class="page-msg">
+                Page 1 of 10
+              </div>
+              <span class="material-symbols-outlined cursor-pointer" id="prev-page">chevron_left</span>
+              <span class="material-symbols-outlined cursor-pointer" id="next-page">chevron_right</span>
+            </div> -->
+
+
+
+</body>
+</html>

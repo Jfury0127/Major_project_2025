@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Student login form</title>
+    <link rel="stylesheet" href="/student_login.css">
+   <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
+  </head>
+  <body>
+    <div class="bg-img">
+      <div class="nav-con">
+        <nav class="navbar">
+            <div onclick="window.location.href='/'" class="at-logo cursor-pointer">Attend<span>Pro</span></div>
+                
+            <ul class="nav-links">
+                <li class="link"><a href="/">Home</a></li>
+                <li></li>
+                <li class="link"><a href="contactUs">Contact Us</a></li>
+            </ul>
+        </nav>
+      </div>          
+      <div class="content">
+        <div class="icons"> 
+          <a class="icon"><i class="student"></i></a>
+        </div>
+
+        <header>Student Login</header>
+        
+        <form method="post">
+          <div class="field"> 
+            <span class="fa fa-user"></span>
+            <input type="text" name = "stu_enr_key" class = "user-key" id = "stu_enr_key" required placeholder="Student ID">
+          </div>
+          
+          <div class="field space" id = "fieldpass"> <!--field space-->
+            <span class="fa fa-lock"></span>
+            <input type="password" name = "stu_pass_key" class="pass-key" id="stu_pass_key" required placeholder="Password">
+            <span class="show">SHOW</span>
+          </div>
+ 
+          <!-- display warning reciever from server if any -->
+          <div class="mssg" > 
+            <span class="txt"> <%= text2 %></span>
+          </div>
+          
+          
+        <!-- <div class="links">
+          <div class="facebook">
+            <i class="fab fa-facebook-f"><span>Facebook</span></i>
+          </div>
+          <div class="instagram">
+            <i class="fab fa-instagram"><span>Instagram</span></i>
+          </div> -->
+        <!-- </div> -->
+
+          <div class="field" id="div_submit">
+            <button class="login"  value = "student_login" name = "student-login-button" > LOGIN </button>
+            
+            
+            <!-- <input class = "signup" type = "submit" value = "SIGN UP"> -->
+
+          </div>
+        </form>
+        
+        <!-- <div class="signup">Don't have account?
+          <a href="#">Signup Now</a>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- <script>
+     
+          
+     
+      
+    </script> -->
+    <script>
+    //JS for student_login page
+      const user_field = document.querySelector('.user-key');
+      const pass_field = document.querySelector('.pass-key');
+      const showBtn = document.querySelector('.show');
+      
+      showBtn.addEventListener('click', function show(){
+       if(pass_field.type === "password"){
+         pass_field.type = "text";
+         showBtn.textContent = "HIDE";
+         showBtn.style.color = "#3498db";
+       }     
+       else{
+         pass_field.type = "password";
+         showBtn.textContent = "SHOW";
+         showBtn.style.color = "#222";
+       }
+      
+      });</script>
+    
+  </body>
+</html>

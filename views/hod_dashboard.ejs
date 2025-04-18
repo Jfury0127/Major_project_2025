@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOD Dashboard</title>
+    <link rel="stylesheet" href="output.css"/>
+    <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon"/>
+    <script src="/js/hod_dash.js" defer></script>
+
+</head>
+<body class="overflow-y-auto bg-gradient-to-r from-emerald-100 to-white text-[#515151]">
+    <!-- Navbar -->
+    <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] shadow-md fixed top-0" >
+      <nav class="navbar w-11/12 flex justify-between items-center m-auto">
+        <div onclick="window.location.href='/'"
+          class="at-logo cursor-pointer text-[#515151] font-bold text-2xl flex items-center"
+        >
+          Attend<span class="text-emerald-600">Pro</span>
+        </div>
+        <div class="nav-links flex items-center h-16">
+          <div onclick="window.location.href='/hod_destroySession'" class="h-10 w-36 self-center bg-emerald-600 hover:bg-emerald-600/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+            Log Out
+          </div>
+        </div>
+        </nav>
+      </div>
+      <div class="cal-con w-full my-5 mt-24">
+        <div class="max-w-[480px] m-auto bg-white py-8 px-6 mt-16 mb-6 border rounded-lg flex flex-col">
+          <label for="year" class="text-lg font-semibold">Select year:</label>
+          <select name="year" id="year" onchange="fetchSemSec();" class="border-2 p-1 rounded-md bg-emerald-50 my-2">
+            <option value="" disabled selected>Select year:</option>
+            <option value="1">First</option>
+            <option value="2">Second</option>
+            <option value="3">Third</option>
+            <option value="4">Fourth</option>
+          </select>
+
+          <label for="sem" class="text-lg font-semibold">Select Semester:</label>
+          <select name="sem" id="sem" onchange="fetchSubjects()" class="border-2 p-1 rounded-md bg-emerald-50 my-2">
+            <option value="" disabled selected hidden>Select Semester:</option>
+          </select>
+          <label for="sec" class="text-lg font-semibold">Select Section:</label>
+          <select name="sec" id="sec" class="border-2 p-1 rounded-md bg-emerald-50 my-2">
+            <option value="" disabled selected hidden>Select Section:</option>
+            
+          </select>
+          <label for="sub" class="text-lg font-semibold">Select Subject:</label>
+          <select name="sub" id="sub" class="border-2 p-1 rounded-md bg-emerald-50 my-2">
+            <option value="" disabled selected hidden>Select Subject:</option>
+          </select>
+        </div>
+        <div class="w-full flex flex-col justify-center items-center">
+          <div onclick="viewatt()" class="view-att-btn h-10 w-44 bg-emerald-600 hover:bg-emerald-600/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">View Attendance</div>
+          <div class="error-msg text-red-500 text-sm mb-4 h-4 hidden">
+            Please select all fields.
+          </div>
+        </div>
+
+
+        </div>
+         
+    
+
+</body>
+</html>

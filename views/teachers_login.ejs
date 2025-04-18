@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Faculty login form</title>
+    <link rel="stylesheet" href="/teachers_login.css">
+   <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
+  </head>
+  <body>
+    <div class="bg-img">
+      <div class="nav-con">
+        <nav class="navbar">
+            <div onclick="window.location.href='/'" class="at-logo cursor-pointer">Attend<span>Pro</span></div>
+                
+            <ul class="nav-links">
+                <li class="link"><a href="/">Home</a></li>
+                <li></li>
+                <li class="link"><a href="/contactUs">Contact Us</a></li>
+            </ul>
+        </nav>
+      </div>          
+      <div class="content">
+        <div class="icons"> 
+          <a href="#" class="icon"><i class="teacher"></i></a>
+        </div>
+
+        <header>Faculty Login</header>
+        
+        <form method="post">
+          <div class="field"> 
+            <span class="fa fa-user"></span>
+            <input type="text" name = "t_userid_key" class = "user-key" id = "user-key" required placeholder="Faculty ID">
+          </div>
+          
+          <div class="field space" id = "fieldpass"> <!--field space-->
+            <span class="fa fa-lock"></span>
+            <input type="password" name = "t_pass_key" class="pass-key" id="pass-key" required placeholder="Password">
+            <span class="show">SHOW</span>
+          </div>
+ 
+          <!-- display warning reciever from server if any -->
+          <div class="mssg" > 
+            <span class="txt"> <%= text %></span>
+          </div>
+          
+          
+        <!-- <div class="links">
+          <div class="facebook">
+            <i class="fab fa-facebook-f"><span>Facebook</span></i>
+          </div>
+          <div class="instagram">
+            <i class="fab fa-instagram"><span>Instagram</span></i>
+          </div> -->
+        <!-- </div> -->
+
+          <div class="field" id="div_submit">
+            <button class="login"  value = "faculty_login" name = "faculty-login-button" > LOGIN </button>
+            
+            
+            <!-- <input class = "signup" type = "submit" value = "SIGN UP"> -->
+
+          </div>
+        </form>
+        
+        <!-- <div class="signup">Don't have account?
+          <a href="#">Signup Now</a>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- <script>
+     
+          
+     
+      
+    </script> -->
+    <script src="/js/main.js"></script>
+    
+  </body>
+</html>

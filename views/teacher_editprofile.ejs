@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- css connection -->
+  <link rel="stylesheet" href="/teacher_editprofile.css" />
+
+  <title>Teacher Profile</title>
+</head>
+
+<body>
+
+  <!-- NAVBAR FROM DHRITI -->
+  <div class="nav-con">
+    <nav class="navbar">
+      <div class="at-logo">Attend<span>Pro</span></div>
+
+      <ul class="nav-links">
+        <li class="link"><a href="/t_dashboard">Dashboard</a></li>
+        <li></li>
+        <li class="link"><a href="#">Help</a></li>
+      </ul>
+    </nav>
+  </div>
+  <!-- nav-end -->
+
+  <!-- main container  -->
+  <div class="container" id="container">
+
+    <!--  Sanya's division -->
+
+    <!-- division for updating and entering lectures -->
+
+    <div class="manage_lect" id="right_main_div">
+
+      <!-- left side -->
+      <div class="first_div">
+
+        <!-- info or label -->
+        <div class="imformation">
+          <label>Lectures Form</label>
+
+        </div>
+
+        <!-- selection of lecture -->
+        <div class="info">
+          <form class="form_lecture">
+
+            <label for="lect_year" class="label_lect_dd">Select the Year:</label>
+
+            <select name="Years" id="lect_year" class="lect_dd" required>
+              <option value=''>Select Year</option>
+              <option value="First">First</option>
+              <option value="Second">Second</option>
+              <option value="Third">Third</option>
+              <option value="Fourth">Fourth</option>
+            </select>
+
+            <label for="lect_sem" class="label_lect_dd">Select the Semester:</label>
+            <select name="Sems" id="lect_sem" class="lect_dd" required>
+
+              <option value=''>Select Semester</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+
+            <!-- Section Dropdown (Dynamic based on Year and Subject) -->
+            <label for="lect_sect" class="label_lect_dd">Select the Section:</label>
+            <select name="lect_sect" id="lect_sect" class="lect_dd" required>
+              <!-- Sections will populate dynamically based on selected year and subject -->
+              <option value="">Select Section</option>
+            </select>
+
+            <!-- Subject Dropdown (Dynamic based on Semester and Section) -->
+            <label for="lect_sub" class="label_lect_dd">Select the Subject:</label>
+            <select name="lect_sub" id="lect_sub" class="lect_dd" required>
+              <!-- Subjects will populate dynamically based on selected semester and section -->
+              <option value="">Select Subject</option>
+            </select>
+
+          </form>
+
+        </div>
+
+        <!-- add and remove lecture button -->
+        <div class="buttons_div">
+          <button class="add">Add Lecture</button>
+          <!-- <button class="remove">Remove Lecture</button> -->
+        </div>
+
+
+      </div>
+
+      <!-- right side -->
+      <div class="second_div">
+        <form class="form_exis_lect">
+          <label for="existing_lectures_div" class="label_exi_lec"> Existing Lectures</label>
+
+          <div class="info_div2" id="existing_lectures_div">
+            
+          </div>
+          <div class="save_btn">
+            <button class="btn_save_btn" name="btn_save_btn" onclick="saveLectures()">Show Lectures </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+
+    <!-- division end -->
+
+
+
+    <!--  Khushi's division -->
+    <div class="profile_div" id="left_main_div">
+
+      <form action="/teacher_edit" method="POST">
+        <div class="title">MANANGE YOUR PROFILE</div>
+
+        <div class="user-details">
+          <!-- Input for ID -->
+
+          <div class="input-box">
+            <span class="details">Teacher's ID:</span>
+            <input type="text" placeholder="<%= f_id %>" readonly required>
+          </div>
+          <!-- <div class="input-box"></div>  -->
+          <!-- Input for Full Name -->
+          <div class="input-box">
+            <span class="details" name="fac_id" id="fname">First Name:</span>
+            <% let first_name; if(data.F_FNAME==null){ first_name="Enter your last name" ; } %>
+              <input type="text" name="fac_fname" placeholder="<%= first_name %>" value="<%= data.F_FNAME %> " required>
+          </div>
+          <!-- Input for Username -->
+          <div class="input-box">
+            <span class="details" id="lname">Last Name:</span>
+
+            <% let last_name; if(data.F_LNAME==null){ last_name="Enter your last name" } %>
+
+              <input type="text" name="fac_lname" placeholder="<%= last_name %>" value="<%= data.F_LNAME %>">
+
+          </div>
+
+          <!-- Input for Phone Number -->
+          <div class="input-box">
+            <span class="details" id="phone_number">Phone Number:</span>
+            <% let phone ; if(data.F_PHONE_NUMBER==null ){ phone="Enter your Phone Number"
+              } %>
+              <input type="text" name="fac_phone" placeholder="<%= phone %>" value="<%= data.F_PHONE_NUMBER %> ">
+          </div>
+          <!-- Submit button -->
+          <div class="button_div">
+            <button class="sv_button" name="edit_profile_button"> Save Changes</button>
+          </div>
+        </div>
+
+
+        <!-- <button class="hidden" id="register">Sign Up</button> -->
+      </form>
+    </div>
+
+
+    <!-- division end -->
+
+
+    <!-- common  division -->
+    <div class="toogle-container">
+      <div class="toogle">
+        <img class="bg_img" src="/images/img9.jpeg" alt="bg image">
+        <div class="toogle-panel toogle-left">
+
+          <!-- button to shift to left window -->
+          <div class="left_shift_div">
+            <button class="hidden" id="login">Edit Profile</button>
+          </div>
+
+          <!-- add photo  -->
+
+          <!-- <h1>Welcome User!</h1>
+            <p>If you already have an account</p> -->
+          <!-- <button class="hidden" id="login">Sign In</button> -->
+        </div>
+
+
+        <div class="toogle-panel toogle-right">
+
+          <!-- add photo -->
+
+          <!-- <h1>Hello, User!</h1>
+            <p>If you don't have an account</p> -->
+          <div class="right_shift_div">
+            <button class="hidden" id="register">Manage lectures</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- division end-->
+
+  <!-- FORM VALIDATION USING JS -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>  -->
+<script>
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const yearSelect = document.getElementById("lect_year");
+      const semesterSelect = document.getElementById("lect_sem");
+      const sectionSelect = document.getElementById("lect_sect");
+      const subjectSelect = document.getElementById("lect_sub");
+      const addLectureBtn = document.querySelector(".add");
+      const facultyId = "<%= f_id %>";  // Use session-based faculty ID
+
+      // Fetch sections based on selected year
+      async function fetchSections() {
+        const selectedYear = yearSelect.value;
+        if (selectedYear) {
+          try {
+            const response = await fetch(`/get-sections?year=${selectedYear}&facultyId=${facultyId}`);
+            const sections = await response.json();
+            // console.log("Fetched sections:", sections);
+
+            sectionSelect.innerHTML = "<option value=''>Select Section</option>";
+            sections.forEach(section => {
+              const option = document.createElement("option");
+              option.value = section.SECTION_ID;
+              option.textContent = section.SECTION_NAME;
+              sectionSelect.appendChild(option);
+            });
+          } catch (error) {
+            console.error("Error fetching sections:", error);
+          }
+        }
+      }
+
+      // Fetch subjects based on selected semester
+      async function fetchSubjects() {
+        const selectedSemester = semesterSelect.value;
+        const selectedSection = sectionSelect.value;
+        if (selectedSemester) {
+          try {
+            const response = await fetch(`/get-subjects?semester=${selectedSemester}&sectionID=${selectedSection}`);
+            const subjects = await response.json();
+            // console.log("Fetched subjects:", subjects);
+
+            subjectSelect.innerHTML = "<option value=''>Select Subject</option>";
+            subjects.forEach(subject => {
+              const option = document.createElement("option");
+              option.value = subject.SUB_ID;
+              option.textContent = subject.SUB_NAME;
+              subjectSelect.appendChild(option);
+            });
+          } catch (error) {
+            console.error("Error fetching subjects:", error);
+          }
+        }
+      }
+
+
+      // Load existing lectures as labels
+      async function loadExistingLectures() {
+
+        // Existing saveLectures function
+        // function saveLectures() {
+        //   // Call loadExistingLectures to reload the existing lectures list after save
+        //   loadExistingLectures();
+        // }
+
+        // Add the event listener for Save Lectures button
+        // document.querySelector(".btn_save_btn").addEventListener("click", (e) => {
+        //   e.preventDefault();
+        //   saveLectures();
+        // });
+
+        console.log("Loading existing lectures...");
+        try {
+          const response = await fetch('/getExistingLectures');
+          const lectures = await response.json();
+          // console.log("Lectures:", lectures);
+          
+          const existingLecturesDiv = document.getElementById('existing_lectures_div');
+          existingLecturesDiv.innerHTML = '';  // Clear existing labels
+          
+          lectures.forEach(lecture => {
+            // Remove the label when the button is clicked
+            const labell = document.createElement('label');
+            labell.className = 'lecture_label';
+            // label.for = 
+            labell.textContent = `${lecture.SECTION_NAME}-${lecture.SUB_ALIAS}`;
+            // existingLecturesDiv.appendChild(label);
+            const btnn = document.createElement('button');
+            btnn.className = 'lecture_label_button';
+            btnn.textContent = `x`;
+            // existingLecturesDiv.appendChild(btnn);
+            
+            // Append the label and button to the container
+            const lect_div = document.createElement('div');
+            lect_div.className = 'lect_div_class';
+            lect_div.appendChild(labell);
+            lect_div.appendChild(btnn);
+            existingLecturesDiv.appendChild(lect_div);
+
+            btnn.addEventListener('click', async (e) => {
+              e.preventDefault(); 
+              const string_of_lec_name = labell.textContent;
+              split_array_of_lect_name = string_of_lec_name.split("-");
+              remove_lect_section = split_array_of_lect_name[0];
+              remove_lect_subject_alias = split_array_of_lect_name[1];
+
+              try {
+                // not working because of foreigh key constraint on lecture table
+                // const response = await remove_lecture(remove_lect_section,remove_lect_subject_alias);
+                
+                lect_div.remove();  // Remove the label from the DOM
+                  } catch (error) {
+                console.error("Error removing lecture from database:", error);
+                }
+
+            });
+          });
+        } catch (error) {
+          console.error("Error loading existing lectures:", error);
+        }
+      }
+
+      // Run loadExistingLectures on page load
+      //loadExistingLectures();
+
+      // Refresh lectures when "Save Lectures" is clicked
+      document.querySelector(".btn_save_btn").addEventListener("click", (e) => {
+        e.preventDefault();  // Prevent form submission
+        loadExistingLectures();  // Reload the lectures list
+      });
+
+      // Fetch sections and subjects based on dropdown changes
+      yearSelect.addEventListener("change", fetchSections);
+      semesterSelect.addEventListener("change", fetchSubjects);
+      sectionSelect.addEventListener("change", fetchSubjects);
+
+      // Fetch and display existing lectures when the page loads
+      // loadExistingLectures();
+
+      // Add lecture on button click
+      addLectureBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const sectionId = sectionSelect.value;
+        const subjectId = subjectSelect.value;
+        if (sectionId && subjectId) {
+          try {
+            const response = await fetch("/add-lecture", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ sectionId, subjectId, facultyId })
+            });
+            const result = await response.json();
+            alert(result.message || "Lecture added successfully");
+
+            // Refresh dropdowns and lectures after addition
+            fetchSections();
+            fetchSubjects();
+            // loadExistingLectures();
+          } catch (error) {
+            console.error("Error adding lecture:", error);
+          }
+        } else {
+          alert("Please select all fields.");
+        }
+      });
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  </script>
+
+
+
+  <!-- javascript connection -->
+  <script src="/js/teacher_editprofile.js"></script>
+
+
+</body>
+
+</html>

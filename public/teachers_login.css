@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Poppins:400,500&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  font-family: "Poppins", sans-serif;
+}
+.bg-img{
+  background: url('/images/fac-loginbg.png');
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+.bg-img:after{
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+}
+
+/* uthaya hua content */
+
+.nav-con{
+  width: 100%;
+  position: fixed;
+  top: 0;          
+  left: 0;    
+  z-index: 1000; 
+  /* backdrop-filter: blur(10px);  */
+  /* background-color: transparent;  */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px  0px 10px 0px;
+  /* padding: 15px 0px 10px; */
+  width: 90%;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2px;
+  unicode-bidi: isolate;
+  /* margin: 0px 48.25px 0px 48.25px; */
+}
+
+.at-logo{
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-right: 10px;
+}   
+.at-logo span{
+  color: #0c9de1;
+}
+.nav-links{   
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;   
+  gap: 1rem;
+  flex-wrap: wrap;
+  @media (max-width: 716px) {
+      display: none;
+   
+  }
+  margin-top:  20px;
+}
+li{
+  list-style: none;
+  flex-shrink: 0.5;
+}
+.nav-links a{
+  text-decoration:none; 
+  color: #fff; 
+  font-family: 'Montserrat',sans-serif;
+  font-size: 18px;
+  margin-right: 80px;
+  /* margin-left: 80px; */ 
+  font-weight: 300;
+  
+}
+.link a::after{
+  content:'';
+  display: block;
+  height: 4px;
+  width: 0px;
+  background-color: #00AFFF;
+  transition: all .5s;
+} 
+.link a:hover::after{
+  width: 60%;
+} 
+
+/* yaha tk */
+.content{
+  position: absolute;
+  top: 50%;
+  left: 50%; 
+  z-index: 999;
+  text-align: center;
+  padding: 32px 32px;
+  width: 370px;
+  transform: translate(-50%,-50%);
+  background: rgba(255,255,255,0.04);
+  box-shadow: -1px 4px 28px 0px rgba(0,0,0,0.75);
+}
+.content header{
+  color: white;
+  font-size: 33px;
+  font-weight: 600;
+  margin: 0 0 35px 0;
+  font-family: 'Montserrat',sans-serif;
+}
+.icons {
+  margin: 20px 0;
+}
+
+.icons a {
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3px;
+  width: 45px;
+  height: 40px;
+}
+.teacher{
+  content: url('/images/fac-loginicon.png');
+  /* width: 100%;
+  height: 45px; */
+  line-height: 45px;
+  margin-left: 0px;
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3px;
+  width: 45px;
+  height: 40px;
+
+}
+.field{
+  justify-content: center;
+  position: relative;
+  height: 45px; 
+  width: 100%; 
+  display: flex;
+  background: rgba(255,255,255,0.94);
+}
+
+#fieldpass{
+  position: relative;
+  height: 45px; 
+  width: 100%; 
+  display: flex;
+  background: rgba(255,255,255,0.94);
+}
+
+#div_submit{
+  background: none !important;
+}
+
+.field span{
+  color: #222;
+  width: 20px;
+  line-height: 45px;
+}
+.field input{
+  height: 100%; 
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #222;
+  font-size: 16px; 
+  font-family: 'Poppins',sans-serif;
+  left: 30px; 
+  margin-right: 16px;
+}
+.field input:last-child{
+  margin-right: 0px;
+}
+.space{
+  margin-top: 16px;
+}
+.show{
+  position: relative;
+  right: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #222;
+  display: none;
+  cursor: pointer;
+  font-family: 'Montserrat',sans-serif;
+}
+.pass-key:valid ~ .show{
+  display: block;
+}
+.mssg {
+  text-align: left;
+  margin-top: 8px ;
+  margin-bottom: 10px;  /*20*/
+}
+.mssg a{
+  color: white;
+  margin-top: 4px;
+  text-decoration: underline;
+  font-size: 12px;
+  font-family: 'Poppins',sans-serif;
+}
+.pass:hover a{
+  text-decoration: underline;
+}
+.mssg span{ /*for error message*/
+  position: relative;
+  left: 10px;
+  color: #E92B2B;
+  font-size: 17px;
+  margin-top: 25px;
+  margin-left: 30px; /*60*/
+  font-family: 'Poppins',sans-serif;
+  font-weight: 450;
+  width: 10px;
+}
+
+.field button{
+  width: 50%;
+  background: #3498db;
+  border: 1px solid #2691d9;
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Montserrat',sans-serif;
+
+}
+.field button:hover{
+  background: #2691d9;
+
+}
+
+.login text{
+  color: white;
+  margin: 20px 0;
+  font-family: 'Poppins',sans-serif;
+}
+
+element.style{
+  display: block;
+}
+
+/* .warning{
+  display: none; 
+
+} */
+/* .error_pass{
+  display: block;
+  color: #E92B2B;
+  font-size: 14px;
+  margin-top: 10px;
+  font-family: 'ZohoPuvi', Georgia;
+  font-weight: 400;
+} */
+
+
+
+/* .links{
+  display: flex;
+  cursor: pointer;
+  color: white;
+  margin: 0 0 20px 0;
+} */
+/* .facebook,.instagram{
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  margin-left: 10px;
+}
+.facebook{
+  margin-left: 0;
+  background: #4267B2;
+  border: 1px solid #3e61a8;
+}
+.instagram{
+  background: #E1306C;
+  border: 1px solid #df2060;
+}
+.facebook:hover{
+  background: #3e61a8;
+}
+.instagram:hover{
+  background: #df2060;
+} */
+.links i{
+  font-size: 17px;
+}
+i span{
+  margin-left: 8px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-size: 16px;
+  font-family: 'Poppins',sans-serif;
+}
+.signup{
+  font-size: 15px;
+  color: white;
+  font-family: 'Poppins',sans-serif;
+}
+.signup a{
+  color: #3498db;
+  text-decoration: none;
+}
+.signup a:hover{
+  text-decoration: underline;
+}

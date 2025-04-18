@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="output.css"/>
+    <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon"/>
+    <script src="/js/stu_dashboard.js" defer></script>
+    <style>
+      .scroller{
+      overflow: hidden;
+      -webkit-mask: linear-gradient(
+        90deg,
+        transparent,
+        white 20%,
+        white 80%,
+        transparent);
+      }
+    </style>
+</head>
+<body class="h-screen overflow-hidden bg-gradient-to-r from-[#5254dd1d] to-white">
+    <!-- Navbar -->
+    <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] shadow-md " >
+      <nav class="navbar w-11/12 flex justify-between items-center m-auto">
+        <div
+          class="at-logo text-[#515151] font-bold text-2xl flex items-center"
+        >
+          Attend<span class="text-[#5254dd]">Pro</span>
+        </div>
+        <div class="nav-links flex items-center h-16">
+          <!-- <div class="h-10 w-36 self-center bg-[#5254dd] hover:bg-[#5254dd]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+            Change Password
+          </div> -->
+          <div onclick="window.location.href='/stu_destroySession'" class="h-10 w-28 self-center bg-[#5254dd] hover:bg-[#5254dd]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+            Log Out
+          </div>
+        </div>
+        </nav>
+      </div>
+        <div class="h-16">
+          <!-- <div class="bg-white">079620271</div> -->
+          <div class="text-3xl font-semibold h-full flex items-center px-4"><p class="bg-gradient-to-r from-pink-600 to-[#5254dd] bg-clip-text text-transparent" id="welc-name">Welcome Dhriti Luthra!</p></div>
+        </div>
+        <div class="scroller max-w-[1000px] p-[6px] m-auto bg-[#5254dd]/30 flex gap-4 items-center">
+          <ul class="scroller-inner w-full flex gap-4 justify-evenly">
+            <div class="px-5 rounded-lg bg-white" id="enr"></div>
+            <div class="px-5 rounded-lg bg-white" id="section"></div>
+            <div class="px-5 rounded-lg bg-white" id="year"></div>
+        </ul>
+
+        </div>
+    
+    <div id="student-table" class="mt-12 w-11/12 bg-white m-auto overflow-x-auto">
+          <table class="w-full md:text-sm text-xs border-2 border-gray-300">
+            <thead>
+              <tr class="border border-gray-400 bg-[#5254dd]/70">
+                <th class="px-4 py-2 font-medium">S No</th>
+                <th class="px-4 py-2 font-semibold">Subject Name</th>
+                <th class="px-4 py-2 font-semibold">Lecture Attended</th>
+                <th class="px-4 py-2 font-semibold">Total Lectures</th>
+                <th class="px-4 py-2 font-semibold">Percentage</th>
+                <th class="px-4 py-2 font-semibold">Remarks</th>
+                <th class="px-4 py-2 font-semibold"></th>
+              </tr>
+            </thead>
+            <!-- table body -->
+            <tbody>
+            
+          
+            <!-- <td class="px-4 py-2 border">
+              <div class="h-10 w-24 flex items-center justify-center m-auto bg-yellow-200 border-2 border-yellow-400 rounded-md text-center text-yellow-500">Need Improvement</div>
+          </td> -->
+          <!-- <td class="px-4 py-2 border-gray-400">
+            <div class="present h-6 w-20 m-auto bg-green-200 border-2 border-green-400 rounded-md text-center text-green-500">Excellent</div>
+        </td> -->
+        <!-- <div class="h-8 w-24 self-center bg-[#5254dd] hover:bg-[#5254dd]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center text-center m-auto">More info</div> -->
+
+            </tbody>
+          </table>
+        </div>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers Dashboard</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+    <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon">
+    <script type="text/javascript" src="/js/t_script.js" defer></script>
+
+</head>
+
+<body class="h-screen overflow-hidden">
+    <!-- Navbar -->
+    <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] fixed top-0 left-0 z-10 h-16">
+        <nav class="navbar w-11/12 flex justify-between items-center m-auto">
+            <div class="at-logo text-[#515151] font-bold text-2xl flex items-center">
+                Attend<span class="text-[#DB2878]">Pro</span>
+            </div>
+            <div class="nav-links flex items-center">
+                <div class="w-44 h-12 border-2 border-gray-300 rounded-lg m-2 flex justify-center items-center ">Role :
+                    Teacher</div>
+                <span class="menu material-symbols-outlined cursor-pointer sm:!hidden"
+                    style="font-size: 40px; ">menu</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Sidebar -->
+    <div
+        class="sidebar h-full w-60 bg-[#F7F7F7] shadow-black p-4 text-[#515151] fixed top-16 left-0 overflow-y-auto hidden sm:block">
+        <div class="flex flex-col">
+            <!-- <div class="items-end"> -->
+            <span class="material-symbols-outlined cursor-pointer self-end transition-transform duration-300"
+                id="mini_sb">keyboard_arrow_left</span>
+            <!-- </div>/ -->
+
+            <div onclick="openPage('t_dashboard')"
+                class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878]  "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">space_dashboard</span>
+                <a class="sb-item group-hover:text-[#DB2878] ">Dashboard</a>
+            </div>
+            <div onclick="openPage('/t_profile')"
+                class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">person</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Profile</a>
+            </div>
+            <div onclick="openPage('/t_view_attendance')"
+                class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">visibility</span>
+                <a class="sb-item group-hover:text-[#DB2878]">View Attendance</a>
+            </div>
+            <div onclick="openPage('/t_mark_attendance')"
+                class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">check_box</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Mark Attendance</a>
+            </div>
+            <div onclick="openPage('/t_logout')"
+                class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined group-hover:text-[#DB2878]">logout</span>
+                <a class="sb-item group-hover:text-[#DB2878]">Log Out</a>
+            </div>
+            <div
+                class="w-full h-12 my-2 flex rounded items-center gap-3 bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+                <div class="h-full w-2 bg-[#DB2878] "></div>
+                <span class="material-symbols-outlined text-[#DB2878]">help</span>
+                <a class="sb-item text-[#DB2878]">Help</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-sec ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151]">
+        <h1 class="text-2xl font-bold">Teacher's Guide</h1>
+        <div class="main-con w-full">
+            <div class="sub-con w-11/12 m-auto">
+
+                <!-- ///////// isse repeat krna h h1,p img tag-->
+                <h1 class="text-lg font-bold mt-5 mb-2">Edit Profile and Manage Lecture</h1>
+                <p>Faculty users can edit their profile (first name, last name or even can add their phone number if
+                    they want) and add their lectures or even remove them.</p>
+                <h4 class="text-lg font-semibold mt-3 mb-2">Step 1:</h4>
+                <p>Go to the 'Manage Profile and Edit Lecture' button present in Profile page.</p>
+                <img src="images/managepimg1.png" class="w-4/5 m-auto mt-5">
+                <h4 class="text-lg font-semibold mt-3 mb-2">Step 2:</h4>
+                <p>You'll see all the data that's already present in your profile. If needed then you can edit your
+                    first name or last name or phone number, and then click on 'Save Changes' button to save those
+                    changes. </p>
+                <img src="images/managepimg2.png" class="w-4/5 m-auto mt-5">
+                <h4 class="text-lg font-semibold mt-3 mb-2">Step 3:</h4>
+                <p>After saving changes, if you want to go back to Faculty Dashboard then choose 'Dashboard' option but
+                    if you want to further manage your lectures then click for 'Manage Lecture' button (as highlighted).
+                </p>
+                <img src="images/managepimg3.png" class="w-4/5 m-auto mt-5">
+                <h4 class="text-lg font-semibold mt-3 mb-2">Step 4:</h4>
+                <p>Now to Add lecture, select the Year, Semester, Section and Subject name from the drop down.</p>
+                <img src="images/editlimg1.png" class="w-4/5 m-auto mt-5"> <br>
+                <p>After that, click on 'Add Lecture' button and your lecture will be saved!</p>
+                <img src="images/editlimg2.png" class="w-3/5 m-auto mt-5">
+                <h4 class="text-lg font-semibold mt-3 mb-2">Step 5:</h4>
+                <p>View all your available lectures by clicking on the'Show Lecture' button. (This data is now saved and
+                    won't be displayed for other faculty IDs. This is done to prevent having more than one faculty with
+                    same lecture.) <br>
+                    You may delete a particular lecture by clicking on the respective cross-button and that lecture will
+                    be removed.</p>
+                <img src="images/editlimg3.png" class="w-4/5 m-auto mt-5"> <br>
+                <p>To go back to Editing Profile, choose this highlighted 'Edit Profile' button or simply Select for
+                    'Dashboard' to return to your Dashboard.</p>
+                <br>    
+
+                <!-- ///////////////////////// -->
+                <h1 class="text-lg font-bold mt-5 mb-2">Marking Attendance</h1>
+                <p>You can mark the attendance of students for a specific lecture from the 'Mark Attendance' page. This
+                    data will be recorded for the current date, and the attendance status for students can be edited
+                    throughout the 24-hour duration of that date. </p>
+                <h5 class="text-lg font-semibold mt-3 mb-2">Step 1:</h5>
+                <p>Click on 'Mark Attendance' from left menu. <br>Select the desired lecture and click for the'Take
+                    Attendance' button.</p>
+                <img src="images/markattimg1.png" class="w-4/5 m-auto mt-5">
+                <h4 class="text-lg font-semibold mt-3 mb-2">Step 2:</h4>
+                <p>You will see the list of students attending those lectures. You can mark them as present or absent by
+                    clicking or unclicking the respective checkboxes.</p>
+                <img src="images/markattimg2.png" class="w-4/5 m-auto mt-5">
+                <img src="images/markattimg3.png" class="w-4/5 m-auto mt-5">
+                <br>
+                <p> Click the 'Mark All Present' button to mark all students as present, and click the 'Mark All Absent'
+                    button to mark all students as absent while still recording the attendance date.</p>
+                <h4 class="text-lg font-semibold mt-3 mb-2">Step 3:</h4>
+                <p>Scroll down to the 'Save' button to save attendance for all students of this lecture along with the
+                    date the attendance is marked. <br>
+                    Note: If you choose to simply click the 'Save' button for a list of students without checking any
+                    boxes, attendance for all students will be recorded as Absent for that specific lecture and date by
+                    default.</p>
+                <img src="images/markattimg4.png" class="w-4/5 m-auto mt-5">
+                <br>
+
+                <!-- ///////////////////////// -->
+                <h1 class="text-lg font-bold mt-5 mb-2">View Attendance</h1>
+                <p>To view students' attendance for a specific lecture, go to the 'View Attendance' page. <br> It will
+                    show the number of lectures each student attended, the total number of lectures, and their
+                    attendance percentage for that lecture.</p>
+                <h4 class="text-lg font-semibold mt-3 mb-2">Step 1:</h4>
+                <p>Click on 'View Attendance' option from left menu. <br> Now select your desired lecture from the drop
+                    down and click on the 'View Attendance' button.</p>
+                <img src="images/viewattimg1.png" class="w-4/5 m-auto mt-5">
+                <h4 class="text-lg font-semibold mt-3 mb-2">Step 2:</h4>
+                <p>Clicking the 'View Attendance' button will display a table with attendance records for all students in the selected lecture.</p>
+                <img src="images/viewattimg2.png" class="w-4/5 m-auto mt-5">
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>
