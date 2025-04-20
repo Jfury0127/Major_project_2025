@@ -456,6 +456,9 @@ app.get("/t_view_attendance", (req, res) => {
 app.get("/t_mark_attendance", (req, res) => {
     res.render("t_mark_attendance")
 })
+app.get("/t_assignment", (req, res) => {
+    res.render("t_assignment")
+})
 app.get("/t_help", (req, res) => {
     res.render("t_help")
 })
