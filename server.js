@@ -11,7 +11,12 @@ const router = express.Router();
 // ===================================================================================
 // importing data from database file
 
-import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_num, getLecture, getStudentData,get_teacher_profile_details_from_id, update_teacher_profile, getStudentInfofromENR,getAvailableSubjects, getAvailableSections, addLecture, remove_lecture, getExistingLectures, check_att_array_existance, insertattendanceEntry, updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance,hod_getsections,hod_get_subjects } from './database.js';
+import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_num,
+     getLecture, getStudentData,get_teacher_profile_details_from_id,
+      update_teacher_profile, getStudentInfofromENR,getAvailableSubjects, getAvailableSections,
+       addLecture, remove_lecture, getExistingLectures, check_att_array_existance, insertattendanceEntry,
+        updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance
+        ,hod_getsections,hod_get_subjects,create_Assignment } from './database.js';
 
 // ==================================================================================
 
@@ -145,10 +150,10 @@ async function stu_func2(req, res, next) {
 
     const stu_enr = req.body.stu_enr_key;
     const stu_pass = req.body.stu_pass_key;
-    console.log("Student Enrollment:", stu_enr);
-    console.log("Student Password:", stu_pass);
+    // console.log("Student Enrollment:", stu_enr);
+    // console.log("Student Password:", stu_pass);
     const check2 = await chk_pass_from_enr(stu_enr); // get actual value from database
-    console.log("Password from DB:", check2);
+    // console.log("Password from DB:", check2);
     // authenticate user here
 
     // wrong username `
@@ -164,7 +169,7 @@ async function stu_func2(req, res, next) {
     else {
         req.session.student = { s_enr: stu_enr };
         req.dataProcessed = { "mssgcode": "stu_dashboard" };
-        console.log("Login successful, redirecting to dashboard");
+        // console.log("Login successful, redirecting to dashboard");
     }
     return next();
 }
@@ -200,10 +205,10 @@ async function hod_func2(req, res, next) {
 
     const hod_id = req.body.hod_id_key;
     const hod_pass = req.body.hod_pass_key;
-    console.log("HOD ID:", hod_id);
-    console.log("HOD Password:", hod_pass);
+    // console.log("HOD ID:", hod_id);
+    // console.log("HOD Password:", hod_pass);
     const check3 = await chk_pass_from_hod_id(hod_id); // get actual value from database
-    console.log("Password from DB:", check3);
+    // console.log("Password from DB:", check3);
     // authenticate user here
 
     // wrong username `
@@ -219,7 +224,7 @@ async function hod_func2(req, res, next) {
     else {
         req.session.hod = { hod_id: hod_id };
         req.dataProcessed = { "mssgcode": "hod_dashboard" };
-        console.log("Login successful, redirecting to dashboard");
+        // console.log("Login successful, redirecting to dashboard");
     }
     return next();
 }
@@ -278,7 +283,7 @@ app.get('/api/studentInfo', async (req, res) => {
     const studentSubjects = studentInfo[1];
 
     for (const subject of studentSubjects) {
-        console.log(`Processing Subject: ${studentpinfo.SECTION_NAME}, ${subject.SUB_NAME}`);
+        // console.log(`Processing Subject: ${studentpinfo.SECTION_NAME}, ${subject.SUB_NAME}`);
         subject["total_lec"] = await getTotalLectures(studentpinfo.SECTION_NAME, subject.SUB_NAME);
         subject['lec_taken'] = await getLecturesTaken(studentENR, studentpinfo.SECTION_NAME, subject.SUB_NAME);
          
@@ -394,7 +399,7 @@ app.get("/get-sections", async (req, res) => {
     else if (year == "Fourth") {
         yr = 4;
     }
-
+    
     try {
         const sections = await getAvailableSections(yr, facultyId);
         res.json(sections);
@@ -432,7 +437,7 @@ app.post("/add-lecture", async (req, res) => {
     const { facultyId, sectionId, subjectId } = req.body;
     // console.log(sectionId);
     // console.log(req.body);
-
+    
     try {
         const result = await addLecture(facultyId, sectionId, subjectId);
         res.json({ message: "Lecture added successfully" });
@@ -456,8 +461,39 @@ app.get("/t_view_attendance", (req, res) => {
 app.get("/t_mark_attendance", (req, res) => {
     res.render("t_mark_attendance")
 })
+
+// render page nad load existing lectures
 app.get("/t_assignment", (req, res) => {
     res.render("t_assignment")
+})
+
+// click lecture and load assignments 
+// -
+// return post request from form adding new assignment 
+
+app.post("/t_assignment", async(req, res) => {
+    // const sec_id = req.body.sec_id;
+    const sec_id = 109; // T1
+    // const sec_id = req.body.subject_id; // T1
+    const subject_id = "CIC_305"; // operating system
+    const reference = "Link to file saved in cloud";
+    
+    const new_assignment_data = req.body;
+
+    try {
+        const result = await create_Assignment(new_assignment_data,subject_id,sec_id,reference);
+        alert('Attendance saved successfully!');
+    } catch (error) {
+        alert('Error saving attendance: ');
+        console.error("Error creating assignment:", error);
+    }
+    // res.redirect("/t_assignment")
+    res.json({ status: 'success' });
+})
+
+
+app.get("/t_assignment/view_assignment", (req, res) => {
+    res.render("t_view_assignnment.ejs")
 })
 app.get("/t_help", (req, res) => {
     res.render("t_help")
@@ -501,7 +537,7 @@ app.get('/api/detailedStuAttendance',async (req, res) => {
     const enr = req.session.student.s_enr;
     // const enr = 196202721;
     const detailedAttendance = await fetchDetailedAttendance(enr, subId);
-    console.log(detailedAttendance);
+    // console.log(detailedAttendance);
     res.json(detailedAttendance);
 })
 

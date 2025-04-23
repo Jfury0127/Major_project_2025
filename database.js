@@ -252,8 +252,38 @@ export async function hod_get_subjects(sem) {
 }
 
  
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// major_project
+// assignments code
 
+// get lectures from existing function
 
+// insert assignment into table i.e create assignment for one lecture by teacher
+
+export async function create_Assignment( new_assignment_data , SUB_ID , SECTION_ID,reference_to_assignment){
+   console.log(new_assignment_data);
+
+   const [result] = await pool.query(`Insert into assignment (Assign_Id , Assign_Name ,
+       SUB_ID , SECTION_ID , Date_of_arr , Due_date , Remark,Ref_to_assignment) values (null,?,?,?,?,?,?,?);`
+      ,[ new_assignment_data.title , SUB_ID , SECTION_ID , new_assignment_data.arrival_date , new_assignment_data.due_date
+    , new_assignment_data.remarks,reference_to_assignment]);
+
+   return result.affectedRows;
+
+}
+
+// create_Assignment("assignment1","CIC_305",109,"2025-04-22","2025-04-28","submit this assignment asap","lin#$#^#$%@#4k");
+
+// get assignments for one lecture
+// lecture deatils = fid , sec_id , subject_id
+
+export async function get_assignments_for_lecture(section_name,subject_name){
+   const [result] = await pool.query(`select * from assignment where
+      section_id = (SELECT section_id FROM section WHERE section_name = ?) AND
+       sub_id = (SELECT sub_id FROM subject WHERE sub_name = ?);`,[section_name,subject_name]);
+
+   console.log(result);
+}
 
 
 
