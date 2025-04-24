@@ -29,11 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function loadExistingLectures() {
 
-    console.log("Loading existing lectures... in assignment page");
     try {
         const response = await fetch('/getExistingLectures');
         const Lectures = await response.json();
-        console.log("Lectures:", Lectures);
 
         const container = document.getElementById('lecture-container');
 
@@ -63,7 +61,6 @@ async function loadExistingLectures() {
 
 async function load_assignments(sec_name,sub_alias) {
     
-    console.log("Loading existing assignments... in assignment dabba");
     const lec_data = {
         sec_name: sec_name,
         sub_alias: sub_alias
@@ -87,13 +84,21 @@ async function load_assignments(sec_name,sub_alias) {
         const container = document.getElementById('assignment-container');
         
         // count the number of assignments recieved
-        const numberofassign = 0;
+        let numberofassign = 0;
         Assignments.forEach(i => {
-            numberofassign += 1 ;
+            numberofassign = numberofassign + 1 ;
         })        
         
         if(numberofassign == 0) {
+            container.replaceChildren();
             const msg = document.createElement('p');
+            msg.className = "w-full flex justify-between items-center mt-2 pl-9 pr-2 pd-2";
+            msg.innerHTML = `
+                <span class="font-semibold text-base"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seems like there are no assignments alloted for 
+                this lecture .... Click the button below and add a new assignment</span>
+    
+                `;
+            container.appendChild(msg);
         }
         else {container.replaceChildren();
         
@@ -112,13 +117,17 @@ async function load_assignments(sec_name,sub_alias) {
                 assign_div_text.innerHTML = `
                 <span class="font-semibold text-base">Name:</span> ${i.Assign_Name} &nbsp;&nbsp;&nbsp;&nbsp;
                 <span class="font-semibold text-base">Remark:</span> ${i.Remark}
-                `;
-                
+                `;                
+
                 const view_button = document.createElement('button');
                 view_button.className = "ml-auto px-4 py-2 bg-pink-100 text-[#DB2878] rounded-md font-medium shadow-sm hover:bg-pink-200 transition";
                 view_button.innerText = "View Assignment";
                 view_button.style="background: rgb(253, 241, 242)";
-
+        
+                view_button.onclick = () => {
+                    const assignId = i.Assign_Id;
+                    window.location.href = `/t_view_assignment?assign_id=${assignId}`;
+                  };
                 topRow.appendChild(assign_div_text);
                 topRow.appendChild(view_button);
                 assign_div.appendChild(topRow);
@@ -131,3 +140,15 @@ async function load_assignments(sec_name,sub_alias) {
     
 }
 
+
+// async function show_more_info_assignment (id){
+//     console.log("SDf")
+//     fetch("/t_view_assignment", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({assign_id: id })
+//       });
+      
+//     //   const html = await res.text(); // you get raw HTML as text
+//     //   console.log(html);
+// }

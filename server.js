@@ -503,10 +503,6 @@ app.post("/t_assignment", async(req, res) => {
 })
 
 
-// app.get("/t_view_assignment", (req, res) => {
-//     res.render("t_view_assignnment.ejs")
-// })
-
 //assignment summary and submissions summary recieved by faculty for a particular assignment
 
 app.get('/t_view_assignment', async (req, res) => {
@@ -517,18 +513,13 @@ app.get('/t_view_assignment', async (req, res) => {
       const assignment = rows[0]; // get the first row
       const submissionsrow= await get_submissions_summary(assignmentId);
       const submissions = Array.isArray(submissionsrow) ? submissionsrow : [];
-    //   res.render('t_view_assignment', { assignment, submissions });
-    console.log('Assignment:', assignment);
-    // console.log('Submissions:', submissions);
-    console.log("Submissions type:", typeof submissions);
-    //console.log("Submissions data:", submissions);
+   
+    console.log("Submissions type:", submissions);
  
-      res.render('t_view_assignment.ejs', { 
-        assignment: assignment,
-        submissions: submissions
-      });
-
-      
+    res.render('t_view_assignment.ejs', { 
+    assignment: assignment,
+    submissions: submissions
+    });
 
     } catch (err) {
       console.error(err);

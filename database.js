@@ -261,18 +261,25 @@ export async function hod_get_subjects(sem) {
 // insert assignment into table i.e create assignment for one lecture by teacher
 
 export async function create_Assignment( new_assignment_data , SUB_ID , SECTION_ID,reference_to_assignment){
-   console.log(new_assignment_data);
 
    const [result] = await pool.query(`Insert into assignment (Assign_Id , Assign_Name ,
        SUB_ID , SECTION_ID , Date_of_arr , Due_date , Remark,Ref_to_assignment) values (null,?,?,?,?,?,?,?);`
       ,[ new_assignment_data.title , SUB_ID , SECTION_ID , new_assignment_data.arrival_date , new_assignment_data.due_date
     , new_assignment_data.remarks,reference_to_assignment]);
 
-   return result.affectedRows;
+   const assign_id = result.insertId;
+   const sec = SECTION_ID;
+   
+   // select enr_number from student where section_id = sec;
+   const [result2] = await pool.query(` INSERT INTO SUBMITS (enr_number, Assign_Id, Ref_to_submission,
+       Date_of_submission, submit_status) SELECT enr_number, ?, NULL, NULL, NULL FROM student WHERE section_id = ?;`
+       ,[assign_id,sec]);
 
+   console.log(result2);
+   return result.affectedRows
 }
 
-// create_Assignment("assignment1","CIC_305",109,"2025-04-22","2025-04-28","submit this assignment asap","lin#$#^#$%@#4k");
+// create_Assignment(["assignment1","2025-04-22","2025-04-28","submit this assignment asap"],"ETIC_414",116,"lin#$#^#$%@#4k");
 
 // get assignments for one lecture
 // lecture deatils = fid , sec_id , subject_id
