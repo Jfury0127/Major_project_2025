@@ -277,12 +277,13 @@ export async function create_Assignment( new_assignment_data , SUB_ID , SECTION_
 // get assignments for one lecture
 // lecture deatils = fid , sec_id , subject_id
 
-export async function get_assignments_for_lecture(section_name,subject_name){
+export async function get_assignments_for_lecture(section_name,subject_alias){
    const [result] = await pool.query(`select * from assignment where
       section_id = (SELECT section_id FROM section WHERE section_name = ?) AND
-       sub_id = (SELECT sub_id FROM subject WHERE sub_name = ?);`,[section_name,subject_name]);
+       sub_id = (SELECT sub_id FROM subject WHERE sub_alias = ?);`,[section_name,subject_alias]);
 
-   //console.log(result);
+   // console.log(result);
+   return result
 }
 
 //get assignment summary for particular, selected assignmnet (by faculty)

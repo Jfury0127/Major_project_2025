@@ -87,33 +87,38 @@
     <!-- div of lectures and existinf assignments  -->
     <div class="main-sec ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151] "
         id="main-sec">
-        <div class="w-full">
-            <div class="text-3xl font-semibold">Existing Lectures</div>
-            <div class="w-11/12 flex justify-evenly m-auto">
-                <div
-                    class="w-5/12 h-44 bg-white rounded-md m-3 hover:scale-x-105 flex flex-col justify-center items-center">
-                    <span class="material-symbols-outlined text-[#DB2878] text-4xl">check_box</span>
-                    <p class="text-[#DB2878] mt-2">Mark Attendance</p>
+            <div class="w-full">
+                <div class="mx-auto mt-6 bg-white text-xl font-semibold w-fit text-center" style="background: rgb(253, 241, 242);">
+                <h2 class="text-2xl font-semibold text-[bg-white] mb-6 text-center">Existing Lectures</h2>
                 </div>
-                <div
-                    class="w-5/12 h-44 bg-white rounded-md m-3 hover:scale-x-105 flex flex-col justify-center items-center">
-                    <span class="material-symbols-outlined text-[#DB2878] text-4xl">visibility</span>
-                    <p class="text-[#DB2878] mt-2">View Attendance</p>
-                </div>
-                <div
-                    class="w-5/12 h-44 bg-white rounded-md m-3 hover:scale-x-105 flex flex-col justify-center items-center">
-                    <span class="material-symbols-outlined text-[#DB2878] text-4xl">help</span>
-                    <p class="text-[#DB2878] mt-2">Help</p>
-                </div>
+
+                <!-- contains dynamic lecture cards -->
+                <div id="lecture-container" class="flex flex-wrap justify-center"></div>
+                <!-- load lectures using js -->
+
             </div>
+            
+            <!-- hidden div for existing assignments and add assignments -->
 
-        </div>
-        <button id="add" name="add">
-            Button
-        </button>
+            <div id="assignemts_div" class="mt-4 mb-4 ml-0 px-4 justifyi-center overflow-y-auto rounded-lg hidden" style="background: rgb(253, 241, 242);">
+    
 
+                <div class="mt-12 w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                    <h2 class="text-2xl font-semibold text-[#DB2878] mb-6 text-center">Assignments</h2>
+                  
+                    <!-- New Full-Width Row Div -->
+                    <div id="assignment-container" class="w-full bg-gray-50 p-4 rounded-lg flex flex-col gap-4 shadow-sm">
+                  
+                    </div>
+                </div>
+
+                <button type="button" id="add" name="add" class="mt-6 mb-6 py-2 px-4 bg-[#DB2878] text-white rounded-md font-semibold hover:shadow-[0_0_10px_#DB2878] transition duration-200 cursor-pointer mx-auto block">
+                    Add Assignment
+                </button>
+            </div>
+                  
     </div>
-
+    
     <!-- div of add assignemt ----------initially hidden - gets active on button click -->
 
     <div class="add_assignm_class ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151] hidden"

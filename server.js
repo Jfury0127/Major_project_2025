@@ -16,7 +16,8 @@ import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_n
       update_teacher_profile, getStudentInfofromENR,getAvailableSubjects, getAvailableSections,
        addLecture, remove_lecture, getExistingLectures, check_att_array_existance, insertattendanceEntry,
         updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance
-        ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary} from './database.js';
+        ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary,
+        get_assignments_for_lecture} from './database.js';
 
 // ==================================================================================
 
@@ -468,9 +469,18 @@ app.get("/t_assignment", (req, res) => {
 })
 
 // click lecture and load assignments 
-// -
-// return post request from form adding new assignment 
+app.post('/getExistingAssignments', async (req, res) => {
+    try {
+        const exassign = await get_assignments_for_lecture(req.body.sec_name,req.body.sub_alias);
+        console.log(exassign);
+        res.json(exassign);
+    } catch (error) {
+        console.error("Error fetching existing assign:", error);
+        res.status(500).json({ error: "Failed to fetch existing assignments" });
+    }
+});
 
+// return post request from form adding new assignment 
 app.post("/t_assignment", async(req, res) => {
     // const sec_id = req.body.sec_id;
     const sec_id = 109; // T1
@@ -479,7 +489,7 @@ app.post("/t_assignment", async(req, res) => {
     const reference = "Link to file saved in cloud";
     
     const new_assignment_data = req.body;
-
+    
     try {
         const result = await create_Assignment(new_assignment_data,subject_id,sec_id,reference);
         // alert('Attendance saved successfully!');
