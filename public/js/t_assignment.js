@@ -117,8 +117,8 @@ async function load_assignments(sec_name,sub_alias) {
                 assign_div_text.innerHTML = `
                 <span class="font-semibold text-base">Name:</span> ${i.Assign_Name} &nbsp;&nbsp;&nbsp;&nbsp;
                 <span class="font-semibold text-base">Remark:</span> ${i.Remark}
-                `;                
-
+                `;
+                
                 const view_button = document.createElement('button');
                 view_button.className = "ml-auto px-4 py-2 bg-pink-100 text-[#DB2878] rounded-md font-medium shadow-sm hover:bg-pink-200 transition";
                 view_button.innerText = "View Assignment";
@@ -140,15 +140,3 @@ async function load_assignments(sec_name,sub_alias) {
     
 }
 
-
-// async function show_more_info_assignment (id){
-//     console.log("SDf")
-//     fetch("/t_view_assignment", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({assign_id: id })
-//       });
-      
-//     //   const html = await res.text(); // you get raw HTML as text
-//     //   console.log(html);
-// }

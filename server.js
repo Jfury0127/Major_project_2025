@@ -469,6 +469,7 @@ app.get("/t_assignment", (req, res) => {
 })
 
 // click lecture and load assignments 
+
 app.post('/getExistingAssignments', async (req, res) => {
     try {
         const exassign = await get_assignments_for_lecture(req.body.sec_name,req.body.sub_alias);
