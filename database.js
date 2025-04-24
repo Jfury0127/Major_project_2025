@@ -282,8 +282,26 @@ export async function get_assignments_for_lecture(section_name,subject_name){
       section_id = (SELECT section_id FROM section WHERE section_name = ?) AND
        sub_id = (SELECT sub_id FROM subject WHERE sub_name = ?);`,[section_name,subject_name]);
 
-   console.log(result);
+   //console.log(result);
 }
+
+//get assignment summary for particular, selected assignmnet (by faculty)
+
+export async function get_assignments_summary(assign_id){
+   const [result] = await pool.query(`select assign_name,remark, date_of_arr, due_date, ref_to_assignment from assignment where assign_id = ?;`,[assign_id]);
+
+   //console.log(result);
+   return result;
+}
+
+//get submissions summary for that particular assignment (by faculty)
+export async function get_submissions_summary(assign_id){
+   const [result] = await pool.query(`select s.enr_number, (select stu.stu_fname from student stu where stu.enr_number = s.enr_number) as student_name, s.submit_status, s.date_of_submission, s.ref_to_submission from submits s where s.assign_id = ?;`,[assign_id]);
+
+   //console.log(result);
+   return result;
+}
+
 
 
 

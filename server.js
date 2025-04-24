@@ -16,7 +16,7 @@ import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_n
       update_teacher_profile, getStudentInfofromENR,getAvailableSubjects, getAvailableSections,
        addLecture, remove_lecture, getExistingLectures, check_att_array_existance, insertattendanceEntry,
         updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance
-        ,hod_getsections,hod_get_subjects,create_Assignment } from './database.js';
+        ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary} from './database.js';
 
 // ==================================================================================
 
@@ -482,7 +482,8 @@ app.post("/t_assignment", async(req, res) => {
 
     try {
         const result = await create_Assignment(new_assignment_data,subject_id,sec_id,reference);
-        alert('Attendance saved successfully!');
+        // alert('Attendance saved successfully!');
+        res.redirect("/t_assignment");
     } catch (error) {
         alert('Error saving attendance: ');
         console.error("Error creating assignment:", error);
@@ -492,9 +493,40 @@ app.post("/t_assignment", async(req, res) => {
 })
 
 
-app.get("/t_assignment/view_assignment", (req, res) => {
-    res.render("t_view_assignnment.ejs")
-})
+// app.get("/t_view_assignment", (req, res) => {
+//     res.render("t_view_assignnment.ejs")
+// })
+
+//assignment summary and submissions summary recieved by faculty for a particular assignment
+
+app.get('/t_view_assignment', async (req, res) => {
+    const assignmentId = req.query.assign_id;
+    console.log("Assignment ID from URL:", assignmentId);
+    try {
+      const rows = await get_assignments_summary(assignmentId);
+      const assignment = rows[0]; // get the first row
+      const submissionsrow= await get_submissions_summary(assignmentId);
+      const submissions = Array.isArray(submissionsrow) ? submissionsrow : [];
+    //   res.render('t_view_assignment', { assignment, submissions });
+    console.log('Assignment:', assignment);
+    // console.log('Submissions:', submissions);
+    console.log("Submissions type:", typeof submissions);
+    //console.log("Submissions data:", submissions);
+ 
+      res.render('t_view_assignment.ejs', { 
+        assignment: assignment,
+        submissions: submissions
+      });
+
+      
+
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Internal server error");
+    }
+  });
+  
+
 app.get("/t_help", (req, res) => {
     res.render("t_help")
 })

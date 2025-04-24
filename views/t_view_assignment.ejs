@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teachers Dashboard</title>
+  <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+  <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon">
+  <script type="text/javascript" src="/js/t_script.js" defer></script>
+  <script type="text/javascript" src="/js/t_view_assignment.js" defer></script>
+  <script>
+      window.submissionsData = <%= JSON.stringify(submissions || []) %>;
+  </script>
+
+
+
+
+</head>
+
+<body class="h-screen overflow-hidden">
+  <!-- Navbar -->
+  <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] fixed top-0 left-0 z-10 h-16">
+    <nav class="navbar w-11/12 flex justify-between items-center m-auto">
+      <div class="at-logo text-[#515151] font-bold text-2xl flex items-center">
+        Attend<span class="text-[#DB2878]">Pro</span>
+      </div>
+      <div class="nav-links flex items-center">
+        <div class="w-44 h-12 border-2 border-gray-300 rounded-lg m-2 flex justify-center items-center ">Role : Teacher
+        </div>
+        <span class="menu material-symbols-outlined cursor-pointer sm:!hidden" style="font-size: 40px; ">menu</span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Sidebar -->
+  <div
+    class="sidebar h-full w-60 bg-[#F7F7F7] shadow-black p-4 text-[#515151] fixed top-16 left-0 overflow-y-auto hidden sm:block">
+    <div class="flex flex-col">
+      <!-- <div class="items-end"> -->
+      <span class="material-symbols-outlined cursor-pointer self-end transition-transform duration-300"
+        id="mini_sb">keyboard_arrow_left</span>
+      <!-- </div>/ -->
+
+      <div onclick="openPage('t_dashboard')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2  group-hover:bg-[#DB2878]  "></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">space_dashboard</span>
+        <a class="sb-item group-hover:text-[#DB2878] ">Dashboard</a>
+      </div>
+      <div onclick="openPage('t_profile')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">person</span>
+        <a class="sb-item group-hover:text-[#DB2878]">Profile</a>
+      </div>
+      <div
+        class="w-full h-12 my-2 flex rounded items-center gap-3 bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2  bg-[#DB2878] "></div>
+        <span class="material-symbols-outlined text-[#DB2878]">visibility</span>
+        <a class="sb-item text-[#DB2878]">View Attendance</a>
+      </div>
+      <div onclick="openPage('/t_mark_attendance')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">check_box</span>
+        <a class="sb-item group-hover:text-[#DB2878]">Mark Attendance</a>
+      </div>
+      <div onclick="openPage('/t_assignment')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">person</span>
+        <a class="sb-item group-hover:text-[#DB2878]">Assignments</a>
+      </div>
+      <div onclick="openPage('/t_logout')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">logout</span>
+        <a class="sb-item group-hover:text-[#DB2878]">Log Out</a>
+      </div>
+      <div onclick="openPage('/t_help')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">help</span>
+        <a class="sb-item group-hover:text-[#DB2878]">Help</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Section -->
+  <!-- Main Content Area -->
+  <div class="ml-0 sm:ml-60 mt-20 px-4 h-[calc(100vh-4rem)] overflow-y-auto">
+
+    <!-- Assignment Summary Section -->
+    <div
+      class="mt-24 w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200">
+      <h2 class="text-2xl font-semibold text-[#DB2878] mb-6 text-center">Assignment Summary</h2>
+
+      <div class="flex flex-row flex-wrap justify-between items-start gap-6 text-gray-800">
+        <!-- Left side -->
+        <div class="space-y-2 text-lg">
+          <p><span id="assignment-title" class="font-semibold">Title:</span>
+            <%= assignment.assign_name %>
+          </p>
+          <p><span id="assignment-remark" class="font-semibold">Remark:</span>
+            <%= assignment.remark %>
+          </p>
+          <p><span class="font-semibold">Attachment:</span>
+            <a href="#" class="text-blue-600 underline">Download Question</a>
+          </p>
+        </div>
+
+        <!-- Right side: properly aligned -->
+        <div class="ml-auto pr-10 w-60 space-y-2 text-lg text-right">
+          <p><span id="assignment-issue" class="font-semibold">Issued On:</span>
+            <%= new Date(assignment.date_of_arr).toLocaleDateString('en-CA') %>
+          </p>
+          <p><span id="assignment-due" class="font-semibold">Due Date:</span>
+            <%= new Date(assignment.due_date).toLocaleDateString('en-CA') %>
+          </p>
+          <p><span id="assignment-submitted" class="font-semibold">Submitted:</span>
+            <%= (submissions || []).filter(s => s.submit_status === 1).length %> / <%= (submissions || []).length %>
+          </p>
+          
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Student submission Table -->
+    <div class="w-11/12 mx-auto mt-12">
+      <h2 class="text-xl font-semibold text-[#DB2878] mb-4">Student submissions</h2>
+    
+      <div class="overflow-x-auto">
+    
+        
+        <div class="max-h-[400px] overflow-y-auto border border-gray-300 rounded-md">
+          <table class="w-full md:text-sm text-xs border-collapse">
+            <thead class="sticky top-0 bg-[#DB2878]/30 z-10">
+              <tr>
+                <th class="px-4 py-2 border border-gray-300">Enrollment No.</th>
+                <th class="px-4 py-2 border border-gray-300">Student Name</th>
+                <th class="px-4 py-2 border border-gray-300">submission Date</th>
+                <th class="px-4 py-2 border border-gray-300">Attachment</th>
+                <th class="px-4 py-2 border border-gray-300">Status</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+              <% submissions.forEach((submission) => { %>
+                <tr>
+                  <td class="px-4 py-2 text-center border border-gray-300"><%= submission.enr_number %></td>
+                  <td class="px-4 py-2 text-center border border-gray-300"><%= submission.student_name %></td>
+                  <td class="px-4 py-2 text-center border border-gray-300">
+                    <%= submission.date_of_submission ? new Date(submission.date_of_submission).toLocaleDateString('en-CA') : '-' %>
+                  </td>                  
+                  <td class="px-4 py-2 text-center border border-gray-300">
+                    <% if (submission.submit_status === 1) { %>
+                      <a href="<%= submission.ref_to_submission %>" class="text-blue-600 underline" target="_blank">Download</a>
+                    <% } else { %>
+                      <span class="text-gray-400 italic">Not Submitted</span>
+                    <% } %>
+                  </td>
+                  <td class="px-4 py-2 text-center border border-gray-300 font-medium 
+                    <% if (submission.submit_status === 1 && new Date(submission.date_of_submission) <= new Date(assignment.due_date)) { %>
+                      text-green-600
+                    <% } else if (submission.submit_status === 1) { %>
+                      text-yellow-600
+                    <% } else { %>
+                      text-red-600
+                    <% } %>">
+                    <% if (submission.submit_status === 1 && new Date(submission.date_of_submission) <= new Date(assignment.due_date)) { %>
+                      Submitted on time
+                    <% } else if (submission.submit_status === 1) { %>
+                      Late submission
+                    <% } else { %>
+                      Not submitted
+                    <% } %>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+
+  </div>
+
+
+</body>
+
+</html>
