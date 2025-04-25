@@ -44,9 +44,9 @@ export async function chk_pass_from_enr(id) {
 //===========================================
 //for hod login
 export async function chk_pass_from_hod_id(id) {
-   const [result3] = await pool.query('SELECT HOD_PASSWORD FROM hod WHERE HOD_ID = ?',[id]);
+   const [result3] = await pool.query('SELECT HOD_PASSWORD FROM hod WHERE HOD_ID = ?', [id]);
    if (result3.length === 0) return "undefined"; // Check length explicitly
-   return result3[0].HOD_PASSWORD;   
+   return result3[0].HOD_PASSWORD;
 }
 
 //////////////////////////////
@@ -164,7 +164,7 @@ export async function insertattendanceEntry(attendance_date, sub_id, section_id,
 //view attendance ke liye
 export async function getStudentsBySection(sectionName) {
    // Step 1: Get the section_id based on section_name from the section table
-   const [section] = await pool.query(`SELECT section_id FROM section WHERE section_name = ?`,[sectionName]);
+   const [section] = await pool.query(`SELECT section_id FROM section WHERE section_name = ?`, [sectionName]);
 
    // If section is not found
    if (section.length === 0) {
@@ -174,35 +174,35 @@ export async function getStudentsBySection(sectionName) {
    const sectionId = section[0].section_id;
 
    // Step 2: Get students based on section_id
-   const [students] = await pool.query(`SELECT ENR_NUMBER, STU_FNAME, STU_LNAME FROM student WHERE section_id = ?`,[sectionId]);
+   const [students] = await pool.query(`SELECT ENR_NUMBER, STU_FNAME, STU_LNAME FROM student WHERE section_id = ?`, [sectionId]);
    return students;
 }
 export async function getLecturesTaken(enr_number, section_name, subject_name) {
-   const [result] = await pool.query(`SELECT COUNT(attendance_id) AS lecturesTaken FROM attendance WHERE enr_number = ? AND section_id = (SELECT section_id FROM section WHERE section_name = ?) AND sub_id = (SELECT sub_id FROM subject WHERE sub_name = ?) AND status = 1;`,[enr_number, section_name, subject_name]);
+   const [result] = await pool.query(`SELECT COUNT(attendance_id) AS lecturesTaken FROM attendance WHERE enr_number = ? AND section_id = (SELECT section_id FROM section WHERE section_name = ?) AND sub_id = (SELECT sub_id FROM subject WHERE sub_name = ?) AND status = 1;`, [enr_number, section_name, subject_name]);
    // const send1 = result[0].LRES;
    //return send1;
-   try{
+   try {
       //console.log(result[0]);
       return result[0]?.lecturesTaken || 0;
-   }catch (error) {
+   } catch (error) {
       console.error("getLecturesTaken Error:", error);
       throw error;
-  }   
-}   
+   }
+}
 export async function getTotalLectures(section_name, subject_name) {
-   const [result] = await pool.query(`SELECT COUNT(DISTINCT attendance_date) AS totalLectures FROM attendance WHERE section_id = (SELECT section_id FROM section WHERE section_name = ?) AND sub_id = (SELECT sub_id FROM subject WHERE sub_name = ?);`,[section_name, subject_name]);
+   const [result] = await pool.query(`SELECT COUNT(DISTINCT attendance_date) AS totalLectures FROM attendance WHERE section_id = (SELECT section_id FROM section WHERE section_name = ?) AND sub_id = (SELECT sub_id FROM subject WHERE sub_name = ?);`, [section_name, subject_name]);
    // console.log(result);
    // const send2 = result[0].TRES;
    //return send2;
-   try{
+   try {
       //console.log(result[0]);
-      return result[0]?.totalLectures || 0; 
+      return result[0]?.totalLectures || 0;
       // Return count or 0 if no records found
-   }catch (error) {
+   } catch (error) {
       console.error("getTotalLectures Error:", error);
       throw error;
-  }
-}   
+   }
+}
 
 // func to get student data and student sub data from student ENR
 export async function getStudentInfofromENR(studentENR) {
@@ -224,34 +224,34 @@ export async function getStudentInfofromENR(studentENR) {
    return ([result[0], studentSubjects]); //array of (object and array)
 }
 
-export async function fetchDetailedAttendance(enr,subId) {
+export async function fetchDetailedAttendance(enr, subId) {
    // console.log(subId,enr);
    // console.log(typeof(subId));
    const [result] = await pool.query(
-      
+
       // `SELECT DATE_FORMAT(attendance_date, '%Y-%m-%d') AS attendance_date, status
       // FROM attendance where SUB_ID= '${subId}' AND ENR_NUMBER= ${enr};`)
       `SELECT DATE_FORMAT(attendance_date, '%Y-%m-%d') AS attendance_date, status
-      FROM attendance where ENR_NUMBER= ? AND SUB_ID= ?;`,[enr,subId])
+      FROM attendance where ENR_NUMBER= ? AND SUB_ID= ?;`, [enr, subId])
 
-      //console.log(result);
-   
+   //console.log(result);
+
    return result;
 
 }
 
 export async function hod_getsections(year) {
-   const [result] = await pool.query(`select section_id, section_name from section where section_year = ?;`,[year])
+   const [result] = await pool.query(`select section_id, section_name from section where section_year = ?;`, [year])
    // console.log(result);
    return result;
 }
 export async function hod_get_subjects(sem) {
-   const [result] = await pool.query(` select sub_id, sub_name from subject where sub_sem= ? ;`,[sem])
+   const [result] = await pool.query(` select sub_id, sub_name from subject where sub_sem= ? ;`, [sem])
    // console.log(result);
    return result;
 }
 
- 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // major_project
 // assignments code
@@ -260,34 +260,31 @@ export async function hod_get_subjects(sem) {
 
 // insert assignment into table i.e create assignment for one lecture by teacher
 
-export async function create_Assignment( new_assignment_data , SUB_ID , SECTION_ID,reference_to_assignment){
+export async function create_Assignment(new_assignment_data, subject_alias, sec_name, reference_to_assignment) {
 
-   const [result] = await pool.query(`Insert into assignment (Assign_Id , Assign_Name ,
-       SUB_ID , SECTION_ID , Date_of_arr , Due_date , Remark,Ref_to_assignment) values (null,?,?,?,?,?,?,?);`
-      ,[ new_assignment_data.title , SUB_ID , SECTION_ID , new_assignment_data.arrival_date , new_assignment_data.due_date
-    , new_assignment_data.remarks,reference_to_assignment]);
-
-   const assign_id = result.insertId;
-   const sec = SECTION_ID;
+   const [result] = await pool.query(`Insert into assignment (SUB_ID, SECTION_ID ,Assign_Id , Assign_Name, 
+                     Date_of_arr , Due_date , Remark,Ref_to_assignment) values ((select sub_id from subject where sub_alias=?),
+                     (select section_id from section where section_name = ?),null,?,?,?,?,?);`
+      , [subject_alias,sec_name,new_assignment_data.title,new_assignment_data.arrival_date, new_assignment_data.due_date
+         ,new_assignment_data.remarks,reference_to_assignment]);
    
-   // select enr_number from student where section_id = sec;
-   const [result2] = await pool.query(` INSERT INTO SUBMITS (enr_number, Assign_Id, Ref_to_submission,
-       Date_of_submission, submit_status) SELECT enr_number, ?, NULL, NULL, NULL FROM student WHERE section_id = ?;`
-       ,[assign_id,sec]);
+   const assign_id = result.insertId;
 
-   console.log(result2);
+   const [result2] = await pool.query(` INSERT INTO SUBMITS (enr_number, Assign_Id, Ref_to_submission,
+       Date_of_submission, submit_status) SELECT enr_number, ?, NULL, NULL, NULL FROM student WHERE section_id = 
+       (select section_id from section where section_name = ?);`
+      , [assign_id, sec_name]);
+
    return result.affectedRows
 }
-
-// create_Assignment(["assignment1","2025-04-22","2025-04-28","submit this assignment asap"],"ETIC_414",116,"lin#$#^#$%@#4k");
 
 // get assignments for one lecture
 // lecture deatils = fid , sec_id , subject_id
 
-export async function get_assignments_for_lecture(section_name,subject_alias){
+export async function get_assignments_for_lecture(section_name, subject_alias) {
    const [result] = await pool.query(`select * from assignment where
       section_id = (SELECT section_id FROM section WHERE section_name = ?) AND
-       sub_id = (SELECT sub_id FROM subject WHERE sub_alias = ?);`,[section_name,subject_alias]);
+       sub_id = (SELECT sub_id FROM subject WHERE sub_alias = ?);`, [section_name, subject_alias]);
 
    // console.log(result);
    return result
@@ -295,16 +292,16 @@ export async function get_assignments_for_lecture(section_name,subject_alias){
 
 //get assignment summary for particular, selected assignmnet (by faculty)
 
-export async function get_assignments_summary(assign_id){
-   const [result] = await pool.query(`select assign_name,remark, date_of_arr, due_date, ref_to_assignment from assignment where assign_id = ?;`,[assign_id]);
+export async function get_assignments_summary(assign_id) {
+   const [result] = await pool.query(`select assign_name,remark, date_of_arr, due_date, ref_to_assignment from assignment where assign_id = ?;`, [assign_id]);
 
    //console.log(result);
    return result;
 }
 
 //get submissions summary for that particular assignment (by faculty)
-export async function get_submissions_summary(assign_id){
-   const [result] = await pool.query(`select s.enr_number, (select stu.stu_fname from student stu where stu.enr_number = s.enr_number) as student_name, s.submit_status, s.date_of_submission, s.ref_to_submission from submits s where s.assign_id = ?;`,[assign_id]);
+export async function get_submissions_summary(assign_id) {
+   const [result] = await pool.query(`select s.enr_number, (select stu.stu_fname from student stu where stu.enr_number = s.enr_number) as student_name, s.submit_status, s.date_of_submission, s.ref_to_submission from submits s where s.assign_id = ?;`, [assign_id]);
 
    //console.log(result);
    return result;
@@ -315,7 +312,7 @@ export async function get_submissions_summary(assign_id){
 
 
 // const [result] = await pool.query(
-   // `select attendance_date,status from attendance where SUB_ID='ETCS_413' AND ENR_NUMBER=35196202721;`
+// `select attendance_date,status from attendance where SUB_ID='ETCS_413' AND ENR_NUMBER=35196202721;`
 // )
 // result.forEach((row)=>{
 //    const date = new Date(row.attendance_date);

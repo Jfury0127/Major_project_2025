@@ -473,7 +473,6 @@ app.get("/t_assignment", (req, res) => {
 app.post('/getExistingAssignments', async (req, res) => {
     try {
         const exassign = await get_assignments_for_lecture(req.body.sec_name,req.body.sub_alias);
-        console.log(exassign);
         res.json(exassign);
     } catch (error) {
         console.error("Error fetching existing assign:", error);
@@ -483,24 +482,24 @@ app.post('/getExistingAssignments', async (req, res) => {
 
 // return post request from form adding new assignment 
 app.post("/t_assignment", async(req, res) => {
-    // const sec_id = req.body.sec_id;
-    const sec_id = 109; // T1
-    // const sec_id = req.body.subject_id; // T1
-    const subject_id = "CIC_305"; // operating system
+    
+    const sec_name = req.body.section_name; // T1
+    
+    const subject_alias = req.body.subject_alias; // operating system
     const reference = "Link to file saved in cloud";
     
     const new_assignment_data = req.body;
     
     try {
-        const result = await create_Assignment(new_assignment_data,subject_id,sec_id,reference);
+        const result = await create_Assignment(new_assignment_data,subject_alias,sec_name,reference);
         // alert('Attendance saved successfully!');
-        res.redirect("/t_assignment");
+       res.redirect("/t_assignment");
     } catch (error) {
-        alert('Error saving attendance: ');
+
         console.error("Error creating assignment:", error);
     }
     // res.redirect("/t_assignment")
-    res.json({ status: 'success' });
+    // res.json({ status: 'success' });
 })
 
 
@@ -508,14 +507,11 @@ app.post("/t_assignment", async(req, res) => {
 
 app.get('/t_view_assignment', async (req, res) => {
     const assignmentId = req.query.assign_id;
-    console.log("Assignment ID from URL:", assignmentId);
     try {
       const rows = await get_assignments_summary(assignmentId);
       const assignment = rows[0]; // get the first row
       const submissionsrow= await get_submissions_summary(assignmentId);
       const submissions = Array.isArray(submissionsrow) ? submissionsrow : [];
-   
-    console.log("Submissions type:", submissions);
  
     res.render('t_view_assignment.ejs', { 
     assignment: assignment,

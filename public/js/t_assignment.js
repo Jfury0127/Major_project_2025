@@ -1,3 +1,5 @@
+let selectedLecture = null;
+
 document.addEventListener("DOMContentLoaded", function () {
 
     // take stuff from ejs
@@ -6,14 +8,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const cancel_btn = document.getElementById("cancel_btn");
     const add_btn = document.getElementById("add");
+    const somediv= document.getElementById("some_div");
     
     // load existing lectures when the page is rendered initially 
-    loadExistingLectures();
+    const lecture_data = loadExistingLectures();
     
     // load the add assignment div 
     async function show_add_Assignment() {
-        exist_lec.classList.add("hidden"); // Hide main section
+
+        exist_lec.classList.add("hidden");
         add_assignment_div.classList.remove("hidden");
+    
+        somediv.innerHTML = ''; // clear previous if any
+        
+        // creating dynamic heading
+        if (selectedLecture) {
+            const heading = document.createElement('p');
+            heading.className = "text-2xl font-semibold mb-4 text-left text-[#DB2878]";
+            heading.innerHTML = `
+                <span >Section</span>: ${selectedLecture.section} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span >Subject</span>: ${selectedLecture.sub_alias}
+            `;
+
+            // Create hidden input for section name
+            const hiddenSection = document.createElement("input");
+            hiddenSection.type = "hidden";
+            hiddenSection.name = "section_name";
+            hiddenSection.value = selectedLecture.section;
+            
+            // Create hidden input for subject name
+            const hiddenSubject = document.createElement("input");
+            hiddenSubject.type = "hidden";
+            hiddenSubject.name = "subject_alias";
+            hiddenSubject.value = selectedLecture.sub_alias;
+            
+            somediv.appendChild(heading);
+            somediv.appendChild(hiddenSubject);
+            somediv.appendChild(hiddenSection);
+        } else {
+            console.warn("No lecture selected before adding assignment.");
+        }
+    
+
     }
     add_btn.addEventListener("click", show_add_Assignment);
 
@@ -40,11 +76,18 @@ async function loadExistingLectures() {
 
             // dynamically load assignments after lecture is clicked
             div.addEventListener("click", () => {
+                selectedLecture = {
+                    section: lecture.SECTION_NAME,
+                    sub_alias: lecture.SUB_ALIAS
+                };
+            
                 load_assignments(lecture.SECTION_NAME, lecture.SUB_ALIAS);
+                // return {sec_name: lecture.SECTION_NAME,sub_alias: lecture.SUB_ALIAS}
               });
 
             div.className = "w-5/12 h-44 bg-white rounded-md m-3 hover:scale-x-105 flex flex-col justify-center items-center";
-            div.style.borderColor = "#DB2878";
+            // div.style.borderColor = "#DB2878";
+            div.style.boxShadow = "0 0 8px rgb(228, 148, 184)";
 
             const text = document.createElement('p');
             text.className = "text-[black] mt-2";
@@ -52,6 +95,7 @@ async function loadExistingLectures() {
 
             div.appendChild(text);
             container.appendChild(div);
+
         });
 
     } catch (error) {

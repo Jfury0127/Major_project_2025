@@ -12,7 +12,7 @@
   <script type="text/javascript" src="/js/t_script.js" defer></script>
   <script type="text/javascript" src="/js/t_view_assignment.js" defer></script>
   <script>
-      window.submissionsData = <%= JSON.stringify(submissions || []) %>;
+    window.submissionsData = <%= JSON.stringify(submissions || []) %>;
   </script>
 
 
@@ -56,23 +56,23 @@
         <span class="material-symbols-outlined group-hover:text-[#DB2878]">person</span>
         <a class="sb-item group-hover:text-[#DB2878]">Profile</a>
       </div>
-      <div
-        class="w-full h-12 my-2 flex rounded items-center gap-3 bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
-        <div class="h-full w-2  bg-[#DB2878] "></div>
-        <span class="material-symbols-outlined text-[#DB2878]">visibility</span>
-        <a class="sb-item text-[#DB2878]">View Attendance</a>
+      <div onclick="openPage('/t_view_attendance')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2 group-hover:bg-[#DB2878] "></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">visibility</span>
+        <a class="sb-item group-hover:text-[#DB2878]">View Attendance</a>
       </div>
       <div onclick="openPage('/t_mark_attendance')"
         class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
-        <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+        <div class="h-full w-2 group-hover:bg-[#DB2878] "></div>
         <span class="material-symbols-outlined group-hover:text-[#DB2878]">check_box</span>
         <a class="sb-item group-hover:text-[#DB2878]">Mark Attendance</a>
       </div>
-      <div onclick="openPage('/t_assignment')"
-        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
-        <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
-        <span class="material-symbols-outlined group-hover:text-[#DB2878]">person</span>
-        <a class="sb-item group-hover:text-[#DB2878]">Assignments</a>
+      <div
+        class="w-full h-12 my-2 flex rounded items-center gap-3 bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2 bg-[#DB2878] "></div>
+        <span class="material-symbols-outlined text-[#DB2878]">person</span>
+        <a class="sb-item text-[#DB2878]">Assignments</a>
       </div>
       <div onclick="openPage('/t_logout')"
         class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
@@ -96,6 +96,16 @@
     <!-- Assignment Summary Section -->
     <div
       class="mt-24 w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200">
+
+      <!-- Back Button -->
+      <div class="mb-4">
+        <a href="/t_assignment"
+          class="block w-max bg-[#fce4ec] text-[#DB2878] font-medium px-5 py-2 rounded-lg shadow hover:bg-[#f8bbd0] transition duration-200">
+          Back to Assignments
+        </a>
+      </div>
+
+
       <h2 class="text-2xl font-semibold text-[#DB2878] mb-6 text-center">Assignment Summary</h2>
 
       <div class="flex flex-row flex-wrap justify-between items-start gap-6 text-gray-800">
@@ -108,6 +118,8 @@
             <%= assignment.remark %>
           </p>
           <p><span class="font-semibold">Attachment:</span>
+
+
             <a href="#" class="text-blue-600 underline">Download Question</a>
           </p>
         </div>
@@ -121,9 +133,9 @@
             <%= new Date(assignment.due_date).toLocaleDateString('en-CA') %>
           </p>
           <p><span id="assignment-submitted" class="font-semibold">Submitted:</span>
-            <%= (submissions || []).filter(s => s.submit_status === 1).length %> / <%= (submissions || []).length %>
+            <%= (submissions || []).filter(s=> s.submit_status === 1).length %> / <%= (submissions || []).length %>
           </p>
-          
+
         </div>
       </div>
     </div>
@@ -133,10 +145,10 @@
     <!-- Student submission Table -->
     <div class="w-11/12 mx-auto mt-12">
       <h2 class="text-xl font-semibold text-[#DB2878] mb-4">Student submissions</h2>
-    
+
       <div class="overflow-x-auto">
-    
-        
+
+
         <div class="max-h-[400px] overflow-y-auto border border-gray-300 rounded-md">
           <table class="w-full md:text-sm text-xs border-collapse">
             <thead class="sticky top-0 bg-[#DB2878]/30 z-10">
@@ -148,21 +160,27 @@
                 <th class="px-4 py-2 border border-gray-300">Status</th>
               </tr>
             </thead>
-    
+
             <tbody>
-              <% submissions.forEach((submission) => { %>
+              <% submissions.forEach((submission)=> { %>
                 <tr>
-                  <td class="px-4 py-2 text-center border border-gray-300"><%= submission.enr_number %></td>
-                  <td class="px-4 py-2 text-center border border-gray-300"><%= submission.student_name %></td>
                   <td class="px-4 py-2 text-center border border-gray-300">
-                    <%= submission.date_of_submission ? new Date(submission.date_of_submission).toLocaleDateString('en-CA') : '-' %>
-                  </td>                  
+                    <%= submission.enr_number %>
+                  </td>
                   <td class="px-4 py-2 text-center border border-gray-300">
-                    <% if (submission.submit_status === 1) { %>
-                      <a href="<%= submission.ref_to_submission %>" class="text-blue-600 underline" target="_blank">Download</a>
-                    <% } else { %>
-                      <span class="text-gray-400 italic">Not Submitted</span>
-                    <% } %>
+                    <%= submission.student_name %>
+                  </td>
+                  <td class="px-4 py-2 text-center border border-gray-300">
+                    <%= submission.date_of_submission ? new
+                      Date(submission.date_of_submission).toLocaleDateString('en-CA') : '-' %>
+                  </td>
+                  <td class="px-4 py-2 text-center border border-gray-300">
+                    <% if (submission.submit_status===1) { %>
+                      <a href="<%= submission.ref_to_submission %>" class="text-blue-600 underline"
+                        target="_blank">Download</a>
+                      <% } else { %>
+                        <span class="text-gray-400 italic">Not Submitted</span>
+                        <% } %>
                   </td>
                   <td class="px-4 py-2 text-center border border-gray-300 font-medium 
                     <% if (submission.submit_status === 1 && new Date(submission.date_of_submission) <= new Date(assignment.due_date)) { %>
@@ -172,22 +190,23 @@
                     <% } else { %>
                       text-red-600
                     <% } %>">
-                    <% if (submission.submit_status === 1 && new Date(submission.date_of_submission) <= new Date(assignment.due_date)) { %>
+                    <% if (submission.submit_status===1 && new Date(submission.date_of_submission) <=new
+                      Date(assignment.due_date)) { %>
                       Submitted on time
-                    <% } else if (submission.submit_status === 1) { %>
-                      Late submission
-                    <% } else { %>
-                      Not submitted
-                    <% } %>
+                      <% } else if (submission.submit_status===1) { %>
+                        Late submission
+                        <% } else { %>
+                          Not submitted
+                          <% } %>
                   </td>
                 </tr>
-              <% }) %>
+                <% }) %>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-    
+
 
   </div>
 

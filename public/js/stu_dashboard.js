@@ -4,6 +4,7 @@ const section = document.getElementById('section');
 const year = document.getElementById('year');
 const welcomename = document.getElementById('welc-name');
 
+let section_name = '';
 async function getInfo(){
     const res = await fetch('/api/studentInfo',
         {method : 'GET', 
@@ -25,6 +26,8 @@ async function getInfo(){
     enr.textContent = `${studentInfo.ENR_NUMBER}`
 
     section.textContent = `${studentInfo.SECTION_NAME}`;
+    section_name = studentInfo.SECTION_NAME;
+    console.log(section_name);
     year.textContent = `Semester : ${studentInfo.STU_SEM}`;
 
     studentSubArray.forEach((sub,i) => {
@@ -38,7 +41,9 @@ async function getInfo(){
                 <td class="px-4 py-2 border border-gray-400"> ${getRemark(percentage)}
                 </td>
                 <td class="px-4 py-2 border border-gray-400">
-                    <div onclick="openPage('${sub.SUB_ID}')" class="h-8 w-24 self-center bg-[#5254dd] hover:bg-[#5254dd]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center text-center m-auto">More Info</div>
+                    <div onclick="openPage('${sub.SUB_ID}')" class="h-8 w-24 self-center 
+                    bg-[#5254dd] hover:bg-[#5254dd]/90 rounded-lg cursor-pointer text-white 
+                    font-medium flex justify-center items-center text-center m-auto">View</div>
                 </td>
             </tr>`
             tablebody.insertAdjacentHTML("beforeend",row);
@@ -59,9 +64,20 @@ function getRemark(num){
         return `<div class="present h-6 w-20 m-auto bg-green-200 border-2 border-green-400 rounded-md text-center text-green-500">Excellent</div>`;
     }
 }
-function openPage(subId) {
-    // Redirect to a new page with query parameters
-    window.location.href = `/stu_more_info?subId=${subId}`;
-}
+
+// open the calender page
+// function openPage(subId) {
+//     // Redirect to a new page with query parameters
+//     window.location.href = `/stu_more_info?subId=${subId}`;
+// }
 getInfo();
+
+function openPage(subId) {
+
+    const mysubjectId = subId;
+    const mysectionname = section_name;
+    console.log(subId);
+    console.log(section_name);
+
+}
 
