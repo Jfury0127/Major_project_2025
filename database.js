@@ -265,9 +265,9 @@ export async function create_Assignment(new_assignment_data, subject_alias, sec_
    const [result] = await pool.query(`Insert into assignment (SUB_ID, SECTION_ID ,Assign_Id , Assign_Name, 
                      Date_of_arr , Due_date , Remark,Ref_to_assignment) values ((select sub_id from subject where sub_alias=?),
                      (select section_id from section where section_name = ?),null,?,?,?,?,?);`
-      , [subject_alias,sec_name,new_assignment_data.title,new_assignment_data.arrival_date, new_assignment_data.due_date
-         ,new_assignment_data.remarks,reference_to_assignment]);
-   
+      , [subject_alias, sec_name, new_assignment_data.title, new_assignment_data.arrival_date, new_assignment_data.due_date
+         , new_assignment_data.remarks, reference_to_assignment]);
+
    const assign_id = result.insertId;
 
    const [result2] = await pool.query(` INSERT INTO SUBMITS (enr_number, Assign_Id, Ref_to_submission,
@@ -293,7 +293,8 @@ export async function get_assignments_for_lecture(section_name, subject_alias) {
 //get assignment summary for particular, selected assignmnet (by faculty)
 
 export async function get_assignments_summary(assign_id) {
-   const [result] = await pool.query(`select assign_name,remark, date_of_arr, due_date, ref_to_assignment from assignment where assign_id = ?;`, [assign_id]);
+   const [result] = await pool.query(`select assign_name,remark, date_of_arr, 
+      due_date, ref_to_assignment from assignment where assign_id = ?;`, [assign_id]);
 
    //console.log(result);
    return result;
@@ -307,8 +308,20 @@ export async function get_submissions_summary(assign_id) {
    return result;
 }
 
+//student side assignment
 
 
+export async function get_assignments_for_student(enr_number, sub_id,section_name) {
+   const [result] = await pool.query(`
+         SELECT A.Assign_Name,A.Remark,A.Date_of_arr,A.Due_date,A.Ref_to_assignment,S.Date_of_submission,
+         S.Ref_to_submission FROM ASSIGNMENT A JOIN SUBMITS S ON A.Assign_Id = S.Assign_Id
+         WHERE S.Enr_Number = ? AND A.Sub_Id = ? AND A.Section_Id = (select section_id from section where section_name = ?);`, [enr_number, sub_id,section_name]);
+
+   console.log(result);
+
+   // return result;
+}
+get_assignments_for_student(137202722,"CIC_305","T1");
 
 
 // const [result] = await pool.query(
