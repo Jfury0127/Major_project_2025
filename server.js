@@ -17,7 +17,7 @@ import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_n
        addLecture, remove_lecture, getExistingLectures, check_att_array_existance, insertattendanceEntry,
         updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance
         ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary,
-        get_assignments_for_lecture} from './database.js';
+        get_assignments_for_lecture,get_assignments_for_student} from './database.js';
 
 // ==================================================================================
 
@@ -560,6 +560,18 @@ app.get("/stu_dashboard", (req, res) => {
 app.get('/stu_more_info', async (req, res) => {
     res.render('stu_more_info');
 });
+
+//assignment for students
+app.post('/api/stuAssignments',async (req, res) => {
+    const subId = req.body.subId;
+    const secName = req.body.secName;
+    const enr_number = req.body.enr_number;
+    const getassign = await get_assignments_for_student(enr_number,subId,secName);
+    // console.log(getassign);
+    res.json({assignmentdata:getassign});
+
+});
+
 
 app.get('/api/detailedStuAttendance',async (req, res) => {
     const {subId} = req.query;

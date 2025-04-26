@@ -317,11 +317,11 @@ export async function get_assignments_for_student(enr_number, sub_id,section_nam
          S.Ref_to_submission FROM ASSIGNMENT A JOIN SUBMITS S ON A.Assign_Id = S.Assign_Id
          WHERE S.Enr_Number = ? AND A.Sub_Id = ? AND A.Section_Id = (select section_id from section where section_name = ?);`, [enr_number, sub_id,section_name]);
 
-   console.log(result);
+   // console.log(result);
 
-   // return result;
+   return result;
 }
-get_assignments_for_student(137202722,"CIC_305","T1");
+// get_assignments_for_student(137202722,"CIC_305","T1");
 
 
 // const [result] = await pool.query(
