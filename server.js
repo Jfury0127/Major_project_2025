@@ -6,6 +6,8 @@ import ejsmate from "ejs-mate"
 import path from 'node:path'
 import { fileURLToPath } from 'url'
 import session from 'express-session';
+// to load pdfs and save in cloudinary
+import multer from 'multer';
 const router = express.Router();
 
 // ===================================================================================
@@ -19,8 +21,11 @@ import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_n
         ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary,
         get_assignments_for_lecture,get_assignments_for_student} from './database.js';
 
-// ==================================================================================
+// importing cloud container created in cloudinary        
+import {storage} from './cloud.js';
+const upload = multer({ storage })
 
+// ==================================================================================
 app.set("view engine", "ejs");
 app.engine("ejs", ejsmate);
 
@@ -481,18 +486,20 @@ app.post('/getExistingAssignments', async (req, res) => {
 });
 
 // return post request from form adding new assignment 
-app.post("/t_assignment", async(req, res) => {
+app.post("/t_assignment", upload.single('attachment') ,async(req, res) => {
     
     const sec_name = req.body.section_name; // T1
     
     const subject_alias = req.body.subject_alias; // operating system
-    const reference = "Link to file saved in cloud";
+    
+    // req.file comes from the middle upload that sends the attachment to the cloud 
+    // and return a array having path of assignment stored in cloud
+    const reference = req.file.path;
     
     const new_assignment_data = req.body;
     
     try {
         const result = await create_Assignment(new_assignment_data,subject_alias,sec_name,reference);
-        // alert('Attendance saved successfully!');
        res.redirect("/t_assignment");
     } catch (error) {
 
@@ -567,7 +574,6 @@ app.post('/api/stuAssignments',async (req, res) => {
     const secName = req.body.secName;
     const enr_number = req.body.enr_number;
     const getassign = await get_assignments_for_student(enr_number,subId,secName);
-    // console.log(getassign);
     res.json({assignmentdata:getassign});
 
 });
@@ -575,11 +581,8 @@ app.post('/api/stuAssignments',async (req, res) => {
 
 app.get('/api/detailedStuAttendance',async (req, res) => {
     const {subId} = req.query;
-    // console.log(typeof(subId));
     const enr = req.session.student.s_enr;
-    // const enr = 196202721;
     const detailedAttendance = await fetchDetailedAttendance(enr, subId);
-    // console.log(detailedAttendance);
     res.json(detailedAttendance);
 })
 

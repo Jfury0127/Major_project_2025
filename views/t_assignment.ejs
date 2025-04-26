@@ -124,7 +124,8 @@
     <div class="add_assignm_class ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151] hidden"
         id="add_assignm_class">
 
-        <form id = "form_add_Assignment" class="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto space-y-4" method="POST">
+        <!-- // enctype sends req.file with req.body to send images and pdf -->
+        <form id = "form_add_Assignment" class="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto space-y-4" method="POST" enctype="multipart/form-data">
             <h2 class="text-2xl font-semibold mb-4 text-center">Add Assignment</h2>
             <div id = "some_div" class="mx-auto mt-6 bg-white text-xl font-semibold w-fit text-center" style="background: rgb(253, 241, 242);">
 
@@ -174,6 +175,7 @@
 
             <label for="attachment" class="block text-xl text-gray-600 font-medium mb-1">Upload Assignment File
                 (PDF/Image)</label>
+
             <input type="file" id="attachment" name="attachment" accept=".pdf,image/*" required
                 class="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200" />
 
