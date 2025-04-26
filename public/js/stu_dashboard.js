@@ -119,10 +119,10 @@ async function load_assign(subId) {
                     <td class="px-4 py-2 border border-gray-400 ">${assignments.Remark}</td>
                     <td class="px-4 py-2 border border-gray-400">${new Date(assignments.Date_of_arr).toLocaleDateString('en-CA')}</td>
                     <td class="px-4 py-2 border border-gray-400">${new Date(assignments.Due_date).toLocaleDateString('en-CA')}</td>
-                    <td class="px-4 py-2 border border-gray-400">${assignments.Ref_to_assignment}</td>
+                    <td class="px-4 py-2 border border-gray-400"> <a href="${assignments.Ref_to_assignment}" target="_blank" 
+                    class="text-blue-600 hover:underline">View</a></td>
+                    <td class="px-4 py-2 border border-gray-400">${assignments.Ref_to_submission}</td>
                     <td class="px-4 py-2 border border-gray-400"> ${assignments.Date_of_submission ? new Date(assignments.Date_of_submission).toLocaleDateString('en-CA') : '-'}</td>
-                    <td class="px-4 py-2 border border-gray-400"> ${assignments.Ref_to_submission}
-                    </td>
                 </tr>`
                 assign_table.insertAdjacentHTML("beforeend", row);
         });
