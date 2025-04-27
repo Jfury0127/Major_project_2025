@@ -490,6 +490,7 @@ app.post('/api/deleteAssignments', async (req, res) => {
     try {
         const result = await remove_Assignment(req.body.assign_Id);
         res.json(result);
+       // console.log(result);
     } catch (error) {
         console.error("Error deleting asignmetn", error);
         res.status(500).json({ error: "Failed to delete assignment" });

@@ -337,7 +337,7 @@ export async function remove_Assignment(Assign_Id) {
          `,
           [Assign_Id]);
 
-   return result2;
+   return result2.affectedRows;
 }
 
 // remove_Assignment(3);

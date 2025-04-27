@@ -166,7 +166,7 @@ async function load_assignments(sec_name,sub_alias) {
                 const buttonContainer = document.createElement('div');
                 buttonContainer.className = "flex space-x-4 mt-4"; // Add spacing between buttons
                 
-                // View Button
+                // View assignment Button
                 const view_button = document.createElement('button');
                 view_button.className = "ml-auto px-4 py-2 bg-pink-100 text-[#DB2878] rounded-md font-medium shadow-sm hover:bg-pink-200 transition";
                 view_button.innerText = "View Assignment";
@@ -177,7 +177,7 @@ async function load_assignments(sec_name,sub_alias) {
                     window.location.href = `/t_view_assignment?assign_id=${assignId}`;
                 };
                 
-                // Delete Button
+                // Delete assign Button
                 const delete_button = document.createElement('button');
                 delete_button.className = "ml-2 px-4 py-2 bg-pink-100 text-[#DB2878] rounded-md font-medium shadow-sm hover:bg-pink-200 transition";
                 delete_button.innerText = "Delete Assignment";
@@ -185,7 +185,14 @@ async function load_assignments(sec_name,sub_alias) {
                 
                 delete_button.addEventListener("click", () => {
                     const assign__Id = i.Assign_Id;
-                    delete_assignments(assign__Id);
+                   delete_assignments(assign__Id);
+
+                   // const result = response.json();
+                    //console.log("from here js",result);
+                    //if(result )
+                    
+                   
+                    //alert(result.message || "Lecture added successfully");
                   });
 
                 // Append buttons to container
@@ -219,7 +226,15 @@ async function delete_assignments(assignId){
 
     const result_of_deletion = await response.json();
     console.log("in js : ",result_of_deletion);
-    console.log("in js 1: ",result_of_deletion[0].affectedRows);
-    console.log("in js 2: ",result_of_deletion.affectedRows);
+    // Check if deletion was successful
+    if (result_of_deletion === 1) {
+        alert("Assignment deleted successfully!");
+        window.location.reload(); // Reload the page
+    } else {
+        alert("Failed to delete assignment!");
+    }
+
 }
+    // console.log("in js 1: ",result_of_deletion[0].affectedRows);
+    // console.log("in js 2: ",result_of_deletion.affectedRows);
 
