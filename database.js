@@ -74,7 +74,7 @@ export async function get_teacher_profile_details_from_id(id) {
 
 export async function update_teacher_profile(data, fid) {
    const new_data = data;
-   if (new_data.fac_phone == "") new_data.fac_phone = null;
+   if (new_data.fac_phone == '' || new_data.fac_phone == ' ') new_data.fac_phone = null;
 
    const result = await pool.query(
       'UPDATE faculty SET F_FNAME = ? , F_LNAME = ?, F_PHONE_NUMBER = ? WHERE F_ID = ?', [new_data.fac_fname, new_data.fac_lname, new_data.fac_phone, fid]
@@ -349,7 +349,7 @@ export async function update_submission(ref_to_submission, submission_date, enr_
       SET Ref_to_submission = ?, Date_of_submission = ?,Submit_status = ? 
       WHERE Enr_Number = ? AND Assign_Id = ?;
    `, [ref_to_submission, submission_date,1, enr_number, assignment_id]);
-   console.log(result);
+   // console.log(result);
    return result;
 }
 
