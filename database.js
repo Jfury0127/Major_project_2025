@@ -321,7 +321,26 @@ export async function get_assignments_for_student(enr_number, sub_id,section_nam
 
    return result;
 }
+
 // get_assignments_for_student(137202722,"CIC_305","T1");
+
+
+export async function remove_Assignment(Assign_Id) {
+
+   const [result] = await pool.query(`
+         Delete from Submits where Assign_Id = ?
+         `, 
+         [Assign_Id]);
+
+   const [result2] = await pool.query(`
+         Delete from Assignment where Assign_Id = ?
+         `,
+          [Assign_Id]);
+
+   return result2;
+}
+
+// remove_Assignment(3);
 
 
 // const [result] = await pool.query(

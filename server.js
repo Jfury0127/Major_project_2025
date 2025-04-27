@@ -19,7 +19,7 @@ import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_n
        addLecture, remove_lecture, getExistingLectures, check_att_array_existance, insertattendanceEntry,
         updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance
         ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary,
-        get_assignments_for_lecture,get_assignments_for_student} from './database.js';
+        get_assignments_for_lecture,get_assignments_for_student,remove_Assignment} from './database.js';
 
 // importing cloud container created in cloudinary        
 import {storage} from './cloud.js';
@@ -482,6 +482,17 @@ app.post('/getExistingAssignments', async (req, res) => {
     } catch (error) {
         console.error("Error fetching existing assign:", error);
         res.status(500).json({ error: "Failed to fetch existing assignments" });
+    }
+});
+
+// delete assignment using assign_id
+app.post('/api/deleteAssignments', async (req, res) => {
+    try {
+        const result = await remove_Assignment(req.body.assign_Id);
+        res.json(result);
+    } catch (error) {
+        console.error("Error deleting asignmetn", error);
+        res.status(500).json({ error: "Failed to delete assignment" });
     }
 });
 

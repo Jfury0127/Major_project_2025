@@ -163,17 +163,39 @@ async function load_assignments(sec_name,sub_alias) {
                 <span class="font-semibold text-base">Remark:</span> ${i.Remark}
                 `;
                 
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = "flex space-x-4 mt-4"; // Add spacing between buttons
+                
+                // View Button
                 const view_button = document.createElement('button');
                 view_button.className = "ml-auto px-4 py-2 bg-pink-100 text-[#DB2878] rounded-md font-medium shadow-sm hover:bg-pink-200 transition";
                 view_button.innerText = "View Assignment";
-                view_button.style="background: rgb(253, 241, 242)";
-        
+                view_button.style.background = "rgb(253, 241, 242)";
+                
                 view_button.onclick = () => {
                     const assignId = i.Assign_Id;
                     window.location.href = `/t_view_assignment?assign_id=${assignId}`;
-                  };
+                };
+                
+                // Delete Button
+                const delete_button = document.createElement('button');
+                delete_button.className = "ml-2 px-4 py-2 bg-pink-100 text-[#DB2878] rounded-md font-medium shadow-sm hover:bg-pink-200 transition";
+                delete_button.innerText = "Delete Assignment";
+                delete_button.style.background = "rgb(253, 241, 242)";
+                
+                delete_button.addEventListener("click", () => {
+                    const assign__Id = i.Assign_Id;
+                    delete_assignments(assign__Id);
+                  });
+
+                // Append buttons to container
+                buttonContainer.appendChild(view_button);
+                buttonContainer.appendChild(delete_button);
+
                 topRow.appendChild(assign_div_text);
-                topRow.appendChild(view_button);
+                // topRow.appendChild(view_button);
+                // topRow.appendChild(delete_button);
+                topRow.appendChild(buttonContainer);
                 assign_div.appendChild(topRow);
                 container.appendChild(assign_div);
             });
@@ -182,5 +204,22 @@ async function load_assignments(sec_name,sub_alias) {
         console.error("Error loading existing assignments:", error);
     }
     
+}
+
+async function delete_assignments(assignId){
+
+    const data = {assign_Id : assignId}
+    const response = await fetch('/api/deleteAssignments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+    const result_of_deletion = await response.json();
+    console.log("in js : ",result_of_deletion);
+    console.log("in js 1: ",result_of_deletion[0].affectedRows);
+    console.log("in js 2: ",result_of_deletion.affectedRows);
 }
 
