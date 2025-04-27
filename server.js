@@ -19,7 +19,7 @@ import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_n
        addLecture, remove_lecture, getExistingLectures, check_att_array_existance, insertattendanceEntry,
         updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance
         ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary,
-        get_assignments_for_lecture,get_assignments_for_student,remove_Assignment} from './database.js';
+        get_assignments_for_lecture,get_assignments_for_student,remove_Assignment,update_submission} from './database.js';
 
 // importing cloud container created in cloudinary        
 import {storage} from './cloud.js';
@@ -587,6 +587,27 @@ app.post('/api/stuAssignments',async (req, res) => {
     const getassign = await get_assignments_for_student(enr_number,subId,secName);
     res.json({assignmentdata:getassign});
 
+});
+
+app.post('/api/submitAssignment', upload.single('assignment_file'), async (req, res) => {
+    try {
+        const { assignment_id, enr_number } = req.body;
+        const filee = req.file;
+        if (!filee) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+
+        const submission_date = new Date();
+        const ref_to_submission = filee.path;
+
+        // Update the submits table
+        const updatesubmission = await update_submission(ref_to_submission, submission_date, enr_number, assignment_id);
+        res.status(200).json({ message: 'Assignment submitted successfully!' });
+
+    } catch (err) {
+        console.error('Submission Error:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 
