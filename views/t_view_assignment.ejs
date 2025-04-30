@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="h-screen overflow-hidden">
+<body class="overflow-hidden">
   <!-- Navbar -->
   <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] fixed top-0 left-0 z-10 h-16">
     <nav class="navbar w-11/12 flex justify-between items-center m-auto">
@@ -91,7 +91,8 @@
 
   <!-- Main Section -->
   <!-- Main Content Area -->
-  <div class="ml-0 sm:ml-60 mt-20 px-4 h-[calc(100vh-4rem)] overflow-y-auto">
+  <div class="ml-0 sm:ml-60 mt-20 px-4 h-[calc(100vh-4rem)] overflow-y-auto"  
+  style="background-image: url('/images/light-pink4.jpg');">
 
     <!-- Assignment Summary Section -->
     <div
@@ -152,30 +153,30 @@
 
         <div class="max-h-[400px] overflow-y-auto border border-gray-300 rounded-md">
           <table class="w-full md:text-sm text-xs border-collapse">
-            <thead class="sticky top-0 bg-[#DB2878]/30 z-10">
+            <thead class="sticky top-0 bg-[#DB2878]/50 z-10">
               <tr>
-                <th class="px-4 py-2 border border-gray-300">Enrollment No.</th>
-                <th class="px-4 py-2 border border-gray-300">Student Name</th>
-                <th class="px-4 py-2 border border-gray-300">submission Date</th>
-                <th class="px-4 py-2 border border-gray-300">Attachment</th>
-                <th class="px-4 py-2 border border-gray-300">Status</th>
+                <th class="px-4 py-2 border border-gray-300 text-white">Enrollment No.</th>
+                <th class="px-4 py-2 border border-gray-300 text-white">Student Name</th>
+                <th class="px-4 py-2 border border-gray-300 text-white">Submission Date</th>
+                <th class="px-4 py-2 border border-gray-300 text-white">Attachment</th>
+                <th class="px-4 py-2 border border-gray-300 text-white">Status</th>
               </tr>
             </thead>
 
             <tbody>
               <% submissions.forEach((submission)=> { %>
                 <tr>
-                  <td class="px-4 py-2 text-center border border-gray-300">
+                  <td class="px-4 py-2 text-center border border-gray-300 bg-white">
                     <%= submission.enr_number %>
                   </td>
-                  <td class="px-4 py-2 text-center border border-gray-300">
+                  <td class="px-4 py-2 text-center border border-gray-300 bg-white">
                     <%= submission.student_name %>
                   </td>
-                  <td class="px-4 py-2 text-center border border-gray-300">
+                  <td class="px-4 py-2 text-center border border-gray-300 bg-white">
                     <%= submission.date_of_submission ? new
                       Date(submission.date_of_submission).toLocaleDateString('en-CA') : '-' %>
                   </td>
-                  <td class="px-4 py-2 text-center border border-gray-300">
+                  <td class="px-4 py-2 text-center border border-gray-300 bg-white">
                     <% if (submission.submit_status===1) { %>
                       <a href="<%= submission.ref_to_submission %>" class="text-blue-600 underline"
                         target="_blank">Download</a>
@@ -183,7 +184,7 @@
                         <span class="text-gray-400 italic">Not Submitted</span>
                         <% } %>
                   </td>
-                  <td class="px-4 py-2 text-center border border-gray-300 font-medium 
+                  <td class="px-4 py-2 text-center border border-gray-300 font-medium bg-white 
                     <% if (submission.submit_status === 1 && new Date(submission.date_of_submission) <= new Date(assignment.due_date)) { %>
                       text-green-600
                     <% } else if (submission.submit_status === 1) { %>

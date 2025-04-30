@@ -14,7 +14,7 @@ fetch('/api/teacher_lectures', {
         lectureData=data;
         // console.log(data); // Process the data received from the backend
         lectureData.forEach((lecture) => {
-            const row = `<tr class="bg-[#DB2878]/20 mt-8 border-2">
+            const row = `<tr class="bg-[#DB2878]/20 mt-8">
                         <td class="px-2">${lecture.SECTION_ID}</td>
                         <td class="px-2">${lecture.SECTION_NAME}</td>
                         <td class="px-2">${lecture.SUB_ID}</td>
