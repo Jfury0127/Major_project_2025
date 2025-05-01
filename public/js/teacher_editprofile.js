@@ -11,7 +11,7 @@ const rightmaindiv = document.getElementById("right_main_div");
 registerbtn.addEventListener("click", (event) => {
   event.preventDefault();
   container.classList.add("active");
-  rightmaindiv.style.display = 'flex';
+  rightmaindiv.style.display = 'block';
 
   function showrightdiv() {
     leftmaindiv.style.display = 'none';

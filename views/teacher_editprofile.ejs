@@ -36,84 +36,87 @@
 
     <div class="manage_lect" id="right_main_div">
 
-      <!-- left side -->
-      <div class="first_div">
+      <!-- info or label -->
+      <div class="imformation">
+        <label>Lectures Form</label>
 
-        <!-- info or label -->
-        <div class="imformation">
-          <label>Lectures Form</label>
+      </div>
+      
+      <div class="contentt">
+
+        <!-- left side -->
+        <div class="first_div">
+
+          <!-- selection of lecture -->
+          <div class="info">
+            <form class="form_lecture">
+
+              <label for="lect_year" class="label_lect_dd">Select the Year:</label>
+
+              <select name="Years" id="lect_year" class="lect_dd" required>
+                <option value=''>Select Year</option>
+                <option value="First">First</option>
+                <option value="Second">Second</option>
+                <option value="Third">Third</option>
+                <option value="Fourth">Fourth</option>
+              </select>
+
+              <label for="lect_sem" class="label_lect_dd">Select the Semester:</label>
+              <select name="Sems" id="lect_sem" class="lect_dd" required>
+
+                <option value=''>Select Semester</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+              </select>
+
+              <!-- Section Dropdown (Dynamic based on Year and Subject) -->
+              <label for="lect_sect" class="label_lect_dd">Select the Section:</label>
+              <select name="lect_sect" id="lect_sect" class="lect_dd" required>
+                <!-- Sections will populate dynamically based on selected year and subject -->
+                <option value="">Select Section</option>
+              </select>
+
+              <!-- Subject Dropdown (Dynamic based on Semester and Section) -->
+              <label for="lect_sub" class="label_lect_dd">Select the Subject:</label>
+              <select name="lect_sub" id="lect_sub" class="lect_dd" required>
+                <!-- Subjects will populate dynamically based on selected semester and section -->
+                <option value="">Select Subject</option>
+              </select>
+
+            </form>
+
+          </div>
+
+          <!-- add and remove lecture button -->
+          <div class="buttons_div">
+            <button class="add">Add Lecture</button>
+            <!-- <button class="remove">Remove Lecture</button> -->
+          </div>
+
 
         </div>
 
-        <!-- selection of lecture -->
-        <div class="info">
-          <form class="form_lecture">
+        <!-- right side -->
+        <div class="second_div">
+          <form class="form_exis_lect">
+            <label for="existing_lectures_div" class="label_exi_lec"> Existing Lectures</label>
 
-            <label for="lect_year" class="label_lect_dd">Select the Year:</label>
+            <div class="info_div2" id="existing_lectures_div">
 
-            <select name="Years" id="lect_year" class="lect_dd" required>
-              <option value=''>Select Year</option>
-              <option value="First">First</option>
-              <option value="Second">Second</option>
-              <option value="Third">Third</option>
-              <option value="Fourth">Fourth</option>
-            </select>
-
-            <label for="lect_sem" class="label_lect_dd">Select the Semester:</label>
-            <select name="Sems" id="lect_sem" class="lect_dd" required>
-
-              <option value=''>Select Semester</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-            </select>
-
-            <!-- Section Dropdown (Dynamic based on Year and Subject) -->
-            <label for="lect_sect" class="label_lect_dd">Select the Section:</label>
-            <select name="lect_sect" id="lect_sect" class="lect_dd" required>
-              <!-- Sections will populate dynamically based on selected year and subject -->
-              <option value="">Select Section</option>
-            </select>
-
-            <!-- Subject Dropdown (Dynamic based on Semester and Section) -->
-            <label for="lect_sub" class="label_lect_dd">Select the Subject:</label>
-            <select name="lect_sub" id="lect_sub" class="lect_dd" required>
-              <!-- Subjects will populate dynamically based on selected semester and section -->
-              <option value="">Select Subject</option>
-            </select>
-
+            </div>
+            <div class="save_btn">
+              <button class="btn_save_btn" name="btn_save_btn" onclick="saveLectures()">Show Lectures </button>
+            </div>
           </form>
-
         </div>
 
-        <!-- add and remove lecture button -->
-        <div class="buttons_div">
-          <button class="add">Add Lecture</button>
-          <!-- <button class="remove">Remove Lecture</button> -->
-        </div>
-
-
       </div>
-
-      <!-- right side -->
-      <div class="second_div">
-        <form class="form_exis_lect">
-          <label for="existing_lectures_div" class="label_exi_lec"> Existing Lectures</label>
-
-          <div class="info_div2" id="existing_lectures_div">
-            
-          </div>
-          <div class="save_btn">
-            <button class="btn_save_btn" name="btn_save_btn" onclick="saveLectures()">Show Lectures </button>
-          </div>
-        </form>
-      </div>
-
     </div>
 
 
@@ -154,8 +157,7 @@
           <!-- Input for Phone Number -->
           <div class="input-box">
             <span class="details" id="phone_number">Phone Number:</span>
-            <% let phone ; if(data.F_PHONE_NUMBER==null ){ phone="Enter your Phone Number"
-              } %>
+            <% let phone ; if(data.F_PHONE_NUMBER==null ){ phone="Enter your Phone Number" } %>
               <input type="text" name="fac_phone" placeholder="<%= phone %>" value="<%= data.F_PHONE_NUMBER %> ">
           </div>
           <!-- Submit button -->
@@ -212,8 +214,8 @@
   <!-- FORM VALIDATION USING JS -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>  -->
-<script>
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  <script>
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     document.addEventListener("DOMContentLoaded", () => {
       const yearSelect = document.getElementById("lect_year");
@@ -289,10 +291,10 @@
           const response = await fetch('/getExistingLectures');
           const lectures = await response.json();
           // console.log("Lectures:", lectures);
-          
+
           const existingLecturesDiv = document.getElementById('existing_lectures_div');
           existingLecturesDiv.innerHTML = '';  // Clear existing labels
-          
+
           lectures.forEach(lecture => {
             // Remove the label when the button is clicked
             const labell = document.createElement('label');
@@ -304,7 +306,7 @@
             btnn.className = 'lecture_label_button';
             btnn.textContent = `x`;
             // existingLecturesDiv.appendChild(btnn);
-            
+
             // Append the label and button to the container
             const lect_div = document.createElement('div');
             lect_div.className = 'lect_div_class';
@@ -313,7 +315,7 @@
             existingLecturesDiv.appendChild(lect_div);
 
             btnn.addEventListener('click', async (e) => {
-              e.preventDefault(); 
+              e.preventDefault();
               const string_of_lec_name = labell.textContent;
               split_array_of_lect_name = string_of_lec_name.split("-");
               remove_lect_section = split_array_of_lect_name[0];
@@ -322,11 +324,11 @@
               try {
                 // not working because of foreigh key constraint on lecture table
                 // const response = await remove_lecture(remove_lect_section,remove_lect_subject_alias);
-                
+
                 lect_div.remove();  // Remove the label from the DOM
-                  } catch (error) {
+              } catch (error) {
                 console.error("Error removing lecture from database:", error);
-                }
+              }
 
             });
           });

@@ -111,6 +111,8 @@ async function load_assignments(sec_name,sub_alias) {
       };
     try {
         const load_existing_assignment_div = document.getElementById("assignemts_div");
+        const note = document.getElementById("lecturePrompt");
+        note.classList.add("hidden");
         load_existing_assignment_div.classList.remove("hidden");
         
         // fetch aexisting assignments fro this lecture
