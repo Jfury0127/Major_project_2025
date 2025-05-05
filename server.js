@@ -19,7 +19,8 @@ import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_n
        addLecture, remove_lecture, getExistingLectures, check_att_array_existance, insertattendanceEntry,
         updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance
         ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary,
-        get_assignments_for_lecture,get_assignments_for_student,remove_Assignment,update_submission} from './database.js';
+        get_assignments_for_lecture,get_assignments_for_student,remove_Assignment,update_submission,
+        getStudentDataQuery,getStudentLecAttendance} from './database.js';
 
 // importing cloud container created in cloudinary        
 import {storage} from './cloud.js';
@@ -243,9 +244,9 @@ app.post('/hod_login', hod_func2, hod_func1);
 //API
 //TEACHER LECTURES FETCH 
 app.get('/api/teacher_lectures', async (req, res) => {
-
-    const f_id = req.session.user.id;
-    // const f_id = req.session.user ? req.session.user.id : 10002; //for testing
+    
+    const f_id = req.session.user ? req.session.user.id : 10006; //for testing
+    // const f_id = req.session.user.id;
     const teacherData = await getLecture(f_id); // Fetch TEACHER LECTURES based on teacher ID
     res.json(teacherData); // Send data as JSON to the frsontend
 
@@ -253,7 +254,8 @@ app.get('/api/teacher_lectures', async (req, res) => {
 
 app.get('/api/teacher_details', async (req, res) => {
 
-    const f_id = req.session.user.id; //for testing
+    const f_id = req.session.user ? req.session.user.id : 10006; //for testing
+    // const f_id = req.session.user.id;
     const teacherData = await get_teacher_profile_details_from_id(f_id); // Fetch teacher detail based on teacher ID
     teacherData.F_ID = f_id;
     res.json(teacherData); // Send data as JSON to the frontend
@@ -307,6 +309,33 @@ app.get('/api/get_students_by_section', async (req, res) => {
     } catch (error) {
         console.error('Error fetching student data:', error);
         res.status(500).json({ error: 'Failed to fetch student data' });
+    }
+});
+
+// search student in view attendance api
+
+app.get('/api/searchStuByTeacher',async(req,res) => {
+    const enr_num = req.query.enr_num;
+    try{
+        const studata = await getStudentDataQuery(enr_num);
+        res.json(studata);
+    }
+    catch(e){
+        res.status(500).json({code:"error",errorMessage:e});
+    }
+});
+
+// get attendance of the searched student
+
+app.get('/api/searchStuAttendance',async(req,res) => {
+    const enr_num = req.query.enr_num;
+    const sub = req.query.sub;
+    try{
+        const studata = await getStudentLecAttendance(enr_num,sub);
+        res.json(studata);
+    }
+    catch(e){
+        res.status(500).json({code:"error",errorMessage:e});
     }
 });
 
@@ -371,7 +400,9 @@ app.post('/api/get_total_lectures', async (req, res) => {
 });
 
 app.get("/teacher_edit", async (req, res) => {
-    const f_id = req.session.user.id;
+    
+    const f_id = req.session.user ? req.session.user.id : 10006; //for testing
+    // const f_id = req.session.user.id;
     const r = await get_teacher_profile_details_from_id(f_id);
 
     let data = r;
@@ -380,7 +411,9 @@ app.get("/teacher_edit", async (req, res) => {
 })
 
 app.post("/teacher_edit", (req, res) => {
-    const f_id = req.session.user.id;
+    
+    const f_id = req.session.user ? req.session.user.id : 10006; //for testing
+    // const f_id = req.session.user.id;
     const t_profile_data = req.body;
     const result = update_teacher_profile(t_profile_data, f_id);
     res.redirect("/teacher_edit");
@@ -429,7 +462,9 @@ app.get("/get-subjects", async (req, res) => {
 });
 
 app.get('/getExistingLectures', async (req, res) => {
-    const facultyId = req.session.user.id;; // session ID for logged-in faculty
+    
+    const facultyId = req.session.user ? req.session.user.id : 10006; //for testing
+    // const facultyId = req.session.user.id;
     try {
         const lectures = await getExistingLectures(facultyId);
         res.json(lectures);

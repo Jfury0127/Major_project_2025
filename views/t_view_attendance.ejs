@@ -98,19 +98,20 @@
         <div class="flex items-center gap-4">
           <input type="text" id="enr-search" placeholder="Search student"
             class="flex-1 h-8 px-3 border border-gray-200 rounded-sm bg-white w-full" />
-          <button class="h-8 px-4 bg-[#DB2878] hover:bg-[#DB2878]/90 text-white font-medium rounded-lg">
+          <button id="search_button"
+            class="h-8 px-4 bg-[#DB2878] hover:bg-[#DB2878]/90 text-white font-medium rounded-lg">
             Search
           </button>
         </div>
-        <div class="text-red-500 text-sm mt-2">
+        <div id="error_msg2" class="text-red-500 text-sm mt-2 hidden">
           Invalid Student Enrollment Number!
         </div>
       </div>
 
       <!-- Right Column -->
       <div class="w-[48%]" style="margin-right: 140px;">
-        <label for="enr-search" class="mb-1 block">View Attendance for Sections:</label>
-        
+        <label for="select-lect" class="mb-1 block">View Attendance for Sections:</label>
+
         <!-- Flex row containing the select and button -->
         <div class="flex gap-4">
           <select name="lecture" id="select-lect" class="bg-white border-1 rounded-sm border-gray-200 mt-1 h-8 w-full">
@@ -118,14 +119,14 @@
           </select>
           <div
             class="view-att-btn h-8 w-44 bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
-            View 
+            View
           </div>
         </div>
-      
+
         <div class="error-msg text-red-500 text-sm hidden mt-2">
           Please select a lecture first!
         </div>
-      </div>      
+      </div>
 
     </div>
 
@@ -149,26 +150,158 @@
           </tbody>
         </table>
       </div>
-      <!-- Rows per page -->
-      <!-- <div
-              class="w-11/12 bg-white flex justify-end items-center m-auto my-4 gap-4 border-2 border-gray-200 rounded-lg"
-            >
-              <label for="rows-per-page" class="mr-2">Rows per page:</label>
-              <select id="rows-per-page" class="border rounded p-1">
-                <option value="all">All</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-              </select>
-              <div class="page-msg">
-                Page 1 of 10
+    </div>
+
+
+    <div id="search_stu_div" class="hidden" style="width: 90%; ; padding: 16px; margin-top: 32px;">
+
+      <!-- Info Headings Row -->
+      <div id="firstdiv" class="w-11/12 m-auto"
+        style="display: flex; justify-content: center; gap: 10%; padding: 2px; background: linear-gradient(to right, black, #DB2878); border-radius: 4px;">
+
+        <h4 id="studentNameLabel"
+          style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.2);">
+          FirstName LastName </h4>
+        <h4 id="sectionLabel"
+          style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2);">
+          Section: Third Year T1 </h4>
+        <h4 id="subjectLabel"
+          style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);">
+          Subject: Operating Systems </h4>
+
+      </div>
+
+      <!-- main stuff dynamically loaded -->
+
+      <div id="second_div" class="mt-4 w-11/12 bg-white m-auto rounded shadow">
+
+        <!-- Choice Div -->
+        <div id="choice" class="bg-[#DB2878]/50 text-white text-sm font-semibold flex">
+
+          <!-- Monthly Option -->
+          <div id="Monthly"
+            style="display: flex; align-items: center; justify-content: center; font-size: 1rem; height: 30px; width: 50%;">
+            Monthly
+          </div>
+
+          <!-- Weekly Option -->
+          <div id="Weekly"
+            style=" display: flex; align-items: center; justify-content: center; font-size: 1rem; height: 30px; width: 50%;">
+            Weekly
+          </div>
+
+        </div>
+
+        <!-- Data Div -->
+        <div id="data" class="" style="display: flex; align-items: center; justify-content: center;">
+          <div id="monthlydata" class="hidden"
+            style="width: 50%; margin-top: 1rem; padding-left: 1rem; padding-right: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; font-size: 0.7rem; color: #1f2937;">
+            <div id="calendar-controls" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <button id="prevMonth"
+                style="width: 15%;background-color: #DB2878;color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">
+                Prev</button>
+              <h2 id="monthLabel" style="font-weight: 700; font-size: 1rem;">Month Year</h2>
+              <button id="nextMonth"
+                style="width: 15%;background-color: #DB2878;color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Next</button>
+            </div>
+            <div id="calendar-grid"
+              style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.25rem;"></div>
+
+            <div>
+              <!-- Legend Div -->
+              <div style="display: flex; gap: 1rem; margin-top: 1rem; font-size: 0.875rem;">
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  <div style="width: 1rem; height: 1rem; background-color: #c0ffe8; border-radius: 0.25rem;"></div>
+                  <span style="color: #065f46;">Student Present</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  <div style="width: 1rem; height: 1rem; background-color: #ffc9c9; border-radius: 0.25rem;"></div>
+                  <span style="color: #7f1d1d;">Student Absent</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  <div style="width: 1rem; height: 1rem; background-color: #f3f4f6; border-radius: 0.25rem;"></div>
+                  <span style="color: #4b5563;">No Lecture Taken</span>
+                </div>
               </div>
-              <span class="material-symbols-outlined cursor-pointer" id="prev-page">chevron_left</span>
-              <span class="material-symbols-outlined cursor-pointer" id="next-page">chevron_right</span>
-            </div> -->
+
+            </div>
+
+          </div>
+
+
+
+          <!-- Data Div -->
+          <div id="weeklydata" class="hidden"
+            style="width: 50%; margin-top: 1rem; padding-left: 1rem; padding-right: 1rem; padding-top: 0.5rem; padding-bottom: 0.5rem; font-size: 0.7rem; color: #1f2937;">
+
+            <!-- Weekly Controls -->
+            <div id="calendar-controls2" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <button id="prevWeek"
+                style="width: 15%; background-color: #DB2878; color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">
+                Prev</button>
+              <h2 id="weekLabel" style="font-weight: 700; font-size: 1rem;">Week Label</h2>
+              <button id="nextWeek"
+                style="width: 15%; background-color: #DB2878; color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Next</button>
+            </div>
+
+            <!-- Weekly Calendar Grid -->
+            <div id="calendar-grid2"
+              style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.25rem;">
+              <!-- Days of the week will be dynamically added here -->
+            </div>
+            <div>
+              <!-- Legend Div -->
+              <div style="display: flex; gap: 1rem; margin-top: 1rem; font-size: 0.875rem;">
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  <div style="width: 1rem; height: 1rem; background-color: #c0ffe8; border-radius: 0.25rem;"></div>
+                  <span style="color: #065f46;">Student Present</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  <div style="width: 1rem; height: 1rem; background-color: #f3f4f6; border-radius: 0.25rem;"></div>
+                  <span style="color: #4b5563;">No Lecture Taken</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  <div style="width: 1rem; height: 1rem; background-color: #ffc9c9; border-radius: 0.25rem;"></div>
+                  <span style="color: #7f1d1d;">Student Absent</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
 
 
 
 </body>
+
+<style>
+  #Monthly:hover {
+    background-color: #DB2878;
+    color: white;
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
+  }
+
+  #Weekly:hover {
+    background-color: #DB2878;
+    color: white;
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .active {
+    background-color: #DB2878;
+    color: white;
+  }
+</style>
 
 </html>

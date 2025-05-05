@@ -310,20 +310,14 @@ export async function get_submissions_summary(assign_id) {
 
 //student side assignment
 
-
 export async function get_assignments_for_student(enr_number, sub_id,section_name) {
    const [result] = await pool.query(`
          SELECT A.Assign_Id,A.Assign_Name,A.Remark,A.Date_of_arr,A.Due_date,A.Ref_to_assignment,S.Date_of_submission,
          S.Ref_to_submission FROM ASSIGNMENT A JOIN SUBMITS S ON A.Assign_Id = S.Assign_Id
          WHERE S.Enr_Number = ? AND A.Sub_Id = ? AND A.Section_Id = (select section_id from section where section_name = ?);`, [enr_number, sub_id,section_name]);
 
-   // console.log(result);
-
    return result;
 }
-
-// get_assignments_for_student(137202722,"CIC_305","T1");
-
 
 export async function remove_Assignment(Assign_Id) {
 
@@ -340,8 +334,6 @@ export async function remove_Assignment(Assign_Id) {
    return result2.affectedRows;
 }
 
-// remove_Assignment(3);
-
 export async function update_submission(ref_to_submission, submission_date, enr_number, assignment_id) {
 
    const [result] = await pool.query(`
@@ -353,21 +345,23 @@ export async function update_submission(ref_to_submission, submission_date, enr_
    return result;
 }
 
+// get student data for view attendance search button
+export async function getStudentDataQuery(enr_num) {
+   const [result] = await pool.query(
+      `SELECT * FROM student WHERE enr_number = ?`,
+      [enr_num]
+   );
+   return result;
+}
 
-// const [result] = await pool.query(
-// `select attendance_date,status from attendance where SUB_ID='ETCS_413' AND ENR_NUMBER=35196202721;`
-// )
-// result.forEach((row)=>{
-//    const date = new Date(row.attendance_date);
-//    const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-//    row.attendance_date=formattedDate;
-// })
-// console.log(result);
-// console.log(result[0].attendance_date);
-// console.log(typeof(result[0].attendance_date));
-
+// get student data for view attendance search button
+export async function getStudentLecAttendance(enr_num,sub) {
+   const [result] = await pool.query(
+      `SELECT attendance_date as Date,status FROM ATTENDANCE WHERE enr_number = ? and SUB_ID = ?`,
+      [enr_num,sub]
+   );
+   return result;
+}
 
 // pool.end();
 ////////////////////////////////////////
-// SELECT COUNT(attendance_ID) FROM attendance WHERE ENR_NUMBER = 141202722 AND SECTION_ID = (SELECT SECTION_ID FROM SECTION WHERE SECTION_NAME = "T1") AND SUB_ID = (SELECT SUB_ID FROM SUBJECT WHERE SUB_NAME = "OPERATING SYSTEM") AND STATUS = 1;
-// SELECT COUNT(attendance_ID) FROM attendance WHERE SECTION_ID = (SELECT SECTION_ID FROM SECTION WHERE SECTION_NAME = "T1") AND SUB_ID = (SELECT SUB_ID FROM SUBJECT WHERE SUB_NAME = "OPERATING SYSTEM");
