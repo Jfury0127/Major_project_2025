@@ -309,7 +309,8 @@ async function loadstudentdata(enr) {
             }
         })
 
-        if (flag) {loadStuAttendanceForLecture(stu_data[0], mylec);
+        if (flag) {
+            loadStuAttendanceForLecture(stu_data[0], mylec);
         }
         else {
             errorMessage2.textContent = "Student not in Any Lectures!"
@@ -338,83 +339,98 @@ async function loadStuAttendanceForLecture(stu_data, lec) {
     studentNameLabel.textContent = "Name:     " + stuname;
     sectionLabel.textContent = "Section:    " + secname;
     subjectLabel.textContent = "Subject:   " + subname;
-    
+
     let attendanceData = {};
     let currentDate = new Date();
 
     const params = new URLSearchParams();
     params.append("enr_num", search_enr_num);
     params.append("sub", subid);
-    
+
     try {
         // fetch attendance data for student
         const response = await fetch(`/api/searchStuAttendance?${params}`);
         attendanceData = await response.json();
-        
+
         // create a map of the attendance data for better readability
         const attendanceMap = {};
         attendanceData.forEach(entry => {
-        const dateObj = new Date(entry.Date);
-        const key = dateObj.toISOString().split('T')[0]; // Format: YYYY-MM-DD
-        attendanceMap[key] = entry.status; // 1 = present, 0 = absent
+            const dateObj = new Date(entry.Date);
+            // const key = dateObj.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+            const key = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')}`; // Format: YYYY-MM-DD (local)
+            attendanceMap[key] = entry.status; // 1 = present, 0 = absent
         });
 
         // shift month in monthly cal
         document.getElementById('prevMonth').addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() - 1);
-            render_month_cal(attendanceMap,currentDate);
+            render_month_cal(attendanceMap, currentDate);
         });
         document.getElementById('nextMonth').addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() + 1);
-            render_month_cal(attendanceMap,currentDate);
+            render_month_cal(attendanceMap, currentDate);
         });
-        
+
         // shift week in weekly cal
         document.getElementById('prevWeek').addEventListener('click', () => {
             currentDate.setDate(currentDate.getDate() - 7); // Go to previous week
             render_week_cal(attendanceMap, currentDate);
         });
-        
+
         document.getElementById('nextWeek').addEventListener('click', () => {
             currentDate.setDate(currentDate.getDate() + 7); // Go to next week
             render_week_cal(attendanceMap, currentDate);
         });
 
-        month_button.addEventListener('click',()=>{
+        month_button.addEventListener('click', () => {
             month_button.classList.add('active');
             week_button.classList.remove('active');
 
             monthly_data.classList.remove('hidden');
             weekly_data.classList.add('hidden');
-            
-            render_month_cal(attendanceMap,currentDate);
+
+            render_month_cal(attendanceMap, currentDate);
         })
-        
-        week_button.addEventListener('click',()=>{
+
+        week_button.addEventListener('click', () => {
             week_button.classList.add('active');
             month_button.classList.remove('active');
 
             monthly_data.classList.add('hidden');
             weekly_data.classList.remove('hidden');
-            
+
             render_week_cal(attendanceMap, currentDate);
-            
+
         })
 
         month_button.click();
         ctobeloaded.classList.add("hidden");
-        search_stu_div.classList.remove("hidden");}
+        search_stu_div.classList.remove("hidden");
+    }
 
-    catch(e){
+    catch (e) {
         console.log("this error occured in fetching search stu attendance.");
-        console.log("error: " , e);
+        console.log("error: ", e);
     }
     return;
 }
 
+function render_day_labels(container) {
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    container.innerHTML = ''; // clear existing content
+    daysOfWeek.forEach(day => {
+        container.innerHTML += `
+          <div style="font-weight: bold; text-align: center; padding: 0.25rem;">
+            ${day}
+          </div>`;
+    });
+}
+
+
 // display monthly calender 
-function render_month_cal(attendanceMap,currentDate) {
-    calendarGrid.innerHTML = '';
+function render_month_cal(attendanceMap, currentDate) {
+    //calendarGrid.innerHTML = '';
+    render_day_labels(calendarGrid);
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     const firstDay = new Date(year, month, 1);
@@ -431,11 +447,11 @@ function render_month_cal(attendanceMap,currentDate) {
     // Fill in actual days
     for (let day = 1; day <= lastDay.getDate(); day++) {
         const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        
+
         let backgroundColor = '#f3f4f6';
-        if (attendanceMap[dateKey] === 1) backgroundColor = '#c0ffe8'; 
+        if (attendanceMap[dateKey] === 1) backgroundColor = '#c0ffe8';
         else if (attendanceMap[dateKey] === 0) backgroundColor = '#ffc9c9';
-      
+
         calendarGrid.innerHTML += `
           <div style="background-color: ${backgroundColor}; padding: 0.5rem; text-align: center; border-radius: 0.25rem;">
             ${day}
@@ -446,32 +462,53 @@ function render_month_cal(attendanceMap,currentDate) {
 // display weekly calendar
 function render_week_cal(attendanceMap, currentDate) {
     calendarGrid2.innerHTML = '';
-    
+    render_day_labels(calendarGrid2);
+
+
     // Get the current week range
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    
+
     // Adjust the date to the start of the current week (Sunday)
-    const startOfWeek = currentDate.getDate() - currentDate.getDay(); 
+    const startOfWeek = currentDate.getDate() - currentDate.getDay();
     const firstDayOfWeek = new Date(year, month, startOfWeek);
-    
+
     // Update the week label
-    const weekStartDate = firstDayOfWeek.toLocaleDateString();
+    // const weekStartDate = firstDayOfWeek.toLocaleDateString();
+    // const weekEndDate = new Date(firstDayOfWeek);
+    // weekEndDate.setDate(weekEndDate.getDate() + 6); 
+    // weekLabel.textContent = `Week of ${weekStartDate} - ${weekEndDate.toLocaleDateString()}`;
     const weekEndDate = new Date(firstDayOfWeek);
-    weekEndDate.setDate(weekEndDate.getDate() + 6); 
-    weekLabel.textContent = `Week of ${weekStartDate} - ${weekEndDate.toLocaleDateString()}`;
+    weekEndDate.setDate(weekEndDate.getDate() + 6);
+
+    const formatOptions = { day: 'numeric', month: 'long', year: '2-digit' };
+    // OR: use { day: 'numeric', month: 'long', year: 'numeric' } for 2025 instead of 25
+
+    // const weekStartDate = firstDayOfWeek.toLocaleDateString('en-GB', formatOptions);
+    // const formattedEndDate = weekEndDate.toLocaleDateString('en-GB', formatOptions);
+
+    const rawStart = firstDayOfWeek.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: '2-digit' });
+    const rawEnd = weekEndDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: '2-digit' });
+
+    const weekStartDate = rawStart.replace(/(\d{2})$/, "'$1");
+    const formattedEndDate = rawEnd.replace(/(\d{2})$/, "'$1");
+
+    weekLabel.textContent = `Week of ${weekStartDate} - ${formattedEndDate}`;
+
 
     // Fill in the calendar for the week (7 days)
     for (let i = 0; i < 7; i++) {
         const currentDay = new Date(firstDayOfWeek);
         currentDay.setDate(firstDayOfWeek.getDate() + i);
 
-        const dateKey = currentDay.toISOString().split('T')[0]; 
-        
-        let backgroundColor = '#f3f4f6'; 
-        if (attendanceMap[dateKey] === 1) backgroundColor = '#c0ffe8'; 
+        // const dateKey = currentDay.toISOString().split('T')[0];
+        const dateKey = `${currentDay.getFullYear()}-${String(currentDay.getMonth() + 1).padStart(2, '0')}-${String(currentDay.getDate()).padStart(2, '0')}`;
+
+
+        let backgroundColor = '#f3f4f6';
+        if (attendanceMap[dateKey] === 1) backgroundColor = '#c0ffe8';
         else if (attendanceMap[dateKey] === 0) backgroundColor = '#ffc9c9';
-        
+
         calendarGrid2.innerHTML += `
           <div style="background-color: ${backgroundColor}; padding: 0.5rem; text-align: center; border-radius: 0.25rem;">
             ${currentDay.getDate()}
