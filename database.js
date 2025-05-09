@@ -363,5 +363,48 @@ export async function getStudentLecAttendance(enr_num,sub) {
    return result;
 }
 
+// modify student att - check if lecture taken on that day - if yes - modify it
+
+export async function modifyAttendanceUsingDate(sectionId, subID, attendanceDate,enr){
+   
+   const [result] = await pool.query(
+      `SELECT * from attendance where SECTION_ID = ? and SUB_ID = ? AND ATTENDANCE_DATE = ?`,
+      [sectionId, subID, attendanceDate]
+   );
+   
+   if(typeof(result[0]) == 'undefined'){ 
+      
+      // lecture does not exist
+      return 0;
+   }else{
+      const [result2] = await pool.query(
+         `SELECT * from attendance where SECTION_ID = ? and SUB_ID = ? AND ATTENDANCE_DATE = ? AND ENR_NUMBER = ?`,
+         [sectionId, subID, attendanceDate,enr]
+      );
+      
+
+      if(typeof(result2[0]) == 'undefined'){ 
+         
+         // wrong enr number
+         return 1;
+      }else if(result2[0].STATUS == 1){
+         
+         // enr already marked present
+         return 2;
+      }
+      else {
+         const [result3] = await pool.query(
+            `UPDATE attendance SET STATUS = 1 where SECTION_ID = ? and SUB_ID = ? AND ATTENDANCE_DATE = ? and ENR_NUMBER = ?`,
+            [sectionId, subID, attendanceDate,enr]
+         );      
+         // updated succesfully
+         return 3;
+      }
+   }
+
+}
+
+// modifyAttendanceUsingDate(109,"HS_301","2025-05-09",136202722);
+
 // pool.end();
 ////////////////////////////////////////

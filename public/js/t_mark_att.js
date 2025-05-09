@@ -1,3 +1,4 @@
+
 const attendancedatediv = document.getElementById("att");
 const attendanceDate = document.querySelector("#att-date");
 const takeAttendanceBtn = document.querySelector(".take-att-btn");
@@ -13,9 +14,20 @@ const nextpage = document.querySelector("#next-page");
 const pagemsg = document.querySelector(".page-msg");
 const markallpresent = document.querySelector(".mark-all-present");
 const recordlec = document.querySelector(".record-lec");
-const recordCheckbox = document.querySelector('.recordlec-checkbox')
-const saveAtt = document.querySelector('.save-att-btn')
+const recordCheckbox = document.querySelector('.recordlec-checkbox');
+const saveAtt = document.querySelector('.save-att-btn');
 
+// ===================================================================================
+const enr_input = document.getElementById("enr_input"); 
+const enr_error = document.getElementById("enr_error");
+const date_input = document.getElementById("date_input" );
+const date_error = document.getElementById("date_error");
+const reason_input = document.getElementById("reason_input");
+const reason_error = document.getElementById("reason_error");
+const btn_modify_att = document.getElementById("btn_modify_att");
+const modify_form = document.getElementById("signup-form");
+
+// ===================================================================================
 
 function getFormattedDate(date) {
     const year = date.getFullYear();
@@ -114,7 +126,7 @@ fetch('/api/teacher_lectures', {
             option.textContent = `${item.SECTION_NAME} - ${item.SUB_NAME}`;
             lectureSelect.appendChild(option);
 
-            modifyAttendanceBtn.click(); // testing
+            // modifyAttendanceBtn.click(); // testing
         });
     })
     .catch(error => {
@@ -147,7 +159,7 @@ prevpage.addEventListener('click', () => {
 //render data rows acc to page number
 async function renderPage(page) {
     tablebody.innerHTML = "";  // Clear previous rows
-
+    console.log("here");
     let rowsperpageValue = rowsperpage.value;
     const rows = rowsperpageValue === "all" ? rowsData.length : parseInt(rowsperpageValue, 10); //no. of rows to be shown
     const startIndex = (page - 1) * rows;
@@ -229,21 +241,22 @@ function handleCheckboxClick(e) {
 }
 
 markallpresent.addEventListener('click', () => {
+    console.log(markallpresent.textContent);
     if (markallpresent.textContent == "Mark All Present") {
         // attendanceStatus = 1;
         for (let key of attendanceStatus.keys()) {
             attendanceStatus.set(key, 1);
         }
-
+        
         markallpresent.textContent = "Mark All Absent";
     }
     else if (markallpresent.textContent == "Mark All Absent") {
-        // attendanceStatus = 0;
+        
         for (let key of attendanceStatus.keys()) {
             attendanceStatus.set(key, 0);
         }
         markallpresent.textContent = "Mark All Present";
-
+        
     }
     renderPage(currentpage).then(() => setupCheckboxListeners());
 })
@@ -294,40 +307,113 @@ function saveAttendance(data) {
 
 modifyAttendanceBtn.addEventListener("click", () => {
 
-    // if (lectureSelect.value == "") {
-    //     errorMessage.classList.remove("hidden"); 
-    // } else {
+    if (lectureSelect.value == "") {
+        errorMessage.classList.remove("hidden"); 
+    } else {
         errorMessage.classList.add("hidden"); 
         
         modify_main_div.classList.remove("hidden");
         ctobeloaded.classList.add('hidden');
         attendancedatediv.classList.add('hidden');
-        modifyAttendance();
-    // }
+    }
+    return;
 });
 
+enr_input.addEventListener('focus', () => {
+    enr_error.classList.add("hidden");
+})
 
-async function modifyAttendance(){
+date_input.addEventListener('focus', () => {
+    date_error.classList.add("hidden");
+})
+
+reason_input.addEventListener('focus', () => {
+    reason_error.classList.add("hidden");
+})
+
+
+async function modifyAttendance(event){
+    event.preventDefault();
+    // document.getElementById("date_input").max = todayFormatted;
+    const data = new FormData(modify_form);
     
-    // const lectureSelected = lectureSelect.value;
-    const lectureSelected = 'T1-ECONOMICS FOR ENGINEERS';
+    const form_recieved_enr = data.get("enr_input");
+    const form_recieved_date = data.get("date_input");
+    const form_recieved_reason = data.get("reason_input");
 
+    // form validation
+
+        // 1. Basic sanitization to prevent special characters
+        const specialCharPattern = /[^a-zA-Z0-9\s\-.,']/;
+        if (specialCharPattern.test(form_recieved_enr) || 
+            specialCharPattern.test(form_recieved_date) || 
+            specialCharPattern.test(form_recieved_reason)) {
+            alert('Bad input read. Try again!');
+            return;
+        }
+
+        // 2. ENR must be numeric only
+        if ((!/^\d+$/.test(form_recieved_enr)) || (form_recieved_enr.length < 9 || form_recieved_enr.length > 11)) {
+            enr_error.textContent = `Invalid Student Enrollment Number!`;
+            enr_error.classList.remove("hidden");
+            return;
+        }
+
+        // 3. Date must be strictly less than today
+        if (form_recieved_date > todayFormatted) {
+            date_error.textContent = "Cannot modify attendance for future lectures!";
+            date_error.classList.remove("hidden");
+            return;
+        }
+
+    // modify att based on form values
+    
+    const lectureSelected = lectureSelect.value;
     sectionID = parseInt(lectureSelected.slice(0, 3));
     subID = lectureSelected.slice(4);
-
+    
     try{
-        //fetch students of that lecture
+        // using new api that sends date and enr to check lecture presence , student presence , student status and then updating attendance
 
-        const response = await fetch(`/api/get_students?section_id=${sectionID}&sub_id=${subID}&attendance_date=${todayFormatted}`);
-        const studentsoflec = await response.json();
-
-        console.log(studentsoflec);
-
+        const response = await fetch(`/api/modify_att?section_id=${sectionID}&sub_id=${subID}&attendance_date=${form_recieved_date}&form_enr=${form_recieved_enr}`);
+        const student_date_Record = await response.json();
+        
+        console.log(student_date_Record);
+        // if no lecture was taken on this day
+        if(student_date_Record == 0){ 
+            date_error.textContent = "No lecture was taken on this date!";
+            date_error.classList.remove("hidden");
+            return;
+        }
+        // wrong enr number i.e. student not in this section
+        else if(student_date_Record == 1){ 
+            enr_error.textContent = `Invalid Student Enr for this Section!`;
+            enr_error.classList.remove("hidden");
+            return;
+        }
+        // enr already present on that date
+        else if(student_date_Record == 2){ 
+            enr_error.textContent = "Student was already present in this lecture!";
+            enr_error.classList.remove("hidden");
+            return;
+        }
+        // success
+        else if(student_date_Record == 3){
+            alert('Student Attendance succesfully modified!');
+            window.location.reload();            
+        }
+        // unknow error
+        else {
+            alert('Failed. Please try again.');
+        }
+        
     }catch(e){
         console.log("eeor in modification");
         console.log("error" , e);
     }
-
+    
     console.log('over');
     return;
 }
+// // 
+btn_modify_att.addEventListener('click',modifyAttendance);

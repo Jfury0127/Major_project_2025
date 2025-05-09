@@ -20,7 +20,7 @@ import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_n
         updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance
         ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary,
         get_assignments_for_lecture,get_assignments_for_student,remove_Assignment,update_submission,
-        getStudentDataQuery,getStudentLecAttendance} from './database.js';
+        getStudentDataQuery,getStudentLecAttendance,modifyAttendanceUsingDate} from './database.js';
 
 // importing cloud container created in cloudinary        
 import {storage} from './cloud.js';
@@ -281,6 +281,24 @@ app.get('/api/get_students', async (req, res) => {
         res.status(500).json({ error: 'Failed to retrieve student data' });
     }
 });
+//==============================================================
+//STUDENT LIST FETCH
+app.get('/api/get_students', async (req, res) => {
+    const sectionId = req.query.section_id; // Get the section_id from query parameter
+    const subID = req.query.sub_id;
+    const attendanceDate = req.query.attendance_date;
+
+    try {
+        const students = await getStudentData(sectionId);
+        // res.json(students); // Send the student data as JSON
+        const attendanceStatus = await check_att_array_existance(sectionId, subID, attendanceDate);
+        res.json({ stu: students, stat: attendanceStatus });
+        
+    } catch (error) {
+        console.error("Error fetching student data:", error);
+        res.status(500).json({ error: 'Failed to retrieve student data' });
+    }
+});
 
 //================================================================
 //STUDENT DASHBOARD INFO FETCH
@@ -368,6 +386,28 @@ app.post('/markAttendance', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json({ success: false, message: 'Error saving attendance.' });
+    }
+});
+
+// mofify attendance in mark attendance 
+
+//==============================================================
+//STUDENT LIST FETCH
+app.get('/api/modify_att', async (req, res) => {
+    const sectionId = Number(req.query.section_id); // Get the section_id from query parameter
+    const subID = String(req.query.sub_id);
+    const attendanceDate = req.query.attendance_date;
+    const formatted_Date = attendanceDate.split('T')[0];
+    const enr = Number(req.query.form_enr);
+    
+    
+    try {
+        const result = await modifyAttendanceUsingDate(sectionId, subID, formatted_Date,enr);
+        res.json(result);
+        
+    } catch (error) {
+        console.error("Error fetching student data:", error);
+        res.status(500).json({ error: 'Failed to retrieve student data' });
     }
 });
 

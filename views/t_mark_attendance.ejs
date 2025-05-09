@@ -105,6 +105,7 @@
         </div>
       </div>
 
+
       <div id="buttons" class="flex gap-4">
         <div
           class="take-att-btn h-10 w-44 self-center bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
@@ -121,14 +122,13 @@
 
       <div class="w-11/12 m-auto mt-10 flex justify-end">
         <div id="att" class="w-44 flex flex-col mx-4 hidden">
-          <label for="att-date">Attendance Date:</label>
-          <div id="att-date"
-            class="h-5 bg-white text-[#515151] border-1 rounded-sm border-gray-200 flex justify-center items-center">
-          </div>
+        <label for="att-date">Attendance Date:</label>
+        <div id="att-date"
+          class="h-5 bg-white text-[#515151] border-1 rounded-sm border-gray-200 flex justify-center items-center">
         </div>
+      </div>
         <div
-          class="mt-4 mark-all-present h-8 w-36 bg-[#DB2878]/80 hover:border-2 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center">
-          Mark All Present</div>
+          class="mt-4 mark-all-present h-8 w-36 bg-[#DB2878]/80 hover:border-2 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center">Mark All Present</div>
       </div>
 
       <div id="attendance-table" class="mt-3 w-11/12 bg-white m-auto overflow-x-auto">
@@ -165,10 +165,6 @@
       </div>
       <!-- Save button -->
       <div class="w-11/12 flex flex-col gap-6 items-end m-auto">
-        <!-- <div class="record-lec h-8 w-36 bg-[#DB2878]/80 hover:border-2 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center">Record Lecture
-            <input type="checkbox" class="ml-2 recordlec-checkbox">
-          </div>
-          <div class="record-err text-red-600 text-xs hidden">First click on Record Lecture</div> -->
 
         <div
           class="save-att-btn h-10 w-28  bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg text-white font-medium flex justify-center items-center gap-1">
@@ -183,35 +179,49 @@
 
       <div id = "mydiv2" class= "flex justify-center">
       <div class="container">
-        <form id="signup-form">
+        <form id="signup-form" method="GET" enctype="multipart/form-data" >
           <div class="row">
             <h4>Enrollment Number</h4>
             <div class="input-group input-group-icon">
-              <input type="text" placeholder="Search Enr Number" />
+
+              <input id="enr_input" name ="enr_input" type="text" placeholder="Search Enr Number" required>
+              
               <div class="input-icon"><i class="fa fa-user"></i></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-half">
-              <h4> Attendance Date </h4>
-              <div class="input-group">
-                <input type="date" id="att_date" name="att_date" required>
+              <div id="enr_error" class= "hidden text-red-500 text-sm ml-2 mt-4">
+                Please select a lecture first!
               </div>
             </div>
+            
+          </div>
+          <div class="row">
+              <h4> Attendance Date </h4>
+              <div class="input-group input-group-icon">
+
+                <input type="date" id="date_input" name ="date_input" placeholder="Choose date.." required>
+                <div class="input-icon"><i class="fa fa-user"></i></div>
+                <div id = "date_error" class=" hidden text-red-500 text-sm ml-2 mt-4 flex">
+                  Please select a lecture first!
+                </div>
+              </div>
           </div>
 
           <div class="row">
             <h4>Remarks</h4>
             <div class="input-group input-group-icon">
-              <input type="text" placeholder="Remark" />
+
+              <input id="reason_input" name ="reason_input" type="text" placeholder="Student Attendance is updated because.." required>
+              
               <div class="input-icon"><i class="fa fa-user"></i></div>
+              <div id="reason_error" class=" hidden text-red-500 text-sm ml-2 mt-4">
+                Please select a lecture first!
+              </div>
             </div>
           </div>
 
           <div id="submit_btn_div" class="flex justify-center">
-        <button
+        <button id = "btn_modify_att" type="submit"
           class="h-10 w-44 self-center bg-[#DB2878]/50 hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium font-semibold justify-center items-center gap-1">
-          Submit
+          Modify
           </button>
       </div>
 
@@ -246,16 +256,16 @@
     color: #DB2878;
   }
 
-  #signup-form input,
-  #signup-form input[type="radio"]+label,
-  #signup-form input[type="checkbox"]+label:before {
-    width: 100%;
+  #signup-form input {
+    width: 65%;
     padding: 1em;
     line-height: 1.4;
     background-color: #f9f9f9;
     border: 1px solid #e5e5e5;
     border-radius: 3px;
     transition: all 0.35s ease-in-out;
+    /* font-weight: bold; */
+    color: black;
   }
 
   #signup-form input:focus {
@@ -271,79 +281,16 @@
     border-right-color:  #DB2878;
   }
 
-  #signup-form input[type="radio"] {
-    display: none;
-  }
-
-  #signup-form input[type="radio"]+label {
-    display: inline-block;
-    width: 50%;
-    text-align: center;
-
-    border-radius: 0;
-  }
-
-  #signup-form input[type="radio"]+label:first-of-type {
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-  }
-
-  #signup-form input[type="radio"]+label:last-of-type {
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-  }
-
-  #signup-form input[type="radio"]+label i {
-    padding-right: 0.4em;
-  }
-
-  #signup-form input[type="radio"]:checked+label,
-  #signup-form input:checked+label:before {
-    background-color:  #DB2878;
-    color: #fff;
-    border-color:  #DB2878;
-  }
-
-  #signup-form input[type="checkbox"] {
-    display: none;
-  }
-
-  #signup-form input[type="checkbox"]+label {
-    position: relative;
-    display: block;
-    padding-left: 1.6em;
-  }
-
-  #signup-form input[type="checkbox"]+label:before {
-    position: absolute;
-    top: 0.2em;
-    left: 0;
-    display: block;
-    width: 1em;
-    height: 1em;
-    padding: 0;
-    content: "";
-  }
-
-  #signup-form input[type="checkbox"]+label:after {
-    position: absolute;
-    top: 0.45em;
-    left: 0.2em;
-    font-size: 0.8em;
-    color: #fff;
-    opacity: 0;
-    font-family: FontAwesome;
-    content: "\f00c";
-  }
 
   #signup-form input:checked+label:after {
-    opacity: 1;
+    opacity: 5;
   }
 
   #signup-form .input-group {
     margin-bottom: 1em;
     margin-top: 1em;
     zoom: 1;
+    display: flex;
   }
 
   #signup-form .input-group:before,
@@ -391,7 +338,7 @@
   }
 
   .container {
-    max-width: 38em;
+    max-width: 45em;
     padding: 1em 3em 2em 3em;
     margin-top: 2%;
     background-color: #fff;
@@ -401,6 +348,7 @@
 
   .row {
     zoom: 1;
+    flex-direction: column;
   }
 
   .row:before,
@@ -413,25 +361,7 @@
     clear: both;
   }
 
-  .col-half {
-    padding-right: 10px;
-    float: left;
-    width: 50%;
-  }
 
-  .col-half:last-of-type {
-    padding-right: 0;
-  }
-
-  .col-third {
-    padding-right: 10px;
-    float: left;
-    width: 33.33333333%;
-  }
-
-  .col-third:last-of-type {
-    padding-right: 0;
-  }
 
   @media only screen and (max-width: 540px) {
     .col-half {

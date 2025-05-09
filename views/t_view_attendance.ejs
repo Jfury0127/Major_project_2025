@@ -84,54 +84,73 @@
   </div>
 
   <!-- Main Section -->
-
+  
   <div class="main-sec ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151]
-    " style="background-image: url('/images/light-pink5.jpg');">
-    <h1 class="text-2xl font-bold mb-4">View Attendance</h1>
-
-    <!-- Parent container with space between -->
-    <div id="mydiv" class="w-full flex justify-between items-start mt-8 px-4">
-
-      <!-- Left Column -->
-      <div class="w-[48%]">
-        <label for="enr-search" class="mb-1 block">View Attendance using Student Enrollment Number:</label>
-        <div class="flex items-center gap-4">
-          <input type="text" id="enr-search" placeholder="Search student"
-            class="flex-1 h-8 px-3 border border-gray-200 rounded-sm bg-white w-full" />
-          <button id="search_button"
-            class="h-8 px-4 bg-[#DB2878] hover:bg-[#DB2878]/90 text-white font-medium rounded-lg">
-            Search
-          </button>
-        </div>
-        <div id="error_msg2" class="text-red-500 text-sm mt-2 hidden">
-          Invalid Student Enrollment Number!
-        </div>
-      </div>
-
-      <!-- Right Column -->
-      <div class="w-[48%]" style="margin-right: 140px;">
+  " style="background-image: url('/images/light-pink5.jpg');">
+  <h1 class="text-2xl font-bold mb-4">View Attendance</h1>
+  
+  <!-- Parent container with space between -->
+  <div id="mydiv" class="w-full flex select-lect-gracemt-8 px-4">
+    
+    <!-- Left Column -->
+      <div class="" style="width: 30%;">
         <label for="select-lect" class="mb-1 block">View Attendance for Sections:</label>
-
+        
         <!-- Flex row containing the select and button -->
         <div class="flex gap-4">
           <select name="lecture" id="select-lect" class="bg-white border-1 rounded-sm border-gray-200 mt-1 h-8 w-full">
             <option value="" disabled selected hidden>Select Lecture</option>
           </select>
           <div
-            class="view-att-btn h-8 w-44 bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
-            View
-          </div>
-        </div>
-
-        <div class="error-msg text-red-500 text-sm hidden mt-2">
-          Please select a lecture first!
+          class="view-att-btn h-8 w-44 bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+          View
         </div>
       </div>
-
+      
+      <div class="error-msg text-red-500 text-sm hidden mt-2">
+        Please select a lecture first!
+      </div>
     </div>
+    <!-- Right Column -->
+    <div class="w-[40%]" style="width: 30%;">
+      <label for="enr-search" class="mb-1 block">View Attendance using Student Enrollment Number:</label>
+      <div class="flex items-center gap-4">
+        <input type="text" id="enr-search" placeholder="Search student"
+        class="flex-1 h-8 px-3 border border-gray-200 rounded-sm bg-white w-full" />
+        <button id="search_button"
+        class="h-8 px-4 bg-[#DB2878] hover:bg-[#DB2878]/90 text-white font-medium rounded-lg">
+        Search
+      </button>
+    </div>
+    <div id="error_msg2" class="text-red-500 text-sm mt-2 hidden">
+      Invalid Student Enrollment Number!
+    </div>
+  </div>
+  
+  <!-- NEW Column -->
+    <div class="w-[40%]" style="width: 30%;">
+      <label for="select-lect-grace" class="mb-1 block">View Grace Attendance:</label>
+      
+      <!-- Flex row containing the select and button -->
+      <div class="flex gap-4">
+        <select name="select-lect-grace" id="select-lect-grace" class="bg-white border-1 rounded-sm border-gray-200 mt-1 h-8 w-full">
+          <option value="" disabled selected hidden>Select Lecture</option>
+        </select>
+        <div
+        class="h-8 w-44 bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+        View
+      </div>
+    </div>
+    
+    <div class="error-msg3 text-red-500 text-sm hidden mt-2">
+      Please select a lecture first!
+    </div>
+  </div>
+  
+</div>
 
-    <div class="content-to-be-loaded hidden">
-      <div id="attendance-table" class="mt-16 w-11/12 bg-white m-auto overflow-x-auto">
+<div class="content-to-be-loaded hidden">
+  <div id="attendance-table" class="mt-16 w-11/12 bg-white m-auto overflow-x-auto">
         <table class="w-full md:text-sm text-xs ">
           <thead>
             <tr class="bg-[#DB2878]/50">
