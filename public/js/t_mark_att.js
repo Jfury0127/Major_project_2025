@@ -360,7 +360,7 @@ async function modifyAttendance(event){
         }
 
         // 3. Date must be strictly less than today
-        if (form_recieved_date > todayFormatted) {
+        if (form_recieved_date >= todayFormatted) {
             date_error.textContent = "Cannot modify attendance for future lectures!";
             date_error.classList.remove("hidden");
             return;

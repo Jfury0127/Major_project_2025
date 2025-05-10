@@ -361,13 +361,10 @@ app.get('/api/searchStuAttendance',async(req,res) => {
 app.get('/api/getGraceDataForLec',async(req,res) => {
     const Sec_id = req.query.section_id;
     const Sub_id = req.query.sub_id;
-    
-    console.log("SEc in server: " , Sec_id);
-    console.log("Sub in server: " , Sub_id);
 
     try{
-        const students_Grace_data = await getStudentGraceAttendanceForLecture(Sec_id,Sub_id);
-        res.json(students_Grace_data);
+        const data = await getStudentGraceAttendanceForLecture(Sec_id,Sub_id);
+        res.json({ sorted_by_date:data.Grace_data_by_date , sorted_by_enr:data.Grace_data_by_enr});
     }
     catch(e){
         res.status(500).json({code:"error",errorMessage:e});
