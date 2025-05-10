@@ -374,8 +374,9 @@ async function modifyAttendance(event){
     
     try{
         // using new api that sends date and enr to check lecture presence , student presence , student status and then updating attendance
+        // and saving data in misc table
 
-        const response = await fetch(`/api/modify_att?section_id=${sectionID}&sub_id=${subID}&attendance_date=${form_recieved_date}&form_enr=${form_recieved_enr}`);
+        const response = await fetch(`/api/modify_att?section_id=${sectionID}&sub_id=${subID}&attendance_date=${form_recieved_date}&form_enr=${form_recieved_enr}&reason=${form_recieved_reason}`);
         const student_date_Record = await response.json();
         
         console.log(student_date_Record);

@@ -90,11 +90,11 @@
     <h1 class="text-2xl font-bold mb-4">View Attendance</h1>
 
     <!-- Parent container with space between -->
-    <div id="mydiv" class="w-full flex items-start mt-8 px-4 gap-8">
+    <div id="mydiv" class="w-full flex items-start mt-8 px-4 gap-8" style="justify-content: center;">
 
       <!-- Lecture Select and Two View Buttons -->
       <div class="" style="width: 30%;">
-        <label for="select-lect" class="mb-1 block">Select Lecture:</label>
+        <label for="select-lect" class="mb-1 block">View Attendance for Lecture:</label>
         <select name="lecture" id="select-lect" class="bg-white border rounded-sm border-gray-200 mt-1 h-8 w-full">
           <option value="" disabled selected hidden>Select Lecture</option>
         </select>
@@ -154,9 +154,9 @@
 
     <!-- Grace Attendance Table - Hidden initially -->
     
-    <div id="grace-attendance-section" class="mt-16 w-11/12 m-auto overflow-x-auto hidden">
+    <div id="grace-attendance-section" class="mt-8 w-11/12 m-auto overflow-x-auto hidden">
 
-      <div id="firstdiv1" class="mt-16 w-11/12 m-auto overflow-x-auto"
+      <div id="firstdiv1" class="mt-2 w-11/12 m-auto overflow-x-auto"
       style="display: flex; justify-content: center; gap: 10%; padding: 2px; background: #771a44; border-radius: 4px; margin-bottom: 20px;">
       <h4 id="gracelect"
         style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2);">
@@ -180,23 +180,25 @@
 
 
 
-
-
-    <div id="search_stu_div" class="hidden" style="width: 90%; ; padding: 16px; margin-top: 32px;">
+    <div id="search_stu_div" class="hidden" style="width: 90%; ; padding: 16px; margin-top: 32px; margin-left: 5%;">
 
       <!-- Info Headings Row -->
       <div id="firstdiv" class="w-11/12 m-auto"
-        style="display: flex; justify-content: center; gap: 10%; padding: 2px; background: #771a44; border-radius: 4px;">
+        style="display: flex; justify-content: center; gap: 10%; padding: 2px; ; border-radius: 4px;">
+        <!-- background: #771a44 -->
         <!-- linear-gradient(to right, black, #DB2878); -->
 
         <h4 id="studentNameLabel"
-          style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2);">
+          style="color: black; font-size: 18px; font-weight: 600; padding: 5px 12px; ">
+          <!-- box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2); -->
           FirstName LastName </h4>
         <h4 id="sectionLabel"
-          style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2);">
+          style="color: black; font-size: 18px; font-weight: 600; padding: 5px 12px;">
+           <!-- box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2); -->
           Section: Third Year T1 </h4>
         <h4 id="subjectLabel"
-          style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2);">
+          style="color: black; font-size: 18px; font-weight: 600; padding: 5px 12px; ">
+          <!-- box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2); -->
           Subject: Operating Systems </h4>
 
       </div>
@@ -242,15 +244,15 @@
               <div style="display: flex; gap: 1rem; margin-top: 1rem; font-size: 0.875rem;">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #c0ffe8; border-radius: 0.25rem;"></div>
-                  <span style="color: #065f46;">Student Present</span>
+                  <span id="present_span" style="color: #065f46;">Present: </span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #ffc9c9; border-radius: 0.25rem;"></div>
-                  <span style="color: #7f1d1d;">Student Absent</span>
+                  <span id="absent_span" style="color: #7f1d1d;">Absent: </span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #f3f4f6; border-radius: 0.25rem;"></div>
-                  <span style="color: #4b5563;">No Lecture Taken</span>
+                  <span id="totallec_span" style="color: #4b5563;">Total Lecture Taken: </span>
                 </div>
               </div>
 
@@ -284,15 +286,15 @@
               <div style="display: flex; gap: 1rem; margin-top: 1rem; font-size: 0.875rem;">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #c0ffe8; border-radius: 0.25rem;"></div>
-                  <span style="color: #065f46;">Student Present</span>
+                  <span id="present_span_wk" style="color: #065f46;">Student Present</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #f3f4f6; border-radius: 0.25rem;"></div>
-                  <span style="color: #4b5563;">No Lecture Taken</span>
+                  <span id="absent_span_wk"  style="color: #4b5563;">No Lecture Taken</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #ffc9c9; border-radius: 0.25rem;"></div>
-                  <span style="color: #7f1d1d;">Student Absent</span>
+                  <span id="totallec_span_wk" style="color: #7f1d1d;">Student Absent</span>
                 </div>
               </div>
 

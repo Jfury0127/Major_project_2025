@@ -55,31 +55,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             //////////////////////////////////////////////////////////////////////////////////
-            // const lectureSelected = lectureSelect.value;
             // sectionID = parseInt(lectureSelected.slice(0, 3));
             // subID = lectureSelected.slice(4);
-
+            
             // const sectionName = lectureSelected.split('-')[0]; // Extract section name
             // const subjectName = lectureSelected.split('-')[1]; // Extract subject name
-
+            
             // const [sectionName, subjectName] = lectureSelected.split('-');
-
+            
             // Get selected lecture data
-            const lectureSelected = lectureSelect.options[lectureSelect.selectedIndex].text;
-            const splitData = lectureSelected.split(' - ');
+            const lectureSelected_text = lectureSelect.options[lectureSelect.selectedIndex].text;
+            const splitData = lectureSelected_text.split(' - ');
             if (splitData.length !== 2) {
                 console.error("Error: Invalid lecture selection format.");
                 return;
             }
-
+            
             const sectionName = splitData[0].trim();
             const subjectName = splitData[1].trim();
-
-
+            
+            
             // Fetch student data for the selected section
-            const sectionID = parseInt(lectureSelect.value);
+            const lectureSelected = lectureSelect.value;
+            const sectionID = parseInt(lectureSelected.slice(0, 3));
+            // subID = lectureSelected.slice(4);
 
-            console.log("Fetching attendance for lecture ID:", lectureSelect.value);
             fetch(`/api/get_students?section_id=${sectionID}`, {
                 method: 'GET',
                 headers: {
@@ -100,9 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            // section_name: sectionName, subject_name: subjectName 
-                            // section_name: lectureSelected.section_name,
-                            // subject_name: lectureSelected.subject_name
+                            
                             section_name: sectionName,
                             subject_name: subjectName
                         })
@@ -191,7 +189,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Loop through each item in lectureData and create an option element
                 lectureData.forEach(item => {
                     const option = document.createElement('option');
-                    option.value = item.SECTION_ID; // Using SECTION_ID as the option value
+                    // option.value = item.SECTION_ID; // Using SECTION_ID as the option value
+                    option.value = `${item.SECTION_ID} ${item.SUB_ID}`; 
                     option.textContent = `${item.SECTION_NAME} - ${item.SUB_NAME}`;
                     lectureSelect.appendChild(option);
                 });
@@ -201,40 +200,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-    //////////////////////////
-    // // Function to fetch lectures taken and total lectures for a student
-    // function getLectureData(enr_number, sectionName, subjectName) {
-    //     fetch('/get-attendance-data', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ enr_number, section_name: sectionName, subject_name: subjectName })
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             // Find the corresponding row for the student by ENR_NUMBER
-    //             const lecturesTakenElement = document.querySelector(`.lectures-taken-${enr_number}`);
-    //             const totalLecturesElement = document.querySelector(`.total-lectures-${enr_number}`);
+    //////////////////////////        
 
-    //             if (lecturesTakenElement && totalLecturesElement) {
-    //                 // Update the table with fetched values
-    //                 lecturesTakenElement.textContent = data.lecturesTaken;
-    //                 totalLecturesElement.textContent = data.totalLectures;
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error("Error fetching attendance data:", error);
-    //         });
-    // }        
-
-    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //grce att table
-    view_grace_att_btn.addEventListener('click', function () {
+    view_grace_att_btn.addEventListener('click', async function () {
         const selectedLectureId = lectureSelect.value;
 
-        // if (!selectedLectureId) {
-        //     alert('Please select a lecture first.');
-        //     return;
-        // }
         if (selectedLectureId === "") {
             errorMessage.classList.remove("hidden"); // Show error message
         } else {
@@ -249,23 +221,46 @@ document.addEventListener("DOMContentLoaded", () => {
             // Clear existing data
             const tbody = document.getElementById('grace-attendance-body');
             tbody.innerHTML = '';
+            
+            // fetch grace data for this lecture
 
-            // Dummy rows for now, backend will provide real data later
-            const dummyData = [
-                { enr: '135202722', name: 'Aryan kapoor', date: '2025-04-20', reason: 'Medical Emergency' },
-                { enr: '136202722', name: 'Akshat Jain', date: '2025-04-21', reason: 'Event Participation' },
-            ];
+            const sectionID = parseInt(selectedLectureId.slice(0, 3));
+            const subID = selectedLectureId.slice(4);
 
-            dummyData.forEach(row => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                <td class="px-4 py-2 border border-gray-400">${row.enr}</td>
-                <td class="px-4 py-2 border border-gray-400">${row.name}</td>
-                <td class="px-4 py-2 border border-gray-400">${row.date}</td>
-                <td class="px-4 py-2 border border-gray-400">${row.reason}</td>
-            `;
-                tbody.appendChild(tr);
-            });
+            try
+                {const params = new URLSearchParams();
+                params.append("section_id", sectionID);
+                params.append("sub_id", subID);
+
+                const response = await fetch(`/api/getGraceDataForLec?${params}`,{
+                    method: "GET",
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                } )
+
+                const display_data = await response.json();
+                console.log(display_data);
+
+                // Dummy rows for now, backend will provide real data later
+                const dummyData = [
+                    { enr: '135202722', name: 'Aryan kapoor', date: '2025-04-20', reason: 'Medical Emergency' },
+                    { enr: '136202722', name: 'Akshat Jain', date: '2025-04-21', reason: 'Event Participation' },
+                ];
+
+                dummyData.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <td class="px-4 py-2 border border-gray-400">${row.enr}</td>
+                    <td class="px-4 py-2 border border-gray-400">${row.name}</td>
+                    <td class="px-4 py-2 border border-gray-400">${row.date}</td>
+                    <td class="px-4 py-2 border border-gray-400">${row.reason}</td>
+                `;
+                    tbody.appendChild(tr);
+                });
+            }catch(e){
+                console.log("Error in fetching grace" ,e);
+            }
         }
     });
 
@@ -482,19 +477,26 @@ document.addEventListener("DOMContentLoaded", () => {
             calendarGrid.innerHTML += `<div></div>`;
         }
 
+        // display present absent and total taken letures in this month
+        let pre = 0,abs = 0,tl = 0;
         // Fill in actual days
         for (let day = 1; day <= lastDay.getDate(); day++) {
             const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
             let backgroundColor = '#f3f4f6';
-            if (attendanceMap[dateKey] === 1) backgroundColor = '#c0ffe8';
-            else if (attendanceMap[dateKey] === 0) backgroundColor = '#ffc9c9';
+            if (attendanceMap[dateKey] === 1){ backgroundColor = '#c0ffe8'; pre++;tl++;}
+            else if (attendanceMap[dateKey] === 0){ backgroundColor = '#ffc9c9'; abs++;tl++;}
 
             calendarGrid.innerHTML += `
           <div style="background-color: ${backgroundColor}; padding: 0.5rem; text-align: center; border-radius: 0.25rem;">
             ${day}
           </div>`;
         }
+
+        document.getElementById("present_span").textContent = "Present on : " + pre + " days";
+        document.getElementById("absent_span").textContent = "Absent on : " + abs + " days";
+        document.getElementById("totallec_span").textContent = "Total lecs: " + tl + " days";
+
     }
 
     // display weekly calendar
@@ -533,6 +535,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         weekLabel.textContent = `Week of ${weekStartDate} - ${formattedEndDate}`;
 
+        // display present absent and total taken letures in this month
+        let pre = 0,abs = 0,tl = 0;
 
         // Fill in the calendar for the week (7 days)
         for (let i = 0; i < 7; i++) {
@@ -544,13 +548,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             let backgroundColor = '#f3f4f6';
-            if (attendanceMap[dateKey] === 1) backgroundColor = '#c0ffe8';
-            else if (attendanceMap[dateKey] === 0) backgroundColor = '#ffc9c9';
+            if (attendanceMap[dateKey] === 1){ backgroundColor = '#c0ffe8'; pre++;tl++;}
+            else if (attendanceMap[dateKey] === 0){ backgroundColor = '#ffc9c9'; abs++;tl++;}
 
             calendarGrid2.innerHTML += `
           <div style="background-color: ${backgroundColor}; padding: 0.5rem; text-align: center; border-radius: 0.25rem;">
             ${currentDay.getDate()}
           </div>`;
         }
+
+        document.getElementById("present_span_wk").textContent = "Present on : " + pre + " days";
+        document.getElementById("absent_span_wk").textContent = "Absent on : " + abs + " days";
+        document.getElementById("totallec_span_wk").textContent = "Total lecs: " + tl + " days";
     }
 });

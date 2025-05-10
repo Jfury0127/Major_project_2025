@@ -365,7 +365,7 @@ export async function getStudentLecAttendance(enr_num,sub) {
 
 // modify student att - check if lecture taken on that day - if yes - modify it
 
-export async function modifyAttendanceUsingDate(sectionId, subID, attendanceDate,enr){
+export async function modifyAttendanceUsingDate(sectionId, subID, attendanceDate,enr,reason){
    
    const [result] = await pool.query(
       `SELECT * from attendance where SECTION_ID = ? and SUB_ID = ? AND ATTENDANCE_DATE = ?`,
@@ -382,7 +382,7 @@ export async function modifyAttendanceUsingDate(sectionId, subID, attendanceDate
          [sectionId, subID, attendanceDate,enr]
       );
       
-
+      
       if(typeof(result2[0]) == 'undefined'){ 
          
          // wrong enr number
@@ -398,13 +398,30 @@ export async function modifyAttendanceUsingDate(sectionId, subID, attendanceDate
             [sectionId, subID, attendanceDate,enr]
          );      
          // updated succesfully
+ 
+         const [result4] = await pool.query(
+            `INSERT INTO MISC_ATTENDANCE VALUES(null,?,?,?,?,?)`,
+            [attendanceDate,subID,sectionId,enr,reason]
+         );      // added successfully
+
+         console.log(result4);
          return 3;
       }
    }
-
+   
 }
 
 // modifyAttendanceUsingDate(109,"HS_301","2025-05-09",136202722);
+
+// get student data for view attendance search button
+export async function getStudentGraceAttendanceForLecture(Sec_id,Sub_id) {
+   const [result] = await pool.query(
+      `SELECT * FROM MISC_ATTENDANE WHERE SECTION_ID = ? and SUB_ID = ?`,
+      [Sec_id,Sub_id]
+   );
+   return result;
+}
+
 
 // pool.end();
 ////////////////////////////////////////

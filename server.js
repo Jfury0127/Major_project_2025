@@ -20,7 +20,7 @@ import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_n
         updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance
         ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary,
         get_assignments_for_lecture,get_assignments_for_student,remove_Assignment,update_submission,
-        getStudentDataQuery,getStudentLecAttendance,modifyAttendanceUsingDate} from './database.js';
+        getStudentDataQuery,getStudentLecAttendance,modifyAttendanceUsingDate,getStudentGraceAttendanceForLecture} from './database.js';
 
 // importing cloud container created in cloudinary        
 import {storage} from './cloud.js';
@@ -357,6 +357,25 @@ app.get('/api/searchStuAttendance',async(req,res) => {
     }
 });
 
+// view grace attendance - retrieve for a given lecture
+app.get('/api/getGraceDataForLec',async(req,res) => {
+    const Sec_id = req.query.section_id;
+    const Sub_id = req.query.sub_id;
+    
+    console.log("SEc in server: " , Sec_id);
+    console.log("Sub in server: " , Sub_id);
+
+    try{
+        const students_Grace_data = await getStudentGraceAttendanceForLecture(Sec_id,Sub_id);
+        res.json(students_Grace_data);
+    }
+    catch(e){
+        res.status(500).json({code:"error",errorMessage:e});
+    }
+});
+
+
+
 app.post('/markAttendance', async (req, res) => {
     try {
         const attendanceData = req.body; // Array of attendance objects
@@ -399,10 +418,10 @@ app.get('/api/modify_att', async (req, res) => {
     const attendanceDate = req.query.attendance_date;
     const formatted_Date = attendanceDate.split('T')[0];
     const enr = Number(req.query.form_enr);
-    
+    const reason = String(req.query.reason);
     
     try {
-        const result = await modifyAttendanceUsingDate(sectionId, subID, formatted_Date,enr);
+        const result = await modifyAttendanceUsingDate(sectionId, subID, formatted_Date,enr,reason);
         res.json(result);
         
     } catch (error) {
