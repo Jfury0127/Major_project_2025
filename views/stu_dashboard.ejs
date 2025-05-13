@@ -19,7 +19,7 @@
       }
     </style>
 </head>
-<body class="h-screen overflow-auto bg-gradient-to-r from-[#5254dd1d] to-white">
+<body class="overflow-auto bg-gradient-to-r from-[#5254dd1d] to-white" style="height: fit-content;">
     <!-- Navbar -->
     <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] shadow-md " >
       <nav class="navbar w-11/12 flex justify-between items-center m-auto">
@@ -112,10 +112,54 @@
           </table>
         </div>
 
+        <div class="mt-12 w-11/12 bg-white m-auto overflow-x-auto">
 
+        </div>
+
+      <!-- transition element -->
+        <div id="loadingOverlay">
+            <div id = "spinner" class="spinner"></div>
+                <div id="text_loading">Uploading... Please wait.</div>
+        </div>
 
 
 
 
 </body>
+
+<style>
+
+   #loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    flex-direction: column;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+
+  .spinner {
+    border: 6px solid rgba(255, 255, 255, 0.2);
+    border-top: 6px solid #ffffff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+</style>
 </html>

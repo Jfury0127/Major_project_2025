@@ -132,9 +132,15 @@
 
     <div class="add_assignm_class ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151] hidden"
         id="add_assignm_class">
+        
+        <!-- transition element -->
+        <div id="loadingOverlay">
+            <div class="spinner"></div>
+                <div>Uploading... Please wait.</div>
+        </div>
 
         <!-- // enctype sends req.file with req.body to send images and pdf -->
-        <form id = "form_add_Assignment" class="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto space-y-4" method="POST" enctype="multipart/form-data">
+        <form id = "form_add_Assignment" class="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto space-y-4" method="POST" enctype="multipart/form-data" action="/t_assignment">
             <h2 class="text-2xl font-semibold mb-4 text-center">Add Assignment</h2>
             <div id = "some_div" class="mx-auto mt-6 bg-white text-xl font-semibold w-fit text-center" style="background: rgb(253, 241, 242);">
 
@@ -208,5 +214,39 @@
     </div>
 
 </body>
+
+<style>
+     #loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    flex-direction: column;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+
+  .spinner {
+    border: 6px solid rgba(255, 255, 255, 0.2);
+    border-top: 6px solid #ffffff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
 
 </html>

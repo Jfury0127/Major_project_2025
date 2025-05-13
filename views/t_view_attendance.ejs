@@ -85,51 +85,51 @@
 
   <!-- Main Section -->
 
-  <div class="main-sec ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151]
-    " style="background-image: url('/images/light-pink5.jpg');">
+  <div class="main-sec ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151]"
+    style="background-image: url('/images/light-pink5.jpg');">
     <h1 class="text-2xl font-bold mb-4">View Attendance</h1>
 
     <!-- Parent container with space between -->
-    <div id="mydiv" class="w-full flex justify-between items-start mt-8 px-4">
+    <div id="mydiv" class="w-full flex items-start mt-8 px-4 gap-8" style="justify-content: center;">
 
-      <!-- Left Column -->
-      <div class="w-[48%]">
+      <!-- Lecture Select and Two View Buttons -->
+      <div class="" style="width: 30%;">
+        <label for="select-lect" class="mb-1 block">View Attendance for Lecture:</label>
+        <select name="lecture" id="select-lect" class="bg-white border rounded-sm border-gray-200 mt-1 h-8 w-full">
+          <option value="" disabled selected hidden>Select Lecture</option>
+        </select>
+
+        <!-- Two View Buttons -->
+        <div class="flex gap-4 mt-3">
+          <div
+            class="view-att-btn h-8 w-44 bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+            View Attendance
+          </div>
+          <div id="view-grace-att-btn"
+            class="h-8 w-44 bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+            Grace Attendance
+          </div>
+        </div>
+
+        <div class="error-msg text-red-500 text-sm hidden mt-2">Please select a lecture first!
+        </div>
+      </div>
+
+      <!-- Search by Enrollment -->
+      <div class="w-1/3">
         <label for="enr-search" class="mb-1 block">View Attendance using Student Enrollment Number:</label>
         <div class="flex items-center gap-4">
           <input type="text" id="enr-search" placeholder="Search student"
             class="flex-1 h-8 px-3 border border-gray-200 rounded-sm bg-white w-full" />
           <button id="search_button"
-            class="h-8 px-4 bg-[#DB2878] hover:bg-[#DB2878]/90 text-white font-medium rounded-lg">
-            Search
-          </button>
+            class="h-8 px-4 bg-[#DB2878] hover:bg-[#DB2878]/90 text-white font-medium rounded-lg">Search</button>
         </div>
-        <div id="error_msg2" class="text-red-500 text-sm mt-2 hidden">
-          Invalid Student Enrollment Number!
+        <div id="error_msg2" class="text-red-500 text-sm mt-2 hidden">Invalid Student Enrollment Number!
         </div>
       </div>
-
-      <!-- Right Column -->
-      <div class="w-[48%]" style="margin-right: 140px;">
-        <label for="select-lect" class="mb-1 block">View Attendance for Sections:</label>
-
-        <!-- Flex row containing the select and button -->
-        <div class="flex gap-4">
-          <select name="lecture" id="select-lect" class="bg-white border-1 rounded-sm border-gray-200 mt-1 h-8 w-full">
-            <option value="" disabled selected hidden>Select Lecture</option>
-          </select>
-          <div
-            class="view-att-btn h-8 w-44 bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
-            View
-          </div>
-        </div>
-
-        <div class="error-msg text-red-500 text-sm hidden mt-2">
-          Please select a lecture first!
-        </div>
-      </div>
-
     </div>
 
+    <!-- content to be loaded -->
     <div class="content-to-be-loaded hidden">
       <div id="attendance-table" class="mt-16 w-11/12 bg-white m-auto overflow-x-auto">
         <table class="w-full md:text-sm text-xs ">
@@ -152,21 +152,53 @@
       </div>
     </div>
 
+    <!-- Grace Attendance Table - Hidden initially -->
+    
+    <div id="grace-attendance-section" class="mt-8 w-11/12 m-auto overflow-x-auto hidden">
 
-    <div id="search_stu_div" class="hidden" style="width: 90%; ; padding: 16px; margin-top: 32px;">
+      <div id="firstdiv1" class="mt-2 w-11/12 m-auto overflow-x-auto"
+      style="display: flex; justify-content: center; gap: 10%; padding: 2px; background: #771a44; border-radius: 4px; margin-bottom: 20px;">
+      <h4 id="gracelect"
+        style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2);">
+        Grace Attendance</h4>
+    </div> 
+      <table id="grace-attendance-table" class="w-full bg-white md:text-sm text-xs">
+        <thead>
+          <tr class="bg-[#DB2878]/50">
+            <th class="px-4 py-2 text-white" style="width: 20%;">Enrollment Number</th>
+            <th class="px-4 py-2 text-white" style="width: 20%;">Name</th>
+            <th class="px-4 py-2 text-white" style="width: 20%;">Date</th>
+            <th class="px-4 py-2 text-white" style="width: fit-content ; max-width: 40%;">Reason</th>
+          </tr>
+        </thead>
+
+        <tbody id="grace-attendance-body">
+          <!-- Rows will be inserted dynamically via JS -->
+        </tbody>
+      </table>
+    </div>
+
+
+
+    <div id="search_stu_div" class="hidden" style="width: 90%; ; padding: 16px; margin-top: 32px; margin-left: 5%;">
 
       <!-- Info Headings Row -->
       <div id="firstdiv" class="w-11/12 m-auto"
-        style="display: flex; justify-content: center; gap: 10%; padding: 2px; background: linear-gradient(to right, black, #DB2878); border-radius: 4px;">
+        style="display: flex; justify-content: center; gap: 10%; padding: 2px; ; border-radius: 4px; background: #771a44">
+        <!-- background: #771a44 -->
+        <!-- linear-gradient(to right, black, #DB2878); -->
 
         <h4 id="studentNameLabel"
-          style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.2);">
+          style="color: white; font-size: 14px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2);">
+          <!-- box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2); -->
           FirstName LastName </h4>
         <h4 id="sectionLabel"
-          style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2);">
+          style="color: white; font-size: 14px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2);">
+           <!-- box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2); -->
           Section: Third Year T1 </h4>
         <h4 id="subjectLabel"
-          style="color: white; font-size: 16px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);">
+          style="color: white; font-size: 14px; font-weight: 600; padding: 5px 12px; box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2);">
+          <!-- box-shadow: 1px 1px 5px rgba(29, 18, 18, 0.2); -->
           Subject: Operating Systems </h4>
 
       </div>
@@ -212,15 +244,15 @@
               <div style="display: flex; gap: 1rem; margin-top: 1rem; font-size: 0.875rem;">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #c0ffe8; border-radius: 0.25rem;"></div>
-                  <span style="color: #065f46;">Student Present</span>
+                  <span id="present_span" style="color: #065f46;">Present: </span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #ffc9c9; border-radius: 0.25rem;"></div>
-                  <span style="color: #7f1d1d;">Student Absent</span>
+                  <span id="absent_span" style="color: #7f1d1d;">Absent: </span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #f3f4f6; border-radius: 0.25rem;"></div>
-                  <span style="color: #4b5563;">No Lecture Taken</span>
+                  <span id="totallec_span" style="color: #4b5563;">Total Lecture Taken: </span>
                 </div>
               </div>
 
@@ -254,15 +286,15 @@
               <div style="display: flex; gap: 1rem; margin-top: 1rem; font-size: 0.875rem;">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #c0ffe8; border-radius: 0.25rem;"></div>
-                  <span style="color: #065f46;">Student Present</span>
+                  <span id="present_span_wk" style="color: #065f46;">Student Present</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #f3f4f6; border-radius: 0.25rem;"></div>
-                  <span style="color: #4b5563;">No Lecture Taken</span>
+                  <span id="absent_span_wk"  style="color: #4b5563;">No Lecture Taken</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   <div style="width: 1rem; height: 1rem; background-color: #ffc9c9; border-radius: 0.25rem;"></div>
-                  <span style="color: #7f1d1d;">Student Absent</span>
+                  <span id="totallec_span_wk" style="color: #7f1d1d;">Student Absent</span>
                 </div>
               </div>
 

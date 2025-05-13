@@ -395,5 +395,67 @@ export async function getStudentLecAttendance(enr_num,sub) {
    return result;
 }
 
+// modify student att - check if lecture taken on that day - if yes - modify it
+
+export async function modifyAttendanceUsingDate(sectionId, subID, attendanceDate,enr,reason){
+   
+   const [result] = await pool.query(
+      `SELECT * from attendance where SECTION_ID = ? and SUB_ID = ? AND ATTENDANCE_DATE = ?`,
+      [sectionId, subID, attendanceDate]
+   );
+   
+   if(typeof(result[0]) == 'undefined'){ 
+      
+      // lecture does not exist
+      return 0;
+   }else{
+      const [result2] = await pool.query(
+         `SELECT * from attendance where SECTION_ID = ? and SUB_ID = ? AND ATTENDANCE_DATE = ? AND ENR_NUMBER = ?`,
+         [sectionId, subID, attendanceDate,enr]
+      );
+      
+      
+      if(typeof(result2[0]) == 'undefined'){ 
+         
+         // wrong enr number
+         return 1;
+      }else if(result2[0].STATUS == 1){
+         
+         // enr already marked present
+         return 2;
+      }
+      else {
+         const [result3] = await pool.query(
+            `UPDATE attendance SET STATUS = 1 where SECTION_ID = ? and SUB_ID = ? AND ATTENDANCE_DATE = ? and ENR_NUMBER = ?`,
+            [sectionId, subID, attendanceDate,enr]
+         );      
+         // updated succesfully
+ 
+         const [result4] = await pool.query(
+            `INSERT INTO MISC_ATTENDANCE VALUES(null,?,?,?,?,?)`,
+            [attendanceDate,subID,sectionId,enr,reason]
+         );      // added successfully
+
+         console.log(result4);
+         return 3;
+      }
+   }
+   
+}
+
+
+// get student data for view attendance search button
+export async function getStudentGraceAttendanceForLecture(Sec_id,Sub_id) {
+   
+   const [result2] = await pool.query(
+      `SELECT (SELECT CONCAT(stu_fname, ' ', COALESCE(stu_lname, '')) FROM student WHERE enr_number = a.enr_number) AS full_name,
+      a.enr_number,attendance_date,reason FROM misc_attendance a
+      WHERE SECTION_ID = ? and SUB_ID = ? ORDER BY a.enr_number;`,
+      [Sec_id,Sub_id]
+   );
+   
+   return {Grace_data_by_enr:result2};
+}
+
 // pool.end();
 ////////////////////////////////////////

@@ -1,60 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Teachers Dashboard</title>
-    <link rel="stylesheet" href="output.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0"
-    />
-    <link
-      rel="shortcut icon"
-      href="/images/AttendPro-logo.png"
-      type="image/x-icon"
-    />
-    <script type="text/javascript" src="/js/t_script.js" defer></script>
-    <script type="text/javascript" src="/js/t_mark_att.js" defer></script>
-  </head>
-  <body class="h-screen overflow-hidden">
-    <!-- Navbar -->
-    <div
-      class="nav-con text-[#515151] w-full bg-[#F7F7F7] fixed top-0 left-0 z-10 h-16"
-    >
-      <nav class="navbar w-11/12 flex justify-between items-center m-auto">
-        <div
-          class="at-logo text-[#515151] font-bold text-2xl flex items-center"
-        >
-          Attend<span class="text-[#DB2878]">Pro</span>
-        </div>
-        <div class="nav-links flex items-center">
-          <div
-            class="w-40 h-12 border-2 border-gray-300 rounded-lg m-2 flex justify-center items-center"
-          >
-            Role : Teacher
-          </div>
-          <span
-            class="menu material-symbols-outlined cursor-pointer sm:!hidden"
-            style="font-size: 40px"
-            >menu</span
-          >
-        </div>
-      </nav>
-    </div>
 
-    <!-- Sidebar -->
-    <div
-      class="sidebar h-full w-60 bg-[#F7F7F7] shadow-black p-4 text-[#515151] fixed top-16 left-0 overflow-y-auto hidden sm:block"
-    >
-      <div class="flex flex-col">
-        <!-- <div class="items-end"> -->
-        <span
-          class="material-symbols-outlined cursor-pointer self-end transition-transform duration-300"
-          id="mini_sb"
-          >keyboard_arrow_left</span
-        >
-        <!-- </div>/ -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teachers Dashboard</title>
+  <link rel="stylesheet" href="output.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+  <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon" />
+  <script type="text/javascript" src="/js/t_script.js" defer></script>
+  <script type="text/javascript" src="/js/t_mark_att.js" defer></script>
+</head>
+
 
         <div
           onclick="openPage('t_dashboard')"
@@ -99,118 +57,363 @@
           <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
           <span class="material-symbols-outlined group-hover:text-[#DB2878]">assignment</span>
           <a class="sb-item group-hover:text-[#DB2878]">Assignments</a>
+<body class="h-screen overflow-hidden">
+  <!-- Navbar -->
+  <div class="nav-con text-[#515151] w-full bg-[#F7F7F7] fixed top-0 left-0 z-10 h-16">
+    <nav class="navbar w-11/12 flex justify-between items-center m-auto">
+      <div class="at-logo text-[#515151] font-bold text-2xl flex items-center">
+        Attend<span class="text-[#DB2878]">Pro</span>
+
       </div>
-        <div
-          onclick="openPage('/t_logout')"
-          class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden"
-        >
-          <div class="h-full w-2 group-hover:bg-[#DB2878]"></div>
-          <span class="material-symbols-outlined group-hover:text-[#DB2878]"
-            >logout</span
-          >
-          <a class="sb-item group-hover:text-[#DB2878]">Log Out</a>
+      <div class="nav-links flex items-center">
+        <div class="w-40 h-12 border-2 border-gray-300 rounded-lg m-2 flex justify-center items-center">
+          Role : Teacher
         </div>
-        <div
-          onclick="openPage('/t_help')"
-          class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden"
-        >
-          <div class="h-full w-2 group-hover:bg-[#DB2878]"></div>
-          <span class="material-symbols-outlined group-hover:text-[#DB2878]"
-            >help</span
-          >
-          <a class="sb-item group-hover:text-[#DB2878]">Help</a>
-        </div>
+        <span class="menu material-symbols-outlined cursor-pointer sm:!hidden" style="font-size: 40px">menu</span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Sidebar -->
+  <div
+    class="sidebar h-full w-60 bg-[#F7F7F7] shadow-black p-4 text-[#515151] fixed top-16 left-0 overflow-y-auto hidden sm:block">
+    <div class="flex flex-col">
+      <!-- <div class="items-end"> -->
+      <span class="material-symbols-outlined cursor-pointer self-end transition-transform duration-300"
+        id="mini_sb">keyboard_arrow_left</span>
+      <!-- </div>/ -->
+
+      <div onclick="openPage('t_dashboard')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2 group-hover:bg-[#DB2878]"></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">space_dashboard</span>
+        <a class="sb-item group-hover:text-[#DB2878]">Dashboard</a>
+      </div>
+      <div onclick="openPage('/t_profile')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2 group-hover:bg-[#DB2878]"></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">person</span>
+        <a class="sb-item group-hover:text-[#DB2878]">Profile</a>
+      </div>
+      <div onclick="openPage('/t_view_attendance')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2 group-hover:bg-[#DB2878]"></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">visibility</span>
+        <a class="sb-item group-hover:text-[#DB2878]">View Attendance</a>
+      </div>
+      <div
+        class="w-full h-12 my-2 flex rounded items-center gap-3 bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2 bg-[#DB2878]"></div>
+        <span class="material-symbols-outlined text-[#DB2878]">check_box</span>
+        <a class="sb-item text-[#DB2878]">Mark Attendance</a>
+      </div>
+      <div onclick="openPage('/t_assignment')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2  group-hover:bg-[#DB2878] "></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">person</span>
+        <a class="sb-item group-hover:text-[#DB2878]">Assignments</a>
+      </div>
+      <div onclick="openPage('/t_logout')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2 group-hover:bg-[#DB2878]"></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">logout</span>
+        <a class="sb-item group-hover:text-[#DB2878]">Log Out</a>
+      </div>
+      <div onclick="openPage('/t_help')"
+        class="w-full h-12 my-2 flex rounded items-center gap-3 hover:bg-[#DB2878]/20 group cursor-pointer overflow-hidden">
+        <div class="h-full w-2 group-hover:bg-[#DB2878]"></div>
+        <span class="material-symbols-outlined group-hover:text-[#DB2878]">help</span>
+        <a class="sb-item group-hover:text-[#DB2878]">Help</a>
       </div>
     </div>
+  </div>
 
-    <!-- Main Section -->
-    <div class="main-sec ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)]
+  <!-- Main Section -->
+  <div class="main-sec ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)]
      overflow-auto  bg-contain bg-center text-[#515151]" style="background-image: url('/images/light-pink4.jpg');">
 
-     <!-- <div class="h-screen w-full bg-cover bg-center bg-no-repeat text-white" style="background-image: url('https://source.unsplash.com/random/1600x900');">
+    <!-- <div class="h-screen w-full bg-cover bg-center bg-no-repeat text-white" style="background-image: url('https://source.unsplash.com/random/1600x900');">
       <h1 class="text-4xl font-bold p-8">Hello on an Image Background</h1>
     </div> -->
-     <!-- bg-[url('/images/light-pink.jpg')] -->
-      <h1 class="text-2xl font-bold mb-4">Mark Attendance</h1>
-      <!--  //////////////////////////////// -->
-      <div class="w-full flex justify-evenly">
-        <div class="w-44 flex flex-col">
-          <label for="select-lect">Select Lecture:</label>
-          <select name="lecture" id="select-lect" class="bg-white border-1 rounded-sm border-gray-200"
+    <!-- bg-[url('/images/light-pink.jpg')] -->
+    <h1 class="text-2xl font-bold mb-4">Mark Attendance</h1>
+    <!--  //////////////////////////////// -->
+    <div class="w-full flex justify-evenly">
+      <div class="w-44 flex flex-col">
+        <label for="select-lect">Select Lecture:</label>
+        <select name="lecture" id="select-lect" class="bg-white border-1 rounded-sm border-gray-200"
           style="width: max-content;">
           <option value="" disabled selected hidden>Select Lecture</option>
-          </select>
-          <div class="error-msg text-red-500 text-sm hidden">
-            Please select a lecture first!
-          </div>
+        </select>
+        <div class="error-msg text-red-500 text-sm hidden">
+          Please select a lecture first!
         </div>
-        <div class="w-44 flex flex-col mx-4">
-          <label for="att-date">Attendance Date:</label>
-          <div
-            id="att-date"
-            class="h-5 bg-white text-[#515151] border-1 rounded-sm border-gray-200 flex justify-center items-center"
-          ></div>
-        </div>
+      </div>
 
+
+      <div id="buttons" class="flex gap-4">
         <div
           class="take-att-btn h-10 w-44 self-center bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
           Take Attendance
         </div>
-      </div>
-      <!--  //////////////////////////////// -->
-      <div class="content-to-be-loaded hidden">
-
-        <div class="w-11/12 m-auto mt-10 flex justify-end">
-          <div class="mark-all-present h-8 w-36 bg-[#DB2878]/80 hover:border-2 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center">Mark All Present</div>
-        </div>
-
-        <div id="attendance-table" class="mt-3 w-11/12 bg-white m-auto overflow-x-auto">
-          <table class="w-full md:text-sm text-xs">
-            <thead>
-              <tr class="bg-[#DB2878]/50">
-                <th class="px-4 py-2 text-white">Student ID</th>
-                <th class="px-4 py-2 text-white">Student Name</th>
-                <th class="px-4 py-2 text-white">Mark Attendance</th>
-                <th class="px-4 py-2 text-white">Status</th>
-              </tr>
-            </thead>
-
-            <!-- table body -->
-            <tbody>
-           
-            </tbody>
-          </table>
-        </div>
-        <!-- Rows per page -->
         <div
-          class="w-11/12 bg-white flex justify-end items-center m-auto my-4 gap-4 border-2 border-gray-200 rounded-lg"
-        >
-          <label for="rows-per-page" class="mr-2">Rows per page:</label>
-          <select id="rows-per-page" class="border rounded p-1">
-            <option value="all">All</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-          </select>
-          <div class="page-msg">
-            Page 1 of 10
-          </div>
-          <span class="material-symbols-outlined cursor-pointer" id="prev-page">chevron_left</span>
-          <span class="material-symbols-outlined cursor-pointer" id="next-page">chevron_right</span>
-        </div>
-        <!-- Save button -->
-        <div class="w-11/12 flex flex-col gap-6 items-end m-auto">
-          <!-- <div class="record-lec h-8 w-36 bg-[#DB2878]/80 hover:border-2 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center">Record Lecture
-            <input type="checkbox" class="ml-2 recordlec-checkbox">
-          </div>
-          <div class="record-err text-red-600 text-xs hidden">First click on Record Lecture</div> -->
-          
-          <div class="save-att-btn h-10 w-28  bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg text-white font-medium flex justify-center items-center gap-1">
-            Save
-          </div>
+          class="edit-att-btn h-10 w-44 self-center bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">
+          Modify Attendance
         </div>
       </div>
-
     </div>
-  </body>
+    <!--  //////////////////////////////// -->
+    <div class="content-to-be-loaded hidden">
+
+      <div class="w-11/12 m-auto mt-10 flex justify-end">
+        <div id="att" class="w-44 flex flex-col mx-4 hidden">
+        <label for="att-date">Attendance Date:</label>
+        <div id="att-date"
+          class="h-5 bg-white text-[#515151] border-1 rounded-sm border-gray-200 flex justify-center items-center">
+        </div>
+      </div>
+        <div
+          class="mt-4 mark-all-present h-8 w-36 bg-[#DB2878]/80 hover:border-2 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center">Mark All Present</div>
+      </div>
+
+      <div id="attendance-table" class="mt-3 w-11/12 bg-white m-auto overflow-x-auto">
+        <table class="w-full md:text-sm text-xs">
+          <thead>
+            <tr class="bg-[#DB2878]/50">
+              <th class="px-4 py-2 text-white">Student ID</th>
+              <th class="px-4 py-2 text-white">Student Name</th>
+              <th class="px-4 py-2 text-white">Mark Attendance</th>
+              <th class="px-4 py-2 text-white">Status</th>
+            </tr>
+          </thead>
+
+          <!-- table body -->
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+      <!-- Rows per page -->
+      <div class="w-11/12 bg-white flex justify-end items-center m-auto my-4 gap-4 border-2 border-gray-200 rounded-lg">
+        <label for="rows-per-page" class="mr-2">Rows per page:</label>
+        <select id="rows-per-page" class="border rounded p-1">
+          <option value="all">All</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </select>
+        <div class="page-msg">
+          Page 1 of 10
+        </div>
+        <span class="material-symbols-outlined cursor-pointer" id="prev-page">chevron_left</span>
+        <span class="material-symbols-outlined cursor-pointer" id="next-page">chevron_right</span>
+      </div>
+      <!-- Save button -->
+      <div class="w-11/12 flex flex-col gap-6 items-end m-auto">
+
+        <div
+          class="save-att-btn h-10 w-28  bg-[#DB2878] hover:bg-[#DB2878]/90 rounded-lg text-white font-medium flex justify-center items-center gap-1">
+          Save
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================================================================== -->
+    <!-- modify attendance -->
+    <div class="modify_main_div hidden">
+
+      <div id = "mydiv2" class= "flex justify-center">
+      <div class="container">
+        <form id="signup-form" method="GET" enctype="multipart/form-data" >
+          <div class="row">
+            <h4>Enrollment Number</h4>
+            <div class="input-group input-group-icon">
+
+              <input id="enr_input" name ="enr_input" type="text" placeholder="Search Enr Number" required>
+              
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+              <div id="enr_error" class= "hidden text-red-500 text-sm ml-2 mt-4">
+                Please select a lecture first!
+              </div>
+            </div>
+            
+          </div>
+          <div class="row">
+              <h4> Attendance Date </h4>
+              <div class="input-group input-group-icon">
+
+                <input type="date" id="date_input" name ="date_input" placeholder="Choose date.." required>
+                <div class="input-icon"><i class="fa fa-user"></i></div>
+                <div id = "date_error" class=" hidden text-red-500 text-sm ml-2 mt-4 flex">
+                  Please select a lecture first!
+                </div>
+              </div>
+          </div>
+
+          <div class="row">
+            <h4>Remarks</h4>
+            <div class="input-group input-group-icon">
+
+              <input id="reason_input" name ="reason_input" type="text" placeholder="Student Attendance is updated because.." required>
+              
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+              <div id="reason_error" class=" hidden text-red-500 text-sm ml-2 mt-4">
+                Please select a lecture first!
+              </div>
+            </div>
+          </div>
+
+          <div id="submit_btn_div" class="flex justify-center">
+        <button id = "btn_modify_att" type="submit"
+          class="h-10 w-44 self-center bg-[#DB2878]/50 hover:bg-[#DB2878]/90 rounded-lg cursor-pointer text-white font-medium font-semibold justify-center items-center gap-1">
+          Modify
+          </button>
+      </div>
+
+        </form>
+
+
+
+      </div>
+    </div>
+
+  </div>
+  </div>
+</body>
+
+
+<style>
+  /* 64ac15 */
+  #signup-form *,
+  #signup-form *:before,
+  #signup-form *:after {
+    box-sizing: border-box;
+  }
+
+  #signup-form {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: #b9b9b9;
+    margin-top: 2%;
+  }
+
+  #signup-form h4 {
+    color: #DB2878;
+  }
+
+  #signup-form input {
+    width: 65%;
+    padding: 1em;
+    line-height: 1.4;
+    background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    transition: all 0.35s ease-in-out;
+    /* font-weight: bold; */
+    color: black;
+  }
+
+  #signup-form input:focus {
+    outline: 0;
+    border-color:  #DB2878;
+  }
+
+  #signup-form input:focus+.input-icon i {
+    color:  #DB2878;
+  }
+
+  #signup-form input:focus+.input-icon:after {
+    border-right-color:  #DB2878;
+  }
+
+
+  #signup-form input:checked+label:after {
+    opacity: 5;
+  }
+
+  #signup-form .input-group {
+    margin-bottom: 1em;
+    margin-top: 1em;
+    zoom: 1;
+    display: flex;
+  }
+
+  #signup-form .input-group:before,
+  #signup-form .input-group:after {
+    content: "";
+    display: table;
+  }
+
+  #signup-form .input-group:after {
+    clear: both;
+  }
+
+  #signup-form .input-group-icon {
+    position: relative;
+  }
+
+  #signup-form .input-group-icon input {
+    padding-left: 4.4em;
+  }
+
+  #signup-form .input-group-icon .input-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3.4em;
+    height: 3.4em;
+    line-height: 3.4em;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  #signup-form .input-group-icon .input-icon:after {
+    position: absolute;
+    top: 0.6em;
+    bottom: 0.6em;
+    left: 3.4em;
+    display: block;
+    border-right: 1px solid #e5e5e5;
+    content: "";
+    transition: all 0.35s ease-in-out;
+  }
+
+  #signup-form .input-group-icon .input-icon i {
+    transition: all 0.35s ease-in-out;
+  }
+
+  .container {
+    max-width: 45em;
+    padding: 1em 3em 2em 3em;
+    margin-top: 2%;
+    background-color: #fff;
+    border-radius: 4.2px;
+    box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
+  }
+
+  .row {
+    zoom: 1;
+    flex-direction: column;
+  }
+
+  .row:before,
+  .row:after {
+    content: "";
+    display: table;
+  }
+
+  .row:after {
+    clear: both;
+  }
+
+
+
+  @media only screen and (max-width: 540px) {
+    .col-half {
+      width: 100%;
+      padding-right: 0;
+    }
+  }
+</style>
+
 </html>

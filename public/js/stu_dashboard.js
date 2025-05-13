@@ -79,16 +79,16 @@ async function load_assign(subId) {
             show_assign_div.classList.add("hidden");
             alert("Hurray! No Assignments");
         }
-        console.log(data.assignmentdata);
+        
         data.assignmentdata.forEach((assignments, i) => {
             const submissionDate = assignments.Date_of_submission 
                 ? new Date(assignments.Date_of_submission).toLocaleDateString('en-CA') 
                 : '-';
-            console.log(assignments.Assign_Id);
+            
             const submitCell = assignments.Date_of_submission
                 ? `<td class="px-4 py-2 border border-gray-400"><a href="${assignments.Ref_to_submission}" target="_blank" class="text-blue-600 hover:underline">View</a></td>`
                 : `<td class="px-4 py-2 border border-gray-400">
-                    <form onsubmit="submit_assignment_handler(event, '${assignments.Assign_Id}')">
+                    <form id ="my_form_stu_Assign_hidden" onsubmit="submit_assignment_handler(event, '${assignments.Assign_Id}')">
                         <input type="file" name="ass_sub" required />
                         <button type="submit" class="h-8 w-24 bg-[#5254dd] hover:bg-[#5254dd]/90 rounded-lg 
                         cursor-pointer text-white font-medium flex justify-center items-center m-auto"">Submit</button>
@@ -120,15 +120,19 @@ async function submit_assignment(assignId, file) {
     formData.append('assignment_file', file);
 
     try {
+        loadingOverlay.style.display = 'flex';
         const res = await fetch('/api/submitAssignment', {
             method: 'POST',
             body: formData
         });
-
         if (res.ok) {
-            alert('Assignment submitted successfully!');
-            window.location.reload();
-            // load_assign(subjectId); // Reload to reflect submission
+            // alert('Assignment submitted successfully!');
+            document.getElementById("spinner").classList.add("hidden");
+            document.getElementById("text_loading").textContent = "Assignment submitted successfully!";
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000); // 1000ms = 1 second
+    
         } else {
             alert('Submission failed. Please try again.');
         }
@@ -148,3 +152,7 @@ function submit_assignment_handler(event, assignId) {
         submit_assignment(assignId, file);
     }
 }
+
+// document.getElementById("my_form_stu_Assign_hidden").addEventListener('submit', () => {
+//     loadingOverlay.style.display = 'flex';
+//   });
