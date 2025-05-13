@@ -255,7 +255,7 @@ view_grace_att_btn.addEventListener('click', async function () {
             const display_data = await response.json();
 
             const disp_by_enr = display_data.sorted_by_enr;
-            const disp_by_date = display_data.sorted_by_date;
+            // const disp_by_date = display_data.sorted_by_date;    
             // console.log("dispaly data by enr " ,display_data.sorted_by_enr);
 
             disp_by_enr.forEach(row => {

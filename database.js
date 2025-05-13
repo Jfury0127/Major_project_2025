@@ -415,12 +415,6 @@ export async function modifyAttendanceUsingDate(sectionId, subID, attendanceDate
 // get student data for view attendance search button
 export async function getStudentGraceAttendanceForLecture(Sec_id,Sub_id) {
    
-   const [result] = await pool.query(
-      `SELECT (SELECT CONCAT(stu_fname, ' ', COALESCE(stu_lname, '')) FROM student WHERE enr_number = a.enr_number) AS full_name,
-      a.enr_number,attendance_date,reason FROM misc_attendance a
-      WHERE SECTION_ID = ? and SUB_ID = ? ORDER BY attendance_date;`,
-      [Sec_id,Sub_id]
-   );
    const [result2] = await pool.query(
       `SELECT (SELECT CONCAT(stu_fname, ' ', COALESCE(stu_lname, '')) FROM student WHERE enr_number = a.enr_number) AS full_name,
       a.enr_number,attendance_date,reason FROM misc_attendance a
@@ -428,10 +422,8 @@ export async function getStudentGraceAttendanceForLecture(Sec_id,Sub_id) {
       [Sec_id,Sub_id]
    );
    
-   return {Grace_data_by_date:result,Grace_data_by_enr:result2};
+   return {Grace_data_by_enr:result2};
 }
 
 // pool.end();
 ////////////////////////////////////////
-
-console.log("over");

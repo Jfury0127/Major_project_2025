@@ -60,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
         exist_lec.classList.remove("hidden");
     });
 
-
 });
 
 async function loadExistingLectures() {
@@ -187,14 +186,11 @@ async function load_assignments(sec_name,sub_alias) {
                 
                 delete_button.addEventListener("click", () => {
                     const assign__Id = i.Assign_Id;
-                   delete_assignments(assign__Id);
+                    const userConfirmed = confirm("Are you sure you want to delete this assignment?");
+                    if (userConfirmed) {
+                        delete_assignments(assign__Id);
+                    }
 
-                   // const result = response.json();
-                    //console.log("from here js",result);
-                    //if(result )
-                    
-                   
-                    //alert(result.message || "Lecture added successfully");
                   });
 
                 // Append buttons to container
@@ -240,3 +236,12 @@ async function delete_assignments(assignId){
     // console.log("in js 1: ",result_of_deletion[0].affectedRows);
     // console.log("in js 2: ",result_of_deletion.affectedRows);
 
+
+// add assignment form js - also it is directly sending post request to server without any form validation
+
+const form = document.getElementById('form_add_Assignment');
+const loadingOverlay = document.getElementById('loadingOverlay');
+
+form.addEventListener('submit', () => {
+    loadingOverlay.style.display = 'flex';
+  });

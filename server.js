@@ -52,6 +52,18 @@ app.use(session({
     } // set to true in production with HTTPS
 
 }));
+
+// demo middleware to see how much time requests take to process on server written by the silent member
+
+app.use((req, res, next) => {
+    const start = Date.now();
+    res.on('finish', () => {
+        const duration = Date.now() - start;
+        console.log(`${req.method} ${req.originalUrl} took ${duration}ms`);
+    });
+    next();
+});
+
 //////////////////////
 app.get("/", (req, res) => {
     // console.log(document.cookie);
@@ -303,7 +315,7 @@ app.get('/api/get_students', async (req, res) => {
 //================================================================
 //STUDENT DASHBOARD INFO FETCH
 app.get('/api/studentInfo', async (req, res) => {
-    const studentENR = req.session.student.s_enr;
+    const studentENR = req.session.student ?  req.session.student.s_enr : 137202722; // testing
     const studentInfo = await getStudentInfofromENR(studentENR);
     const studentpinfo = studentInfo[0];
     const studentSubjects = studentInfo[1];
@@ -364,7 +376,7 @@ app.get('/api/getGraceDataForLec',async(req,res) => {
 
     try{
         const data = await getStudentGraceAttendanceForLecture(Sec_id,Sub_id);
-        res.json({ sorted_by_date:data.Grace_data_by_date , sorted_by_enr:data.Grace_data_by_enr});
+        res.json({sorted_by_enr:data.Grace_data_by_enr});
     }
     catch(e){
         res.status(500).json({code:"error",errorMessage:e});
@@ -705,7 +717,7 @@ app.post('/api/submitAssignment', upload.single('assignment_file'), async (req, 
 
 app.get('/api/detailedStuAttendance',async (req, res) => {
     const {subId} = req.query;
-    const enr = req.session.student.s_enr;
+    const enr = req.session.student ?  req.session.student.s_enr : 137202722; // testing
     const detailedAttendance = await fetchDetailedAttendance(enr, subId);
     res.json(detailedAttendance);
 })
