@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // creating dynamic heading
         if (selectedLecture) {
             const heading = document.createElement('p');
-            heading.className = "text-2xl font-semibold mb-4 text-left text-[#DB2878]";
+            heading.className = "text-2xl font-semibold text-left text-[#DB2878]";
             heading.innerHTML = `
                 <span >Section</span>: ${selectedLecture.section} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span >Subject</span>: ${selectedLecture.sub_alias}
@@ -151,7 +151,7 @@ async function load_assignments(sec_name,sub_alias) {
                 const assign_div = document.createElement('div');
                 assign_div.id = "dynamic_assignment_div";
         
-                assign_div.className = "w-full max-w-3xl bg-white rounded-md p-4 hover:scale-[1.02] transition transform flex flex-col justify-center items-start mx-auto shadow-md";
+                assign_div.className = "w-full bg-white rounded-md p-4 hover:scale-[1.02] transition transform flex flex-col justify-center items-start mx-auto shadow-md";
                 assign_div.style.boxShadow = "0 0 10px rgba(219, 40, 120, 0.1)";
                 
                 const topRow = document.createElement('div');

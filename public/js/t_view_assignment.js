@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Fetch and fill assignment summary
     const summaryRes = await fetch(`/t_view_assignment/${assignmentId}`);
     const summary = await summaryRes.json();
+
+    console.log(summary);
   
     document.getElementById("assignment-title").textContent = summary.title;
     document.getElementById("assignment-remark").textContent = summary.remark;

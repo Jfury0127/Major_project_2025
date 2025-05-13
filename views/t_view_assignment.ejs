@@ -11,9 +11,15 @@
   <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon">
   <script type="text/javascript" src="/js/t_script.js" defer></script>
   <script type="text/javascript" src="/js/t_view_assignment.js" defer></script>
-  <script>
-    window.submissionsData = <%= JSON.stringify(submissions || []) %>;
-  </script>
+  
+<script>
+  window.submissionsData = JSON.parse(`<%- JSON.stringify(submissions || [])
+    .replace(/\\/g, '\\\\')    // escape backslashes
+    .replace(/\$/g, '\\$')     // escape dollar signs
+    .replace(/\n/g, '\\n')     // escape newlines
+    .replace(/\r/g, '\\r')     // escape carriage returns
+  %>`);
+</script>
 
 
 
@@ -91,12 +97,12 @@
 
   <!-- Main Section -->
   <!-- Main Content Area -->
-  <div class="ml-0 sm:ml-60 mt-20 px-4 h-[calc(100vh-4rem)] overflow-y-auto"  
+  <div class="ml-0 sm:ml-60 mt-8 px-4 h-[calc(100vh-4rem)] overflow-y-auto"  
   style="background-image: url('/images/light-pink4.jpg');">
 
     <!-- Assignment Summary Section -->
     <div
-      class="mt-24 w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200">
+      class="mt-24 w-11/12 mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200">
 
       <!-- Back Button -->
       <div class="mb-4">
@@ -146,13 +152,13 @@
 
 
     <!-- Student submission Table -->
-    <div class="w-11/12 mx-auto mt-12">
+    <div class="w-11/12 mx-auto mt-12 mb-4">
       <h2 class="text-xl font-semibold text-[#DB2878] mb-4">Student submissions</h2>
 
       <div class="overflow-x-auto">
 
 
-        <div class="max-h-[400px] overflow-y-auto border border-gray-300 rounded-md">
+        <div class="overflow-y-auto border border-gray-300 rounded-md">
           <table class="w-full md:text-sm text-xs border-collapse">
             <thead class="sticky top-0 bg-[#DB2878]/50 z-10">
               <tr>
