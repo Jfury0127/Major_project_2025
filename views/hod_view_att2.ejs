@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOD Dashboard</title>
-    <link rel="stylesheet" href="output.css"/>
+    <link rel="stylesheet" href="output.css">
     <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon"/>
-    <script src="/js/hod_view_att.js" defer></script>
+    <!-- <script src="/js/hod_view_att.js" defer></script> -->
+    <script>
+      const subid = "<%= subject_id %>";
+      const secid = "<%= section_id %>";
+      const startdate = "<%= startDate %>";
+      const enddate = "<%= endDate %>";
+      const attendance = <%- JSON.stringify(attendance) %>;
+    
+      console.log(subid, secid, startdate, enddate);
+    </script>
+    
 
 </head>
 <body class="overflow-y-auto bg-gradient-to-r from-emerald-50/80 to-white text-[#515151]">
@@ -28,7 +38,10 @@
       
       <div class="w-full">
         <div id="attendance-table" class="mt-24 w-11/12 bg-white m-auto overflow-x-auto">
-          <table class="w-full md:text-sm text-xs border-x-2 ">
+          <div>
+            <div>Report Generated from : <%= startDate%> to <%= endDate%></div>
+          </div>
+          <table class="w-full md:text-sm text-xs border-x-2 my-8">
             <thead>
               <tr class="border-y-2 bg-emerald-600/30">
                 <th class="px-4 py-2">Serial no.</th>
@@ -42,8 +55,31 @@
 
             <!-- table body -->
             <tbody>
-           
+
+              <% if (attendance && attendance.length > 0) { %>
+                <!-- <% console.log(attendance);%> -->
+                <% attendance.forEach((student) => { %>
+
+                  <tr class="border-y">
+                    <td class="px-4 py-2"><%= student["Sr No."] %></td>
+                    <td class="px-4 py-2"><%= student["Student ID"] %></td>
+                    <td class="px-4 py-2"><%= student["Student Name"] %></td>
+                    <td class="px-4 py-2"><%= student["Lectures Attended"] %></td>
+                    <td class="px-4 py-2"><%= student["Total Lectures"] %></td>
+                    <td class="px-4 py-2"><%= student.Percentage %> %</td>
+                  </tr>
+                <% }); %>
+              <% } else { %>
+                <tr>
+                  <td colspan="6" class="text-center py-4 text-red-600 font-semibold">
+                    No attendance records found.
+                  </td>
+                </tr>
+              <% } %>
             </tbody>
+            
+            
+            
           </table>
         </div>
          

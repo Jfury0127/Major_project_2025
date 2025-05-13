@@ -91,3 +91,89 @@ function viewatt(){
         errormsg.classList.toggle('hidden')
     }
 }
+function view_att2(){
+    const section = document.getElementById("sec").value;
+  const subject = document.getElementById("sub").value;
+    const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
+  const secId = section.split("-")[0];
+  const subtId = subject.split("-")[0];
+    if(year && sem && section && subject && startDate && endDate){
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/view_attendance";
+    
+        const inputs = [
+          { name: "section_id", value: secId },
+          { name: "subject_id", value: subtId },
+          { name: "startDate", value: startDate },
+          { name: "endDate", value: endDate }
+        ];
+    
+        inputs.forEach(({ name, value }) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = name;
+          input.value = value;
+          form.appendChild(input);
+        });
+    
+        document.body.appendChild(form);
+        form.submit(); // sends POST request and navigates to new page
+  
+  
+    }
+    else{
+      errormsg.classList.toggle('hidden')
+    }
+  }
+  
+  
+  async function generateReport() {
+    const section = document.getElementById("sec").value;
+    const subject = document.getElementById("sub").value;
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+  
+    const secId = section.split("-")[0];
+    const subtId = subject.split("-")[0];
+  
+    console.log({ secId, subtId, startDate, endDate });
+  
+    try {
+      const response = await fetch('/api/getAttendanceDateRange', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          section_id: secId,
+          subject_id: subtId,
+          startDate: startDate,
+          endDate: endDate
+        })
+      });
+  
+      const data = await response.json();
+  
+      if (!Array.isArray(data) || data.length === 0) {
+        alert("No data found for the selected date range.");
+        return;
+      }
+  
+      // Convert JSON to Excel worksheet
+      const worksheet = XLSX.utils.json_to_sheet(data);
+  
+      // Create workbook and append the worksheet
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Attendance Report");
+  
+      // Generate and download Excel file
+      XLSX.writeFile(workbook, `Attendance_Report_${startDate}_to_${endDate}.xlsx`);
+    } catch (error) {
+      console.error("Error generating report:", error);
+      alert("Something went wrong while generating the report.");
+    }
+  }
+  
+  

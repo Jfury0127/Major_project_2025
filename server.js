@@ -20,7 +20,7 @@ import { chk_pass_from_enr, chk_pass_from_id, chk_pass_from_hod_id, chk_t_lect_n
         updateAttendanceEntry, getStudentsBySection,getTotalLectures,getLecturesTaken,fetchDetailedAttendance
         ,hod_getsections,hod_get_subjects,create_Assignment,get_assignments_summary, get_submissions_summary,
         get_assignments_for_lecture,get_assignments_for_student,remove_Assignment,update_submission,
-        getStudentDataQuery,getStudentLecAttendance} from './database.js';
+        getStudentDataQuery,getStudentLecAttendance,getallData} from './database.js';
 
 // importing cloud container created in cloudinary        
 import {storage} from './cloud.js';
@@ -200,8 +200,8 @@ async function hod_func1(req, res) { //without post request i.e. when land on th
         } else if (msg2 == "wrong_password") {
             text2 = "Incorrect Password !";
             res.render("hod_login", { text2 });
-        } else if (msg2 == "hod_dashboard") {
-            res.redirect("/hod_dashboard");
+        } else if (msg2 == "h_dashboard") {
+            res.redirect("/h_dashboard");
         }
         else {
             res.render("error_page.ejs");
@@ -230,7 +230,7 @@ async function hod_func2(req, res, next) {
     // both correct - move to next page
     else {
         req.session.hod = { hod_id: hod_id };
-        req.dataProcessed = { "mssgcode": "hod_dashboard" };
+        req.dataProcessed = { "mssgcode": "h_dashboard" };
         // console.log("Login successful, redirecting to dashboard");
     }
     return next();
@@ -398,6 +398,39 @@ app.post('/api/get_total_lectures', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch total lectures' });
     }
 });
+
+
+//API to fetch attendance data on the basis of Date Range
+app.post('/api/getAttendanceDateRange', async (req, res) => {
+    const { section_id, subject_id, startDate, endDate } = req.body;
+  
+    try {
+      const attendanceData = await getallData(section_id, subject_id, startDate, endDate);
+      res.json(attendanceData);
+    } catch (error) {
+      console.error('Error fetching attendance data:', error);
+      res.status(500).json({ error: 'Failed to fetch attendance data' });
+    }
+  });
+
+  app.post('/view_attendance', async (req, res) => {
+    const { section_id, subject_id, startDate, endDate } = req.body;
+  
+    const attendanceData = await getallData(section_id, subject_id, startDate, endDate);
+  
+    res.render('hod_view_att2', {
+        section_id,
+      subject_id,
+      startDate,
+      endDate,
+      attendance: attendanceData
+    });
+  });
+  
+  
+  
+
+
 
 app.get("/teacher_edit", async (req, res) => {
     
@@ -659,8 +692,14 @@ app.get('/api/detailedStuAttendance',async (req, res) => {
 app.get("/hod_login",(req,res)=>{
     res.render("hod_login")
 })
-app.get("/hod_dashboard",(req,res)=>{
-    res.render("hod_dashboard")
+// app.get("/hod_dashboard",(req,res)=>{
+//     res.render("hod_dashboard")
+// })
+app.get("/h_dashboard",(req,res)=>{
+    res.render("h_dashboard")
+})
+app.get("/h_report_generation",(req,res)=>{
+    res.render("h_report_generation")
 })
 
 app.get("/hod_destroySession", (req, res) => {

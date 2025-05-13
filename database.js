@@ -250,7 +250,39 @@ export async function hod_get_subjects(sem) {
    // console.log(result);
    return result;
 }
-
+///////////////////////////////////////////////////////////////////////////////
+// view att according to date range
+export async function getallData(sec, sub, startDate, endDate) {
+   const [result] = await pool.query(
+     `
+     SELECT 
+         ROW_NUMBER() OVER (ORDER BY s.ENR_NUMBER) AS \`Sr No.\`,
+         s.ENR_NUMBER AS \`Student ID\`,
+         CONCAT(s.STU_FNAME, ' ', COALESCE(s.STU_LNAME, '')) AS \`Student Name\`,
+         COUNT(CASE WHEN a.STATUS = 1 THEN 1 END) AS \`Lectures Attended\`,
+         COUNT(a.ATTENDANCE_ID) AS \`Total Lectures\`,
+         ROUND(COUNT(CASE WHEN a.status = 1 THEN 1 END) * 100.0 / COUNT(*), 2) AS Percentage
+     FROM student s
+     LEFT JOIN attendance a 
+         ON s.ENR_NUMBER = a.ENR_NUMBER
+         AND a.SUB_ID = ?
+         AND a.ATTENDANCE_DATE BETWEEN ? AND ?
+     WHERE s.SECTION_ID = ?
+     GROUP BY s.ENR_NUMBER, s.STU_FNAME, s.STU_LNAME
+     ORDER BY s.ENR_NUMBER;
+     `,
+     [sub, startDate, endDate, sec]
+   );
+ 
+   return result;
+ }
+//  async function testGetAllData() {
+//    const data = await getallData(109, 'CIC_307', '2025-05-11', '2025-05-11');
+//    console.log(data);
+//  }
+ 
+//  testGetAllData();
+ 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // major_project
