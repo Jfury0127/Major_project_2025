@@ -729,13 +729,13 @@ app.post('/api/stuAssignments',async (req, res) => {
 
 app.post('/api/submitAssignment', upload.single('assignment_file'), async (req, res) => {
     try {
-        const { assignment_id, enr_number } = req.body;
+        const { assignment_id, enr_number ,date} = req.body;
         const filee = req.file;
         if (!filee) {
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
-        const submission_date = new Date();
+        const submission_date = date;
         const ref_to_submission = filee.path;
 
         // Update the submits table
