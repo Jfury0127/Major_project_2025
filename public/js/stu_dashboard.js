@@ -86,7 +86,7 @@ async function load_assign(subId) {
                 : '-';
             
             const submitCell = assignments.Date_of_submission
-            ? `<td class="px-4 py-2 border border-gray-400"><a href="${assignments.Ref_to_submission}" target="_blank" class="text-blue-600 hover:underline">View</a></td>`
+            ? `<td class="px-4 py-2 border border-gray-400"><a href="${assignments.Ref_to_submission}" target="_blank" class="text-blue-600 hover:underline"id = "view_2">View</a></td>`
             : `<td class="px-4 py-2 border border-gray-400">No submission</td>`;
             
 
@@ -96,7 +96,7 @@ async function load_assign(subId) {
                 <td class="px-4 py-2 border border-gray-400">${assignments.Remark}</td>
                 <td class="px-4 py-2 border border-gray-400">${new Date(assignments.Date_of_arr).toLocaleDateString('en-CA')}</td>
                 <td class="px-4 py-2 border border-gray-400">${new Date(assignments.Due_date).toLocaleDateString('en-CA')}</td>
-                <td class="px-4 py-2 border border-gray-400"><a href="${assignments.Ref_to_assignment}" target="_blank" class="text-blue-600 hover:underline">View</a></td>
+                <td class="px-4 py-2 border border-gray-400"><a href="${assignments.Ref_to_assignment}" target="_blank" id="view_1">View</a></td>
                 <td class="px-4 py-2 border border-gray-400">${submissionDate}</td>
                 ${submitCell}
                 <td class="px-4 py-2 border border-gray-400">
@@ -109,10 +109,16 @@ async function load_assign(subId) {
             </tr>`;
             assign_table.insertAdjacentHTML("beforeend", row);
         });
+        document.getElementById("view_1").style.color = "blue";
+        document.getElementById("view_1").style.textDecoration = "underline";
+        document.getElementById("view_2").style.color = "blue";
+        document.getElementById("view_2").style.textDecoration = "underline";
+        
 
     } catch (error) {
         console.error("Error fetching assignments:", error);
     }
+    
 }
 
 function getFormattedDate(date) {
@@ -168,3 +174,12 @@ function submit_assignment_handler(event, assignId,subid) {
         submit_assignment(assignId, file,subid);
     }
 }
+//css
+
+
+
+
+
+
+
+
