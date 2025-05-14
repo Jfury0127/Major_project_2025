@@ -818,6 +818,10 @@ app.get('/contactUs', async (req, res) => {
     res.render('contactus');
 });
 
+// prevent chrome spam
+app.get('/.well-known/appspecific/com.chrome.devtools.json', (req, res) => {
+  res.status(204).send(); // 204 = No Content
+});
 
 app.use((req, res, next) => {
     res.status(404).render("error_page");

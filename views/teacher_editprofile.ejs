@@ -105,13 +105,13 @@
         <!-- right side -->
         <div class="second_div">
           <form class="form_exis_lect">
-            <label for="existing_lectures_div" class="label_exi_lec"> Existing Lectures</label>
+            <label class="label_exi_lec"> Existing Lectures</label>
 
             <div class="info_div2" id="existing_lectures_div">
 
             </div>
             <div class="save_btn">
-              <button class="btn_save_btn" name="btn_save_btn" onclick="saveLectures()">Show Lectures </button>
+              <button class="btn_save_btn" name="btn_save_btn" >Show Lectures </button>
             </div>
           </form>
         </div>
@@ -274,19 +274,6 @@
       // Load existing lectures as labels
       async function loadExistingLectures() {
 
-        // Existing saveLectures function
-        // function saveLectures() {
-        //   // Call loadExistingLectures to reload the existing lectures list after save
-        //   loadExistingLectures();
-        // }
-
-        // Add the event listener for Save Lectures button
-        // document.querySelector(".btn_save_btn").addEventListener("click", (e) => {
-        //   e.preventDefault();
-        //   saveLectures();
-        // });
-
-        console.log("Loading existing lectures...");
         try {
           const response = await fetch('/getExistingLectures');
           const lectures = await response.json();

@@ -2,21 +2,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     const assignmentId = sessionStorage.getItem("selectedAssignmentId"); // set this in previous page
   
     // Fetch and fill assignment summary
-    const summaryRes = await fetch(`/t_view_assignment/${assignmentId}`);
-    const summary = await summaryRes.json();
+    // const summaryRes = await fetch(`/t_view_assignment/${assignmentId}`);
+    // const summary = await summaryRes.json();
 
-    console.log(summary);
+    // console.log(summary);
   
-    document.getElementById("assignment-title").textContent = summary.title;
-    document.getElementById("assignment-remark").textContent = summary.remark;
-    document.getElementById("assignment-issue").textContent = `Issued On: ${summary.issue_date}`;
-    document.getElementById("assignment-due").textContent = `Due Date: ${summary.due_date}`;
-    document.getElementById("assignment-submitted").textContent = `Submitted: loading...`;
+    // document.getElementById("assignment-title").textContent = summary.title;
+    // document.getElementById("assignment-remark").textContent = summary.remark;
+    // document.getElementById("assignment-issue").textContent = `Issued On: ${summary.issue_date}`;
+    // document.getElementById("assignment-due").textContent = `Due Date: ${summary.due_date}`;
+    // document.getElementById("assignment-submitted").textContent = `Submitted: loading...`;
   
     // Fetch and render student submissions
     const submissionsTableBody = document.querySelector("#attendance-table tbody");
 
-    const submissions = window.submissionsData || [];
+    const submissions = window.submissions || [];
   
     submissions.forEach((submission, index) => {
       const tr = document.createElement("tr");
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
       submissionsTableBody.appendChild(tr);
     });
-    document.getElementById("assignment-submitted").textContent = `Submitted: ${submittedCount} / ${submissions.length}`;
+    // document.getElementById("assignment-submitted").textContent = `Submitted: ${submittedCount} / ${submissions.length}`;
   });
   
   // Helpers

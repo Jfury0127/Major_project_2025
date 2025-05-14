@@ -35,7 +35,6 @@ fetch('/api/teacher_details',{
     }
     }).then(response => response.json()).then((tdata) => {
         teacher_details = tdata;
-        console.log(teacher_details);
         tid_div.textContent = `Teacher ID : ${teacher_details.F_ID}`;
         tname_div.textContent = `Teacher Name : ${teacher_details.F_FNAME}${teacher_details.F_LNAME ? teacher_details.F_LNAME : ""}`;
     });

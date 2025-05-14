@@ -159,7 +159,7 @@ prevpage.addEventListener('click', () => {
 //render data rows acc to page number
 async function renderPage(page) {
     tablebody.innerHTML = "";  // Clear previous rows
-    console.log("here");
+
     let rowsperpageValue = rowsperpage.value;
     const rows = rowsperpageValue === "all" ? rowsData.length : parseInt(rowsperpageValue, 10); //no. of rows to be shown
     const startIndex = (page - 1) * rows;
@@ -241,7 +241,7 @@ function handleCheckboxClick(e) {
 }
 
 markallpresent.addEventListener('click', () => {
-    console.log(markallpresent.textContent);
+    
     if (markallpresent.textContent == "Mark All Present") {
         // attendanceStatus = 1;
         for (let key of attendanceStatus.keys()) {
@@ -379,7 +379,6 @@ async function modifyAttendance(event){
         const response = await fetch(`/api/modify_att?section_id=${sectionID}&sub_id=${subID}&attendance_date=${form_recieved_date}&form_enr=${form_recieved_enr}&reason=${form_recieved_reason}`);
         const student_date_Record = await response.json();
         
-        console.log(student_date_Record);
         // if no lecture was taken on this day
         if(student_date_Record == 0){ 
             date_error.textContent = "No lecture was taken on this date!";
@@ -413,7 +412,6 @@ async function modifyAttendance(event){
         console.log("error" , e);
     }
     
-    console.log('over');
     return;
 }
 // // 
