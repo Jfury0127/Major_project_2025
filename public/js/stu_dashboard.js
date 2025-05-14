@@ -39,6 +39,9 @@ async function getInfo() {
             <td class="px-4 py-2 border border-gray-400">${percentage}</td>
             <td class="px-4 py-2 border border-gray-400">${getRemark(percentage)}</td>
             <td class="px-4 py-2 border border-gray-400">
+                <div onclick="window.location.href='/stu_more_info?subId=${sub.SUB_ID}'" class="h-8 w-24 bg-[#5254dd] hover:bg-[#5254dd]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center m-auto">More</div>
+            </td>
+            <td class="px-4 py-2 border border-gray-400">
                 <div onclick="load_assign('${sub.SUB_ID}')" class="h-8 w-24 bg-[#5254dd] hover:bg-[#5254dd]/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center m-auto">View</div>
             </td>
         </tr>`;
@@ -79,16 +82,16 @@ async function load_assign(subId) {
             show_assign_div.classList.add("hidden");
             alert("Hurray! No Assignments");
         }
-        
+
         data.assignmentdata.forEach((assignments, i) => {
-            const submissionDate = assignments.Date_of_submission 
-                ? new Date(assignments.Date_of_submission).toLocaleDateString('en-CA') 
+            const submissionDate = assignments.Date_of_submission
+                ? new Date(assignments.Date_of_submission).toLocaleDateString('en-CA')
                 : '-';
-            
+
             const submitCell = assignments.Date_of_submission
-            ? `<td class="px-4 py-2 border border-gray-400"><a href="${assignments.Ref_to_submission}" target="_blank" class="text-blue-600 hover:underline"id = "view_2">View</a></td>`
-            : `<td class="px-4 py-2 border border-gray-400">No submission</td>`;
-            
+                ? `<td class="px-4 py-2 border border-gray-400"><a href="${assignments.Ref_to_submission}" target="_blank" class="text-blue-600 hover:underline"id = "view_2">View</a></td>`
+                : `<td class="px-4 py-2 border border-gray-400">No submission</td>`;
+
 
             const row = `<tr>
                 <td class="px-4 py-2 border border-gray-400">${i + 1}</td>
@@ -113,12 +116,12 @@ async function load_assign(subId) {
         document.getElementById("view_1").style.textDecoration = "underline";
         document.getElementById("view_2").style.color = "blue";
         document.getElementById("view_2").style.textDecoration = "underline";
-        
+
 
     } catch (error) {
         console.error("Error fetching assignments:", error);
     }
-    
+
 }
 
 function getFormattedDate(date) {
@@ -128,12 +131,12 @@ function getFormattedDate(date) {
     return `${year}-${month}-${day}`;
 }
 
-async function submit_assignment(assignId, file,subid) {
+async function submit_assignment(assignId, file, subid) {
     const formData = new FormData();
     formData.append('assignment_id', assignId);
     formData.append('enr_number', enr_num);
     formData.append('assignment_file', file);
-    
+
     const date_of_Sub = new Date();
     const date_send = getFormattedDate(date_of_Sub);
     formData.append('date', date_send);
@@ -153,7 +156,7 @@ async function submit_assignment(assignId, file,subid) {
                 load_assign(subid);
                 return;
             }, 2000); // 1000ms = 1 second
-            
+
         } else {
             alert('Submission failed. Please try again.');
             loadingOverlay.style.display = 'none';
@@ -165,13 +168,13 @@ async function submit_assignment(assignId, file,subid) {
 }
 
 // This handler gets called from the inline form on each row
-function submit_assignment_handler(event, assignId,subid) {
+function submit_assignment_handler(event, assignId, subid) {
     event.preventDefault();
-    console.log("from handler",assignId);
+    console.log("from handler", assignId);
     const fileInput = event.target.querySelector('input[name="ass_sub"]');
     const file = fileInput.files[0];
     if (file) {
-        submit_assignment(assignId, file,subid);
+        submit_assignment(assignId, file, subid);
     }
 }
 //css

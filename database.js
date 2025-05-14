@@ -228,18 +228,17 @@ export async function fetchDetailedAttendance(enr, subId) {
    // console.log(subId,enr);
    // console.log(typeof(subId));
    const [result] = await pool.query(
+      `SELECT DATE_FORMAT(attendance_date, '%Y-%m-%d') AS attendance_date, status FROM attendance where ENR_NUMBER= ? AND SUB_ID= ?;`, [enr, subId])
 
       // `SELECT DATE_FORMAT(attendance_date, '%Y-%m-%d') AS attendance_date, status
       // FROM attendance where SUB_ID= '${subId}' AND ENR_NUMBER= ${enr};`)
-      `SELECT DATE_FORMAT(attendance_date, '%Y-%m-%d') AS attendance_date, status
-      FROM attendance where ENR_NUMBER= ? AND SUB_ID= ?;`, [enr, subId])
 
-   //console.log(result);
+   // console.log(result);
 
    return result;
 
 }
-
+// fetchDetailedAttendance(137202722,"CIC_305")
 export async function hod_getsections(year) {
    const [result] = await pool.query(`select section_id, section_name from section where section_year = ?;`, [year])
    // console.log(result);

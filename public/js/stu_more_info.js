@@ -18,12 +18,12 @@ async function getMOREInfo(){
         }}
     );
     const detailedAttendance = await res.json();
-    console.log(detailedAttendance);
+    console.log("from js, detailedatt:",detailedAttendance);
     const attMap = new Map();
     for (const row of detailedAttendance) {
         attMap.set(row.attendance_date, row.status);
     }
-    console.log(attMap);
+    console.log("from js, att map:",attMap);
     return attMap;
 }
 let currentMonth = (new Date()).getMonth();
@@ -71,12 +71,17 @@ async function loadcalender(year,month) {
 }
 
 function makeTDbasedOnStatus(attMap,dayDate,year,month){
-    let date;
-    if(dayDate < 10) {
-         date = `${year}-${month}-0${dayDate}`
-    }else{
-         date = `${year}-${month}-${dayDate}`
-    }
+    // let date;
+    // if(dayDate < 10) {
+    //      date = `${year}-${month}-0${dayDate}`
+    // }else{
+    //      date = `${year}-${month}-${dayDate}`
+    // }
+    const pad = (num) => num.toString().padStart(2, '0');
+    const date = `${year}-${pad(month)}-${pad(dayDate)}`;
+
+    const td = document.createElement('td');
+    td.textContent = dayDate;
     if (attMap.get(date)==0){
         const td = document.createElement('td')
         td.textContent = dayDate;

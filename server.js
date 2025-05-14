@@ -753,6 +753,7 @@ app.get('/api/detailedStuAttendance',async (req, res) => {
     const {subId} = req.query;
     const enr = req.session.student ?  req.session.student.s_enr : 137202722; // testing
     const detailedAttendance = await fetchDetailedAttendance(enr, subId);
+    //console.log(detailedAttendance);
     res.json(detailedAttendance);
 })
 
