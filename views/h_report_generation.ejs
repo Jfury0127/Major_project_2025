@@ -95,12 +95,11 @@
     </div>
 
     <!-- Main Section -->
-    <div class="main-sec ml-0 sm:ml-60 mt-4 p-8 h-[calc(100vh-4rem)] overflow-auto bg-gray-200/70 text-[#515151]"
-    style="background-image: url('/images/light-pink6.jpg');">
+    <div class="main-sec ml-0 sm:ml-60 mt-16 p-8 h-[calc(100vh-4rem)] overflow-auto bg-emerald-600/20 text-[#515151]">
         <div class="w-full">
-          <div class="cal-con w-full my-2 mt-24">
-            <div class="max-w-[480px] m-auto bg-white py-8 px-6 mt-16 mb-6 border rounded-lg flex flex-col">
-              <label for="year" class="text-lg font-semibold">Select year:</label>
+          <div class="cal-con w-full my-2 mt-6">
+            <div class="max-w-[480px] m-auto bg-white py-8 px-6 mt-10 mb-6 border rounded-lg flex flex-col">
+              <label for="year" class="text-lg font-medium">Select year:</label>
               <select name="year" id="year" onchange="fetchSemSec();" class="border-2 p-1 rounded-md bg-emerald-50 my-2">
                 <option value="" disabled selected>Select year:</option>
                 <option value="1">First</option>
@@ -109,27 +108,27 @@
                 <option value="4">Fourth</option>
               </select>
     
-              <label for="sem" class="text-lg font-semibold">Select Semester:</label>
+              <label for="sem" class="text-lg font-medium">Select Semester:</label>
               <select name="sem" id="sem" onchange="fetchSubjects()" class="border-2 p-1 rounded-md bg-emerald-50 my-2">
                 <option value="" disabled selected hidden>Select Semester:</option>
               </select>
-              <label for="sec" class="text-lg font-semibold">Select Section:</label>
+              <label for="sec" class="text-lg font-medium">Select Section:</label>
               <select name="sec" id="sec" class="border-2 p-1 rounded-md bg-emerald-50 my-2">
                 <option value="" disabled selected hidden>Select Section:</option>
                 
               </select>
-              <label for="sub" class="text-lg font-semibold">Select Subject:</label>
+              <label for="sub" class="text-lg font-medium">Select Subject:</label>
               <select name="sub" id="sub" class="border-2 p-1 rounded-md bg-emerald-50 my-2">
                 <option value="" disabled selected hidden>Select Subject:</option>
               </select>
               <div>
-                <label class="block font-medium mb-1">Start Date</label>
-                <input type="date" id="startDate" class="w-full p-2 border rounded" required>
+                <label class="block text-lg font-medium mb-1">Start Date:</label>
+                <input type="date" id="startDate" class="w-full border-2 p-1 rounded-md bg-emerald-50 my-2" required>
               </div>
             
               <div>
-                <label class="block font-medium mb-1">End Date</label>
-                <input type="date" id="endDate" class="w-full p-2 border rounded" required>
+                <label class="block text-lg font-medium mb-1">End Date:</label>
+                <input type="date" id="endDate" class="w-full border-2 p-1 rounded-md bg-emerald-50 my-2" required>
               </div>
             </div>
 

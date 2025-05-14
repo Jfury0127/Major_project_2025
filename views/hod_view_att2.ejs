@@ -12,7 +12,7 @@
       const secid = "<%= section_id %>";
       const startdate = "<%= startDate %>";
       const enddate = "<%= endDate %>";
-      const attendance = <%- JSON.stringify(attendance) %>;
+      // const attendance = <%- JSON.stringify(attendance) %>;
     
       console.log(subid, secid, startdate, enddate);
     </script>
@@ -37,7 +37,7 @@
       </div>
       
       <div class="w-full">
-        <div id="attendance-table" class="mt-24 w-11/12 bg-white m-auto overflow-x-auto">
+        <div id="attendance-table" class="mt-24 w-11/12 m-auto overflow-x-auto">
           <div>
             <div>Report Generated from : <%= startDate%> to <%= endDate%></div>
           </div>
@@ -81,6 +81,9 @@
             
             
           </table>
+        </div>
+        <div class="w-full flex justify-center items-center mb-10">
+          <div onclick="generateReport()" class="view-att-btn h-10 w-44 bg-emerald-600 hover:bg-emerald-600/90 rounded-lg cursor-pointer text-white font-medium flex justify-center items-center gap-1">Generate Report</div>
         </div>
          
     

@@ -124,7 +124,7 @@ function view_att2(){
   
     }
     else{
-      errormsg.classList.toggle('hidden')
+      errormsg.classList.toggle('hidden');
     }
   }
   
@@ -138,7 +138,10 @@ function view_att2(){
     const secId = section.split("-")[0];
     const subtId = subject.split("-")[0];
   
-    console.log({ secId, subtId, startDate, endDate });
+    // console.log({ secId, subtId, startDate, endDate });
+
+    if(year && sem && section && subject && startDate && endDate){
+
   
     try {
       const response = await fetch('/api/getAttendanceDateRange', {
@@ -173,6 +176,10 @@ function view_att2(){
     } catch (error) {
       console.error("Error generating report:", error);
       alert("Something went wrong while generating the report.");
+    }
+    }
+    else{
+        errormsg.classList.toggle('hidden');
     }
   }
   

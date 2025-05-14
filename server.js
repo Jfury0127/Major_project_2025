@@ -771,6 +771,9 @@ app.get("/h_dashboard",(req,res)=>{
 app.get("/h_report_generation",(req,res)=>{
     res.render("h_report_generation")
 })
+app.get("/h_logout", (req, res) => {
+    res.render("h_logout")
+})
 
 app.get("/hod_destroySession", (req, res) => {
     req.session.destroy((err) => {
