@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="output.css">
     <link rel="shortcut icon" href="/images/AttendPro-logo.png" type="image/x-icon"/>
     <!-- <script src="/js/hod_view_att.js" defer></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
     <script>
       const subid = "<%= subject_id %>";
       const secid = "<%= section_id %>";
@@ -14,7 +16,53 @@
       const enddate = "<%= endDate %>";
       // const attendance = <%- JSON.stringify(attendance) %>;
     
-      console.log(subid, secid, startdate, enddate);
+      // console.log(subid, secid, startdate, enddate);
+      async function generateReport() {
+  
+    // console.log({ secId, subtId, startDate, endDate });
+
+    if( secid && subid && startdate && enddate){
+
+  
+    try {
+      const response = await fetch('/api/getAttendanceDateRange', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          section_id: secid,
+          subject_id: subid,
+          startDate: startdate,
+          endDate: enddate
+        })
+      });
+  
+      const data = await response.json();
+  
+      if (!Array.isArray(data) || data.length === 0) {
+        alert("No data found for the selected date range.");
+        return;
+      }
+  
+      // Convert JSON to Excel worksheet
+      const worksheet = XLSX.utils.json_to_sheet(data);
+  
+      // Create workbook and append the worksheet
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Attendance Report");
+  
+      // Generate and download Excel file
+      XLSX.writeFile(workbook, `Attendance_Report_${startdate}_to_${enddate}.xlsx`);
+    } catch (error) {
+      console.error("Error generating report:", error);
+      alert("Something went wrong while generating the report.");
+    }
+    }
+    else{
+        errormsg.classList.toggle('hidden');
+    }
+  }
     </script>
     
 
