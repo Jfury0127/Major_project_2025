@@ -258,7 +258,7 @@ app.post('/hod_login', hod_func2, hod_func1);
 //TEACHER LECTURES FETCH 
 app.get('/api/teacher_lectures', async (req, res) => {
     
-    const f_id = req.session.user ; //for testing
+    const f_id = req.session.user ? req.session.user.id : 10001; //for testing
     // const f_id = req.session.user.id;
     const teacherData = await getLecture(f_id); // Fetch TEACHER LECTURES based on teacher ID
     res.json(teacherData); // Send data as JSON to the frsontend
