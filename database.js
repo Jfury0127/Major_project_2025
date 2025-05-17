@@ -301,7 +301,7 @@ export async function create_Assignment(new_assignment_data, subject_alias, sec_
 
    const assign_id = result.insertId;
 
-   const [result2] = await pool.query(` INSERT INTO SUBMITS (enr_number, Assign_Id, Ref_to_submission,
+   const [result2] = await pool.query(` INSERT INTO submits (enr_number, Assign_Id, Ref_to_submission,
        Date_of_submission, submit_status) SELECT enr_number, ?, NULL, NULL, 0 FROM student WHERE section_id = 
        (select section_id from section where section_name = ?);`
       , [assign_id, sec_name]);
@@ -344,7 +344,7 @@ export async function get_submissions_summary(assign_id) {
 export async function get_assignments_for_student(enr_number, sub_id,section_name) {
    const [result] = await pool.query(`
          SELECT A.Assign_Id,A.Assign_Name,A.Remark,A.Date_of_arr,A.Due_date,A.Ref_to_assignment,S.Date_of_submission,
-         S.Ref_to_submission FROM assignment A JOIN SUBMITS S ON A.Assign_Id = S.Assign_Id
+         S.Ref_to_submission FROM assignment A JOIN submits S ON A.Assign_Id = S.Assign_Id
          WHERE S.Enr_Number = ? AND A.Sub_Id = ? AND A.Section_Id = (select section_id from section where section_name = ?);`, [enr_number, sub_id,section_name]);
 
    return result;
@@ -353,12 +353,12 @@ export async function get_assignments_for_student(enr_number, sub_id,section_nam
 export async function remove_Assignment(Assign_Id) {
 
    const [result] = await pool.query(`
-         Delete from Submits where Assign_Id = ?
+         Delete from submits where Assign_Id = ?
          `, 
          [Assign_Id]);
 
    const [result2] = await pool.query(`
-         Delete from Assignment where Assign_Id = ?
+         Delete from assignment where Assign_Id = ?
          `,
           [Assign_Id]);
 
@@ -368,7 +368,7 @@ export async function remove_Assignment(Assign_Id) {
 export async function update_submission(ref_to_submission, submission_date, enr_number, assignment_id) {
 
    const [result] = await pool.query(`
-      UPDATE SUBMITS
+      UPDATE submits
       SET Ref_to_submission = ?, Date_of_submission = ?,Submit_status = ? 
       WHERE Enr_Number = ? AND Assign_Id = ?;
    `, [ref_to_submission, submission_date,1, enr_number, assignment_id]);
@@ -388,7 +388,7 @@ export async function getStudentDataQuery(enr_num) {
 // get student data for view attendance search button
 export async function getStudentLecAttendance(enr_num,sub) {
    const [result] = await pool.query(
-      `SELECT attendance_date as Date,status FROM ATTENDANCE WHERE enr_number = ? and SUB_ID = ?`,
+      `SELECT attendance_date as Date,status FROM attendance WHERE enr_number = ? and SUB_ID = ?`,
       [enr_num,sub]
    );
    return result;
@@ -431,7 +431,7 @@ export async function modifyAttendanceUsingDate(sectionId, subID, attendanceDate
          // updated succesfully
  
          const [result4] = await pool.query(
-            `INSERT INTO MISC_ATTENDANCE VALUES(null,?,?,?,?,?)`,
+            `INSERT INTO misc_attendance VALUES(null,?,?,?,?,?)`,
             [attendanceDate,subID,sectionId,enr,reason]
          );      // added successfully
 
