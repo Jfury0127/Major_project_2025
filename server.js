@@ -223,7 +223,7 @@ async function hod_func1(req, res) { //without post request i.e. when land on th
 }
 async function hod_func2(req, res, next) {
 
-    const hod_id = req.body.hod_id_key;
+    const hod_id = req.body.hod_id_key ? req.body.hod_id_key : 101;
     const hod_pass = req.body.hod_pass_key;
     // console.log("HOD ID:", hod_id);
     // console.log("HOD Password:", hod_pass);
@@ -258,7 +258,7 @@ app.post('/hod_login', hod_func2, hod_func1);
 //TEACHER LECTURES FETCH 
 app.get('/api/teacher_lectures', async (req, res) => {
     
-    const f_id = req.session.user ? req.session.user.id : 10006; //for testing
+    const f_id = req.session.user ? req.session.user.id : 10001; //for testing
     // const f_id = req.session.user.id;
     const teacherData = await getLecture(f_id); // Fetch TEACHER LECTURES based on teacher ID
     res.json(teacherData); // Send data as JSON to the frsontend
@@ -267,7 +267,7 @@ app.get('/api/teacher_lectures', async (req, res) => {
 
 app.get('/api/teacher_details', async (req, res) => {
 
-    const f_id = req.session.user ? req.session.user.id : 10006; //for testing
+    const f_id = req.session.user ? req.session.user.id : 10001; //for testing
     // const f_id = req.session.user.id;
     const teacherData = await get_teacher_profile_details_from_id(f_id); // Fetch teacher detail based on teacher ID
     teacherData.F_ID = f_id;
@@ -503,7 +503,7 @@ app.post('/api/getAttendanceDateRange', async (req, res) => {
 
 app.get("/teacher_edit", async (req, res) => {
     
-    const f_id = req.session.user ? req.session.user.id : 10006; //for testing
+    const f_id = req.session.user ? req.session.user.id : 10001; //for testing
     // const f_id = req.session.user.id;
     const r = await get_teacher_profile_details_from_id(f_id);
 
@@ -514,7 +514,7 @@ app.get("/teacher_edit", async (req, res) => {
 
 app.post("/teacher_edit", (req, res) => {
     
-    const f_id = req.session.user ? req.session.user.id : 10006; //for testing
+    const f_id = req.session.user ? req.session.user.id : 10001; //for testing
     // const f_id = req.session.user.id;
     const t_profile_data = req.body;
     const result = update_teacher_profile(t_profile_data, f_id);
@@ -565,7 +565,7 @@ app.get("/get-subjects", async (req, res) => {
 
 app.get('/getExistingLectures', async (req, res) => {
     
-    const facultyId = req.session.user ? req.session.user.id : 10006; //for testing
+    const facultyId = req.session.user ? req.session.user.id : 10001; //for testing
     // const facultyId = req.session.user.id;
     try {
         const lectures = await getExistingLectures(facultyId);

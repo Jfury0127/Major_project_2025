@@ -32,7 +32,7 @@ const subtId = subject.split("-")[0];
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data); // handle the response
+  
     })
     .catch(error => console.error("Error:", error));
 
@@ -51,9 +51,7 @@ const subject = document.getElementById("sub").value;
 const endDate = document.getElementById("endDate").value;
 const secId = section.split("-")[0];
 const subtId = subject.split("-")[0];
-console.log({
-  secId, subtId, startDate, endDate
-});
+
 fetch('/api/getAttendanceDateRange', {
   method: 'POST',
   headers: {
@@ -68,7 +66,7 @@ fetch('/api/getAttendanceDateRange', {
 })
 .then(response => response.json())
 .then(data => {
-  console.log(data); // handle the response
+  
 })
 .catch(error => console.error("Error:", error));
 

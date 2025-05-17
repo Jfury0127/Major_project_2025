@@ -223,7 +223,7 @@ async function delete_assignments(assignId){
       });
 
     const result_of_deletion = await response.json();
-    console.log("in js : ",result_of_deletion);
+    
     // Check if deletion was successful
     if (result_of_deletion === 1) {
         alert("Assignment deleted successfully!");

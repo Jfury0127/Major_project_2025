@@ -408,8 +408,7 @@ async function modifyAttendance(event){
         }
         
     }catch(e){
-        console.log("eeor in modification");
-        console.log("error" , e);
+        console.error("eeor in modification");
     }
     
     return;

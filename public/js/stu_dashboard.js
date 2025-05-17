@@ -170,7 +170,6 @@ async function submit_assignment(assignId, file, subid) {
 // This handler gets called from the inline form on each row
 function submit_assignment_handler(event, assignId, subid) {
     event.preventDefault();
-    console.log("from handler", assignId);
     const fileInput = event.target.querySelector('input[name="ass_sub"]');
     const file = fileInput.files[0];
     if (file) {

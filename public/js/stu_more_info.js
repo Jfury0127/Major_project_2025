@@ -10,7 +10,7 @@ const next = document.querySelector('#next')
 async function getMOREInfo(){
     const urlParams = new URLSearchParams(window.location.search);
     const subId = urlParams.get('subId');
-    console.log(typeof(subId));
+    
     const res = await fetch(`/api/detailedStuAttendance?subId=${subId}`,
         {method : 'GET', 
         headers : {
@@ -18,12 +18,12 @@ async function getMOREInfo(){
         }}
     );
     const detailedAttendance = await res.json();
-    console.log("from js, detailedatt:",detailedAttendance);
+    
     const attMap = new Map();
     for (const row of detailedAttendance) {
         attMap.set(row.attendance_date, row.status);
     }
-    console.log("from js, att map:",attMap);
+    
     return attMap;
 }
 let currentMonth = (new Date()).getMonth();

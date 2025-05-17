@@ -42,7 +42,7 @@ async function fetchSec(){
         }}
     );
     const sections = await res.json();
-    console.log(sec);
+
 
     sec.innerHTML='<option value="" disabled selected hidden>Select Section:</option>';
     
