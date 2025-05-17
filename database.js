@@ -344,7 +344,7 @@ export async function get_submissions_summary(assign_id) {
 export async function get_assignments_for_student(enr_number, sub_id,section_name) {
    const [result] = await pool.query(`
          SELECT A.Assign_Id,A.Assign_Name,A.Remark,A.Date_of_arr,A.Due_date,A.Ref_to_assignment,S.Date_of_submission,
-         S.Ref_to_submission FROM ASSIGNMENT A JOIN SUBMITS S ON A.Assign_Id = S.Assign_Id
+         S.Ref_to_submission FROM assignment A JOIN SUBMITS S ON A.Assign_Id = S.Assign_Id
          WHERE S.Enr_Number = ? AND A.Sub_Id = ? AND A.Section_Id = (select section_id from section where section_name = ?);`, [enr_number, sub_id,section_name]);
 
    return result;
