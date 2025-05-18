@@ -60,7 +60,14 @@ app.use((req, res, next) => {
     const start = Date.now();
     res.on('finish', () => {
         const duration = Date.now() - start;
-        console.log(`${req.method} ${req.originalUrl} took ${duration}ms`);
+
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        console.log(`IP details =   [IP: ${ip}] ${req.method} ${req.originalUrl} took ${duration}ms`);
+        
+        const user = req.session?.student?.s_enr || req.session?.hod?.hod_id || req.session?.user?.id || 'Guest';
+
+        console.log(`User details =     [${user}] : ${req.method} ${req.originalUrl} took ${duration}ms \n`);
+        // console.log("");
     });
     next();
 });
@@ -496,11 +503,6 @@ app.post('/api/getAttendanceDateRange', async (req, res) => {
     });
   });
   
-  
-  
-
-
-
 app.get("/teacher_edit", async (req, res) => {
     
     const f_id = req.session.user ? req.session.user.id : 10001; //for testing
