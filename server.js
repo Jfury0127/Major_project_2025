@@ -62,27 +62,28 @@ app.use((req, res, next) => {
         const duration = Date.now() - start;
 
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-        console.log(`IP details =   [IP: ${ip}] ${req.method} ${req.originalUrl} took ${duration}ms`);
+        console.log(`IP details =   [IP: ${ip}]`);
         
         const user = req.session?.student?.s_enr || req.session?.hod?.hod_id || req.session?.user?.id || 'Guest';
 
         console.log(`User details =     [${user}] : ${req.method} ${req.originalUrl} took ${duration}ms \n`);
-        // console.log("");
+        
     });
     next();
 });
 
 //////////////////////
 app.get("/", (req, res) => {
-    // console.log(document.cookie);
+    
     if (typeof (req.session.user) == "undefined") {
-        // req.userxists = 0;
+    
         res.render("index") //or index.ejs it's same        
     } else {
         req.session.userxists = 1;
         res.render("index")
     }
 })
+
 //for faculty login
 async function t_func1(req, res) {
     // function called without post request i.e. when land on this page
@@ -104,7 +105,6 @@ async function t_func1(req, res) {
             res.render("teachers_login", { text });
         } else if (msg == "right_zero_lec") {
             res.redirect("/teacher_edit");
-            // res.render("teacher_editprofile");
         } else if (msg == "right_not_zero_lec") {
             res.redirect("/t_dashboard");
         } else {
@@ -177,10 +177,9 @@ async function stu_func2(req, res, next) {
 
     const stu_enr = req.body.stu_enr_key;
     const stu_pass = req.body.stu_pass_key;
-    // console.log("Student Enrollment:", stu_enr);
-    // console.log("Student Password:", stu_pass);
+    
     const check2 = await chk_pass_from_enr(stu_enr); // get actual value from database
-    // console.log("Password from DB:", check2);
+    
     // authenticate user here
 
     // wrong username `
@@ -196,7 +195,6 @@ async function stu_func2(req, res, next) {
     else {
         req.session.student = { s_enr: stu_enr };
         req.dataProcessed = { "mssgcode": "stu_dashboard" };
-        // console.log("Login successful, redirecting to dashboard");
     }
     return next();
 }
@@ -232,10 +230,9 @@ async function hod_func2(req, res, next) {
 
     const hod_id = req.body.hod_id_key ? req.body.hod_id_key : 101;
     const hod_pass = req.body.hod_pass_key;
-    // console.log("HOD ID:", hod_id);
-    // console.log("HOD Password:", hod_pass);
+
     const check3 = await chk_pass_from_hod_id(hod_id); // get actual value from database
-    // console.log("Password from DB:", check3);
+
     // authenticate user here
 
     // wrong username `
