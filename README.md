@@ -56,7 +56,7 @@ attendance-management/
 
 * User-friendly attendance tracking interface
 * Backend logic to manage user data and attendance records
-* Integration with Cloudinary for image uploads and storage
+* Integration with Cloudinary for Assignment uploads and storage
 * Responsive design using Tailwind CSS
 * MySQL database integration for storing persistent data
 * Server-side rendering with EJS
